@@ -141,6 +141,26 @@ test('Google scripts parse as JavaScript without requiring live Google services'
   assert.doesNotThrow(() => new vm.Script(readFileSync(new URL('../google-apps-script/Code.gs', import.meta.url), 'utf8')));
 });
 
+test('setup explains a missing Core.gs before touching Google and accepts both script file orders', () => {
+  const code = readFileSync(new URL('../google-apps-script/Code.gs', import.meta.url), 'utf8');
+  const helper = readFileSync(new URL('../google-apps-script/Core.gs', import.meta.url), 'utf8');
+  let serviceCalls = 0;
+  const context = vm.createContext({ PropertiesService: {
+    getScriptProperties() { serviceCalls++; throw new Error('GOOGLE_SETUP_REACHED'); }
+  } });
+  vm.runInContext(code, context);
+  assert.throws(() => context.setup(), /Core\.gs.*selben Apps-Script-Projekt/);
+  assert.equal(serviceCalls, 0);
+  vm.runInContext(helper, context);
+  assert.throws(() => context.setup(), /GOOGLE_SETUP_REACHED/);
+  assert.equal(serviceCalls, 1);
+  const reverse = vm.createContext({ PropertiesService: context.PropertiesService });
+  vm.runInContext(helper, reverse);
+  vm.runInContext(code, reverse);
+  assert.throws(() => reverse.setup(), /GOOGLE_SETUP_REACHED/);
+  assert.equal(serviceCalls, 2);
+});
+
 test('setup grows a new inbox beyond 26 columns and does not replace existing headers', () => {
   const context = {};
   vm.runInNewContext(readFileSync(new URL('../google-apps-script/Code.gs', import.meta.url), 'utf8'), context);

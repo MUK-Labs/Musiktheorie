@@ -93,6 +93,9 @@ function mtSeedEmptyTable_(key, rows) {
 
 /** Run once from a blank Sheet's bound Apps Script project. Safe to run again. */
 function setup() {
+  if (typeof CatalogueCore === 'undefined' || !CatalogueCore || typeof CatalogueCore.seedTables !== 'function') {
+    throw new Error('Core.gs fehlt oder wurde nicht vollständig gespeichert. Im selben Apps-Script-Projekt über + → Script die Datei Core anlegen, den vollständigen Inhalt von google-apps-script/Core.gs einfügen, das Projekt speichern und setup() erneut ausführen. Die vorhandene Tabelle bleibt erhalten. / Add and save the complete Core.gs script in this same project, then run setup again.');
+  }
   var props = mtProps_(), book;
   if (props.getProperty('CATALOGUE_SPREADSHEET_ID')) book = mtBook_();
   else {

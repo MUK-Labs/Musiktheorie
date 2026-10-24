@@ -19,13 +19,19 @@ Der Code ist vorbereitet und seine entscheidenden Daten- und Freigaberegeln sind
 2. Eine **leere Google-Tabelle** namens „Musiktheorie – Redaktion“ anlegen. Die Datei nur mit verantwortlichen Redaktionsmitgliedern teilen; keine öffentliche Linkfreigabe einschalten.
 3. **Erweiterungen → Apps Script** öffnen. Dadurch gehört das Script zur Redaktionsdatei und kann deren Menü bereitstellen.
 4. Den Inhalt von [Code.gs](../google-apps-script/Code.gs) in die Datei `Code.gs` kopieren.
-5. Über **+ → Script** eine Datei `Core` anlegen und den Inhalt von [Core.gs](../google-apps-script/Core.gs) hineinkopieren.
+5. **Im selben Apps-Script-Projekt** über **+ → Script** eine Datei `Core` anlegen und den **vollständigen** Inhalt von [Core.gs](../google-apps-script/Core.gs) hineinkopieren. Als Script-Datei (`Core.gs`) anlegen; nicht als HTML-Datei oder als eigenes Projekt.
 6. In den Projekteinstellungen die Anzeige der Manifestdatei aktivieren. Den Inhalt von [appsscript.json](../google-apps-script/appsscript.json) in `appsscript.json` übernehmen.
-7. Die Funktion **`setup`** ausführen und die Google-Berechtigungen prüfen und bestätigen.
+7. **Das Projekt speichern.** In der Dateiliste müssen `Code.gs` und `Core.gs` stehen; bei eingeblendeter Manifestdatei außerdem `appsscript.json`. Dann die Funktion **`setup`** ausführen und die Google-Berechtigungen prüfen und bestätigen. `Core.gs` muss nicht separat ausgeführt werden.
 
 `setup()` legt die Tabs und das Formular an, importiert den bereits veröffentlichten Startkatalog und installiert die notwendigen Ereignis-Trigger. Die erzeugten Links stehen im Tab **Status**. Die Einrichtung lässt sich erneut ausführen: vorhandene redaktionelle Zeilen werden nicht ersetzt. Wenn der Startkatalog noch nicht im Repository erreichbar ist, wartet die Einrichtung mit einer erklärenden Fehlermeldung; nach Veröffentlichung erneut ausführen.
 
 Ein eigenständiges Apps-Script-Projekt kann zwar ebenfalls eine Tabelle erzeugen, für das Redaktionsmenü ist die oben beschriebene Installation **aus der Tabelle heraus** vorgesehen.
+
+### Fehler: `ReferenceError: CatalogueCore is not defined`
+
+`Code.gs` verwendet die Hilfsfunktionen aus `Core.gs`. Diese Meldung bedeutet, dass deren Definition im ausgeführten Projekt fehlt. Im selben Projekt die Script-Datei `Core.gs` wie in Schritt 5 ergänzen beziehungsweise ihren vollständigen Inhalt kontrollieren, das Projekt speichern und `setup()` erneut ausführen. Falls bereits eine Datei dieses Namens existiert, keine zweite Kopie anlegen.
+
+Die vorhandene Redaktionsdatei und bereits angelegte Tabs weiterverwenden. Dieser Fehler tritt vor dem Import der Startdaten und vor dem Anlegen des Formulars auf. Beim erneuten Ausführen werden vorhandene redaktionelle Zeilen nicht ersetzt. Die aktuelle Fassung von `Code.gs` prüft die Abhängigkeit gleich zu Beginn und nennt die nötigen Schritte direkt in der Fehlermeldung.
 
 ## 2. Formular wirklich ohne Anmeldung zugänglich machen
 
