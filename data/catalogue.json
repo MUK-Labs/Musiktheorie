@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-24T16:26:24.362Z",
+    "updatedAt": "2026-10-24T17:07:52.928Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2234,6 +2234,46 @@
       "sourceUrls": [
         "https://www.vsl.co.at/academy"
       ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-d9cda25e-196f-4f8a-be92-38cba8b1faf8",
+      "title": "440hz",
+      "url": "https://github.com/MUK-Labs/440Hz",
+      "description": {
+        "de": "A small offline Android app for practising recall of A440.",
+        "en": "A small offline Android app for practising recall of A440."
+      },
+      "subjects": [
+        "aural-skills"
+      ],
+      "topics": [],
+      "stages": [
+        "music-school"
+      ],
+      "difficulty": "introductory",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adri'an Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [],
       "status": "published",
       "parentId": ""
     }
