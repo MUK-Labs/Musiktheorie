@@ -18,7 +18,21 @@ var CatalogueCore = (function () {
   function validId(value) { return /^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,119}$/.test(text(value)); }
   function validUrl(value) {
     // URLs are data: disallow script schemes, credentials, whitespace and empty hosts.
-    return /^https?:\/\/(?![^/?#]*@)(?:\[[0-9a-fA-F:]+\]|[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?)(?::[0-9]{1,5})?(?:[/?#][^\s<>"\\]*)?$/.test(text(value));
+    var url = value === null || value === undefined ? '' : String(value);
+    return !/\s/.test(url) && /^https?:\/\/(?![^/?#]*@)(?:\[[0-9a-fA-F:]+\]|[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?)(?::[0-9]{1,5})?(?:[/?#][^\s<>"\\]*)?$/.test(url);
+  }
+  function normalizeUrl(value) {
+    var url = text(value);
+    // Preserve malformed input for validation. Never extract links from Markdown or repair credentials/schemes.
+    if (!url || /\s/.test(url)) return url;
+    if (/^https?:\/\//i.test(url)) return url.replace(/^https?:/i, function (scheme) { return scheme.toLowerCase(); });
+    // Add HTTPS only to a plausible dotted domain, with an optional port, path, query or fragment.
+    var bare = url.match(/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:[a-z]{2,63}|xn--[a-z0-9](?:[a-z0-9-]{0,57}[a-z0-9])?)(?::([0-9]{1,5}))?(?:[/?#][^\s<>"\\]*)?$/i);
+    if (!bare || (bare[1] && Number(bare[1]) > 65535)) return url;
+    return 'https://' + url;
+  }
+  function urlList(value) {
+    return list(value).map(normalizeUrl).filter(function (v, i, values) { return values.indexOf(v) === i; });
   }
   function localized(de, en) { return { de: text(de), en: text(en) }; }
   function active(value) { return value === true || /^(true|1|ja|yes|aktiv|active)$/i.test(text(value)); }
@@ -35,27 +49,27 @@ var CatalogueCore = (function () {
   function rowFromResource(resource) {
     var r = resource || {};
     return {
-      id: text(r.id), title: text(r.title), url: text(r.url),
+      id: text(r.id), title: text(r.title), url: normalizeUrl(r.url),
       description_de: text((r.description || {}).de), description_en: text((r.description || {}).en),
       subjects: list(r.subjects).join('; '), topics: list(r.topics).join('; '), stages: list(r.stages).join('; '),
       difficulty: text(r.difficulty) || 'unspecified', languages: list(r.languages).join('; '), type: text(r.type),
       institution_ids: list(r.institutionIds).join('; '), maintainer_ids: list(r.maintainerIds).join('; '),
       authors: list(r.authors).join('; '), access: text(r.access) || 'unknown', license: text(r.license),
       prerequisites_de: text((r.prerequisites || {}).de), prerequisites_en: text((r.prerequisites || {}).en),
-      reviewed_at: dateText(r.reviewedAt), source_urls: list(r.sourceUrls).join('; '),
+      reviewed_at: dateText(r.reviewedAt), source_urls: urlList(r.sourceUrls).join('; '),
       status: r.status === 'published' ? 'Freigegeben' : text(r.status) || 'Entwurf', parent_id: text(r.parentId)
     };
   }
   function resourceFromRow(row) {
     return {
-      id: text(row.id), title: text(row.title), url: text(row.url),
+      id: text(row.id), title: text(row.title), url: normalizeUrl(row.url),
       description: localized(row.description_de, row.description_en),
       subjects: choices(row.subjects), topics: choices(row.topics), stages: choices(row.stages),
       difficulty: choiceId(row.difficulty) || 'unspecified', languages: choices(row.languages), type: choiceId(row.type),
       institutionIds: choices(row.institution_ids), maintainerIds: choices(row.maintainer_ids),
       authors: list(row.authors), access: choiceId(row.access) || 'unknown', license: text(row.license),
       prerequisites: localized(row.prerequisites_de, row.prerequisites_en),
-      reviewedAt: dateText(row.reviewed_at), sourceUrls: list(row.source_urls), status: 'published', parentId: text(row.parent_id)
+      reviewedAt: dateText(row.reviewed_at), sourceUrls: urlList(row.source_urls), status: 'published', parentId: text(row.parent_id)
     };
   }
   function indexById(values) {
@@ -63,11 +77,40 @@ var CatalogueCore = (function () {
     (values || []).forEach(function (entry) { map[text(entry.id)] = entry; });
     return map;
   }
+  function resolveInstitution(name, url, institutions, reservedId) {
+    var proposedName = text(name), proposedUrl = normalizeUrl(url), errors = [];
+    var result = { id: '', institution: null, create: false, errors: errors };
+    if (!proposedName && !proposedUrl) return result;
+    if (!proposedName || proposedName.length > 500) errors.push('Neue Institution: Bitte einen Namen mit höchstens 500 Zeichen angeben.');
+    if (proposedUrl && !validUrl(proposedUrl)) errors.push('Neue Institution: Die optionale Website muss ein gültiger HTTP(S)-Link sein, zum Beispiel https://example.org.');
+    if (errors.length) return result;
+    function nameKey(value) { return text(value).normalize('NFKC').toLowerCase().replace(/\s+/g, ' '); }
+    var key = nameKey(proposedName);
+    var matches = (institutions || []).filter(function (entry) {
+      return [entry.name.de, entry.name.en, entry.shortName].concat(entry.aliases || []).some(function (value) { return value && nameKey(value) === key; });
+    });
+    if (matches.length > 1) {
+      errors.push('Neue Institution: Der Name ist mehrdeutig. Bitte die passende bestehende Institution aus der Liste auswählen und das Freitextfeld leeren.');
+      return result;
+    }
+    if (matches.length === 1) {
+      result.id = matches[0].id; result.institution = matches[0];
+      return result;
+    }
+    if (!validId(reservedId) || (institutions || []).some(function (entry) { return entry.id === reservedId; })) {
+      errors.push('Neue Institution: Die reservierte ID fehlt oder ist bereits anders vergeben.');
+      return result;
+    }
+    result.id = reservedId;
+    result.institution = { id: reservedId, name: localized(proposedName, proposedName), shortName: '', url: proposedUrl, aliases: [] };
+    result.create = true;
+    return result;
+  }
   function validateResource(resource, catalogue) {
     var errors = [], vocab = catalogue.vocab || {};
     if (!validId(resource.id)) errors.push('Ungültige Ressourcen-ID.');
     if (!resource.title || resource.title.length > 500) errors.push('Titel fehlt oder ist länger als 500 Zeichen.');
-    if (!validUrl(resource.url)) errors.push('Ein gültiger http(s)-Link ist erforderlich.');
+    if (!validUrl(resource.url)) errors.push('Bitte einen gültigen HTTP(S)-Link ohne Leerzeichen angeben, zum Beispiel https://example.org.');
     if (!resource.description.de && !resource.description.en) errors.push('Mindestens eine Beschreibung (DE oder EN) ist erforderlich.');
     if (resource.description.de.length > 12000 || resource.description.en.length > 12000) errors.push('Eine Beschreibung darf höchstens 12.000 Zeichen lang sein.');
     if (!resource.subjects.length) errors.push('Mindestens ein Fach ist erforderlich.');
@@ -83,7 +126,7 @@ var CatalogueCore = (function () {
       var known = indexById(pair[1]);
       resource[pair[0]].forEach(function (id) { if (!known[id]) errors.push('Unbekannte Zuordnung in ' + pair[0] + ': ' + id); });
     });
-    resource.sourceUrls.forEach(function (url) { if (!validUrl(url)) errors.push('Ungültiger Quellenlink.'); });
+    resource.sourceUrls.forEach(function (url) { if (!validUrl(url)) errors.push('Ungültiger Quellenlink. Bitte einen HTTP(S)-Link ohne Leerzeichen angeben, zum Beispiel https://example.org.'); });
     if (resource.reviewedAt && !/^\d{4}-\d{2}-\d{2}$/.test(resource.reviewedAt)) errors.push('Prüfdatum muss YYYY-MM-DD entsprechen.');
     if (resource.parentId) {
       if (resource.parentId === resource.id) errors.push('Eine Ressource kann nicht ihr eigener übergeordneter Eintrag sein.');
@@ -111,7 +154,7 @@ var CatalogueCore = (function () {
     row.status = 'Freigegeben';
     var resource = resourceFromRow(row), errors = validateResource(resource, catalogue);
     if (correctionId && !existing) errors.push('Die Ressourcen-ID der Korrektur existiert nicht.');
-    if (!correctionId && (catalogue.resources || []).some(function (r) { return text(r.url).replace(/\/$/, '') === resource.url.replace(/\/$/, ''); })) {
+    if (!correctionId && (catalogue.resources || []).some(function (r) { return normalizeUrl(r.url).replace(/\/$/, '') === resource.url.replace(/\/$/, ''); })) {
       errors.push('Dieser Link ist bereits vorhanden. Bitte als Korrektur mit Ressourcen-ID einreichen.');
     }
     return {
@@ -166,12 +209,12 @@ var CatalogueCore = (function () {
       meta: { title: 'Musiktheorie', updatedAt: now, source: 'google-sheets' },
       vocab: vocabularyFromRows(tables.vocabulary),
       institutions: (tables.institutions || []).map(function (r) {
-        var entry = { id: text(r.id), name: localized(r.name_de, r.name_en), shortName: text(r.short_name), url: text(r.url), aliases: list(r.aliases) };
+        var entry = { id: text(r.id), name: localized(r.name_de, r.name_en), shortName: text(r.short_name), url: normalizeUrl(r.url), aliases: list(r.aliases) };
         if ((!entry.name.de && !entry.name.en) || (entry.url && !validUrl(entry.url))) throw new Error('Institution benötigt Namen und einen gültigen optionalen Link.');
         return entry;
       }),
       maintainers: (tables.maintainers || []).map(function (r) {
-        var entry = { id: text(r.id), name: text(r.name), url: text(r.url) };
+        var entry = { id: text(r.id), name: text(r.name), url: normalizeUrl(r.url) };
         if (!entry.name || (entry.url && !validUrl(entry.url))) throw new Error('Betreuung benötigt Namen und einen gültigen optionalen Link.');
         return entry;
       }),
@@ -211,8 +254,8 @@ var CatalogueCore = (function () {
     FACETS.forEach(function (facet) {
       ((catalogue.vocab || {})[facet] || []).forEach(function (r) { tables.vocabulary.push({ facet: facet, id: r.id, label_de: r.label.de, label_en: r.label.en, aliases: list(r.aliases).join('; '), parent_id: r.parentId || '' }); });
     });
-    (catalogue.institutions || []).forEach(function (r) { tables.institutions.push({ id: r.id, name_de: r.name.de, name_en: r.name.en, short_name: r.shortName || '', url: r.url || '', aliases: list(r.aliases).join('; ') }); });
-    (catalogue.maintainers || []).forEach(function (r) { tables.maintainers.push({ id: r.id, name: r.name, url: r.url || '' }); });
+    (catalogue.institutions || []).forEach(function (r) { tables.institutions.push({ id: r.id, name_de: r.name.de, name_en: r.name.en, short_name: r.shortName || '', url: normalizeUrl(r.url), aliases: list(r.aliases).join('; ') }); });
+    (catalogue.maintainers || []).forEach(function (r) { tables.maintainers.push({ id: r.id, name: r.name, url: normalizeUrl(r.url) }); });
     (catalogue.collections || []).forEach(function (r) {
       tables.collections.push({ id: r.id, title_de: r.title.de, title_en: r.title.en, description_de: r.description.de, description_en: r.description.en, curator: r.curator || '', status: 'Freigegeben' });
       (r.items || []).forEach(function (item, index) { tables.collectionItems.push({ collection_id: r.id, resource_id: item.resourceId, position: (index + 1) * 10, note_de: (item.note || {}).de || '', note_en: (item.note || {}).en || '' }); });
@@ -221,8 +264,8 @@ var CatalogueCore = (function () {
   }
   return {
     FACETS: FACETS, RESOURCE_COLUMNS: RESOURCE_COLUMNS, text: text, list: list, choiceId: choiceId,
-    validId: validId, validUrl: validUrl, active: active, published: published, literalCell: literalCell,
-    rowFromResource: rowFromResource, resourceFromRow: resourceFromRow, validateResource: validateResource,
+    validId: validId, validUrl: validUrl, normalizeUrl: normalizeUrl, active: active, published: published, literalCell: literalCell,
+    rowFromResource: rowFromResource, resourceFromRow: resourceFromRow, validateResource: validateResource, resolveInstitution: resolveInstitution,
     findInvitation: findInvitation, decideSubmission: decideSubmission, buildPublicCatalogue: buildPublicCatalogue, seedTables: seedTables
   };
 })();

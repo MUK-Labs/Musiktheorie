@@ -297,11 +297,14 @@ function renderFilters() {
     const allScope = { ...emptyState(), collection: state.collection, items: [...state.items] };
     const counts = entries.map((entry) => ({entry, count: filterResources(catalogue, { ...state, [facet.key]: [entry.id] }).length,
       exists: filterResources(catalogue, { ...allScope, [facet.key]: [entry.id] }).length > 0 }));
-    const relevant = counts.filter(({entry,exists}) => exists || state[facet.key]?.includes(entry.id));
+    // Subjects also describe the catalogue's scope, including areas still awaiting resources.
+    const showAllSubjects = facet.key === 'subject';
+    const relevant = counts.filter(({entry,exists}) => showAllSubjects || exists || state[facet.key]?.includes(entry.id));
+    const visibleCount = showAllSubjects ? relevant.length : 8;
     if (!relevant.length) options.append(node('p', 'no-options', t('noOptions')));
     const extra = node('details', 'filter-options-more'); extra.dataset.group = `${facet.key}-more`;
-    extra.open = openGroups.get(`${facet.key}-more`) ?? relevant.slice(8).some(({entry}) => state[facet.key]?.includes(entry.id));
-    extra.append(node('summary', '', `${t('showMore')} (${Math.max(relevant.length-8,0)})`));
+    extra.open = openGroups.get(`${facet.key}-more`) ?? relevant.slice(visibleCount).some(({entry}) => state[facet.key]?.includes(entry.id));
+    extra.append(node('summary', '', `${t('showMore')} (${Math.max(relevant.length-visibleCount,0)})`));
     relevant.forEach(({entry,count}, entryIndex) => {
       const label = node('label', 'filter-option');
       const input = node('input'); input.type = 'checkbox'; input.id = `filter-${facet.key}-${entry.id}`; input.value = entry.id;
@@ -312,9 +315,9 @@ function renderFilters() {
         navigate({ ...state, [facet.key]: [...values] });
       });
       label.append(input, node('span', 'option-label', getLabel(entry,state.ui)), node('span', 'option-count', count));
-      (entryIndex < 8 ? options : extra).append(label);
+      (entryIndex < visibleCount ? options : extra).append(label);
     });
-    if (relevant.length > 8) options.append(extra);
+    if (relevant.length > visibleCount) options.append(extra);
     group.append(options);
     (index < 3 ? panel : advanced).append(group);
   });

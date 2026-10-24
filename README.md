@@ -17,6 +17,7 @@ A bilingual catalogue of music-theory and aural-skills resources, with shareable
 - Local saved selections, ordered sharing and printable catalogue views.
 - A small researched starter catalogue. Resource classifications are editorial suggestions; sources and attribution are documented in [catalogue-sources.md](docs/catalogue-sources.md).
 - A Google Forms / Sheets integration for public suggestions and trusted contributions **without Google sign-in**.
+- Contributions can name a missing institution; the institution follows the resource's public-review or trusted-publication route.
 
 The public form is intentionally unconfigured until its Google owner completes setup and checks signed-out access. No submissions are silently discarded or falsely reported as sent.
 
@@ -45,6 +46,8 @@ The workflow tests and validates the data before publication. If Pages is not en
 ## Google setup and editorial handover
 
 Follow [Google setup](docs/google-setup.md) for the one-time administrator setup. The installable Apps Script creates the form and private editorial workbook and provides invitation management and publication controls. Google authorization and a repository-scoped publication credential belong to the project owner, not to contributors.
+
+**Updating an existing Google installation:** replace both `Code.gs` and `Core.gs` in the existing Apps Script project, save, then run **`upgradeCatalogue`**. It adds the new institution fields and electronic-music vocabulary in place, preserving data, invitation links and connection settings. See the [update instructions](docs/google-setup.md#bestehende-einrichtung-aktualisieren-neue-fächer-und-institutionen).
 
 The contribution rules are:
 

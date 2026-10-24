@@ -117,12 +117,17 @@
       {
         "id": "instrumentation",
         "label": {
-          "de": "Instrumentenkunde & Instrumentation",
-          "en": "Instruments & orchestration"
+          "de": "Instrumentation & Instrumentenkunde",
+          "en": "Instrumentation & orchestration"
         },
         "aliases": [
           "Orchestration",
-          "Instrumentology"
+          "Instrumentology",
+          "Instrumentation",
+          "Instrumentenkunde",
+          "Instrumentologie",
+          "Orchestrierung",
+          "Organology"
         ]
       },
       {
@@ -147,6 +152,21 @@
           "Musikpädagogik",
           "Lehrplan",
           "OER"
+        ]
+      },
+      {
+        "id": "electronic-music",
+        "label": {
+          "de": "Elektroakustische & elektronische Musik",
+          "en": "Electroacoustic & electronic music"
+        },
+        "aliases": [
+          "Elektroakustische Komposition",
+          "Elektronische Musik",
+          "Electroacoustic composition",
+          "Computer music",
+          "Computermusik",
+          "Musique concrète"
         ]
       }
     ],
@@ -549,6 +569,89 @@
           "Didaktik"
         ],
         "parentId": "pedagogy"
+      },
+      {
+        "id": "electroacoustic-composition",
+        "label": {
+          "de": "Elektroakustische Komposition",
+          "en": "Electroacoustic composition"
+        },
+        "aliases": [
+          "Akusmatik",
+          "Acousmatic music",
+          "Fixed media",
+          "Tonbandmusik",
+          "Musique concrète"
+        ],
+        "parentId": "electronic-music"
+      },
+      {
+        "id": "sound-synthesis",
+        "label": {
+          "de": "Klangsynthese",
+          "en": "Sound synthesis"
+        },
+        "aliases": [
+          "Synthese",
+          "Synthesis",
+          "Synthesizer"
+        ],
+        "parentId": "electronic-music"
+      },
+      {
+        "id": "audio-processing",
+        "label": {
+          "de": "Klangbearbeitung & Effekte",
+          "en": "Sound processing & effects"
+        },
+        "aliases": [
+          "Audiobearbeitung",
+          "Signalverarbeitung",
+          "Digital signal processing",
+          "DSP"
+        ],
+        "parentId": "electronic-music"
+      },
+      {
+        "id": "live-electronics",
+        "label": {
+          "de": "Live-Elektronik",
+          "en": "Live electronics"
+        },
+        "aliases": [
+          "Live processing",
+          "Echtzeit-Klangbearbeitung"
+        ],
+        "parentId": "electronic-music"
+      },
+      {
+        "id": "spatial-audio",
+        "label": {
+          "de": "Raumklang & Spatialisation",
+          "en": "Spatial audio & spatialisation"
+        },
+        "aliases": [
+          "Verräumlichung",
+          "Ambisonics",
+          "Mehrkanal",
+          "Multichannel",
+          "Spatialization"
+        ],
+        "parentId": "electronic-music"
+      },
+      {
+        "id": "music-programming",
+        "label": {
+          "de": "Musikprogrammierung",
+          "en": "Music programming"
+        },
+        "aliases": [
+          "Max/MSP",
+          "Pure Data",
+          "SuperCollider",
+          "Faust"
+        ],
+        "parentId": "electronic-music"
       }
     ],
     "stages": [

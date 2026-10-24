@@ -4,6 +4,17 @@
  * Contributors never authorize this script; the administrator installs its triggers.
  */
 var MT_DEFAULT_REPOSITORY = 'MUK-Labs/Musiktheorie';
+// Additive update for existing Google workbooks; IDs and editorial customisations remain stable.
+var MT_ADDITIONAL_VOCABULARY = [
+  {facet:'subjects',id:'electronic-music',label_de:'Elektroakustische & elektronische Musik',label_en:'Electroacoustic & electronic music',aliases:'Elektroakustische Komposition; Elektronische Musik; Electroacoustic composition; Computer music; Computermusik; Musique concrète',parent_id:''},
+  {facet:'topics',id:'electroacoustic-composition',label_de:'Elektroakustische Komposition',label_en:'Electroacoustic composition',aliases:'Akusmatik; Acousmatic music; Fixed media; Tonbandmusik; Musique concrète',parent_id:'electronic-music'},
+  {facet:'topics',id:'sound-synthesis',label_de:'Klangsynthese',label_en:'Sound synthesis',aliases:'Synthese; Synthesis; Synthesizer',parent_id:'electronic-music'},
+  {facet:'topics',id:'audio-processing',label_de:'Klangbearbeitung & Effekte',label_en:'Sound processing & effects',aliases:'Audiobearbeitung; Signalverarbeitung; Digital signal processing; DSP',parent_id:'electronic-music'},
+  {facet:'topics',id:'live-electronics',label_de:'Live-Elektronik',label_en:'Live electronics',aliases:'Live processing; Echtzeit-Klangbearbeitung',parent_id:'electronic-music'},
+  {facet:'topics',id:'spatial-audio',label_de:'Raumklang & Spatialisation',label_en:'Spatial audio & spatialisation',aliases:'Verräumlichung; Ambisonics; Mehrkanal; Multichannel; Spatialization',parent_id:'electronic-music'},
+  {facet:'topics',id:'music-programming',label_de:'Musikprogrammierung',label_en:'Music programming',aliases:'Max/MSP; Pure Data; SuperCollider; Faust',parent_id:'electronic-music'}
+];
+var MT_INSTRUMENTATION = {facet:'subjects',id:'instrumentation',label_de:'Instrumentation & Instrumentenkunde',label_en:'Instrumentation & orchestration',aliases:'Orchestration; Instrumentology; Instrumentation; Instrumentenkunde; Instrumentologie; Orchestrierung; Organology',parent_id:''};
 var MT_RESOURCE_FIELDS = [
   ['id','ID'], ['title','Titel'], ['url','Link'], ['description_de','Beschreibung DE'], ['description_en','Beschreibung EN'],
   ['subjects','Fächer'], ['topics','Themen'], ['stages','Bildungsbereiche'], ['difficulty','Schwierigkeit'], ['languages','Sprachen'],
@@ -18,7 +29,7 @@ var MT_TABLES = {
   maintainers: { name: 'Betreuung', columns: [['id','ID'],['name','Name'],['url','Profil oder Website']] },
   collections: { name: 'Sammlungen', columns: [['id','ID'],['title_de','Titel DE'],['title_en','Titel EN'],['description_de','Beschreibung DE'],['description_en','Beschreibung EN'],['curator','Zusammengestellt von'],['status','Status']] },
   collectionItems: { name: 'Sammlungseinträge', columns: [['collection_id','Sammlungs-ID'],['resource_id','Ressourcen-ID'],['position','Reihenfolge'],['note_de','Hinweis DE'],['note_en','Hinweis EN']] },
-  inbox: { name: 'Eingang', columns: [['submission_id','Eingangs-ID'],['received_at','Eingegangen'],['decision','Entscheidung'],['diagnostic','Hinweis'],['source','Herkunft'],['contributor','Einladung für'],['invitation_id','Einladungs-ID'],['kind','Art'],['contact','Rückfragekontakt (privat)'],['internal_note','Notiz (privat)']].concat(MT_RESOURCE_FIELDS) },
+  inbox: { name: 'Eingang', columns: [['submission_id','Eingangs-ID'],['received_at','Eingegangen'],['decision','Entscheidung'],['diagnostic','Hinweis'],['source','Herkunft'],['contributor','Einladung für'],['invitation_id','Einladungs-ID'],['kind','Art'],['contact','Rückfragekontakt (privat)'],['internal_note','Notiz (privat)']].concat(MT_RESOURCE_FIELDS, [['new_institution_name','Neue Institution – Name'],['new_institution_url','Neue Institution – Website'],['new_institution_id','Neue Institution – ID (intern)']]) },
   invitations: { name: 'Einladungen', columns: [['invitation_id','ID'],['label','Für'],['code_hash','Code-Prüfsumme (privat)'],['active','Aktiv'],['created_at','Erstellt'],['expires_at','Gültig bis (optional)'],['last_used_at','Zuletzt verwendet'],['use_count','Verwendungen']] },
   settings: { name: 'Status', columns: [['key','Einstellung'],['value','Wert']] }
 };
@@ -79,8 +90,53 @@ function mtEnsureSheet_(book, key) {
     sheet.setFrozenRows(1);
     sheet.setColumnWidths(1,table.columns.length,170);
     sheet.getRange(1,1,1,table.columns.length).setNotes([table.columns.map(function (c) { return 'Technischer Feldname: ' + c[0] + '. Überschrift bitte nicht umbenennen. Mehrfachwerte mit Semikolon trennen.'; })]);
+  } else if (key === 'inbox') {
+    // Extend only the known original schema; never move existing columns or overwrite custom data.
+    var oldCount = table.columns.length - 3;
+    var headers = sheet.getRange(1,1,1,table.columns.length).getDisplayValues()[0];
+    var expected = table.columns.map(function (column) { return column[1]; });
+    if (headers.join('\u001f') !== expected.join('\u001f')) {
+      var validPrefix = headers.slice(0,oldCount).join('\u001f') === expected.slice(0,oldCount).join('\u001f');
+      var extra = sheet.getRange(1,oldCount+1,sheet.getLastRow(),3).getDisplayValues();
+      if (!validPrefix || extra.some(function (row) { return row.some(function (value) { return value !== ''; }); })) throw new Error('Eingang: Spalten entsprechen nicht der bisherigen Vorlage. Neue Institutionsspalten wurden nicht eingefügt; vorhandene Daten bleiben erhalten.');
+      var range = sheet.getRange(1,oldCount+1,1,3);
+      range.setValues([expected.slice(oldCount)]).setBackground('#352735').setFontColor('#ffffff').setFontWeight('bold');
+      range.setNotes([table.columns.slice(oldCount).map(function (column) { return 'Technischer Feldname: ' + column[0] + '. Neue Institution wird erst zusammen mit der Ressource übernommen.'; })]);
+      sheet.setColumnWidths(oldCount+1,3,200);
+    }
   }
   return sheet;
+}
+function mtUpgradeVocabulary_() {
+  var rows = mtRead_('vocabulary');
+  MT_ADDITIONAL_VOCABULARY.concat([MT_INSTRUMENTATION]).forEach(function (entry) {
+    var existing = rows.find(function (row) { return row.id === entry.id && (row.facet === entry.facet || row.facet === 'subjects' || row.facet === 'topics'); });
+    if (existing && existing.facet !== entry.facet) throw new Error('Kategorie-ID bereits in anderer Gruppe vergeben: ' + entry.id);
+    if (!existing) { mtWrite_('vocabulary',entry); rows.push(entry); }
+  });
+  var instrumentation = rows.find(function (row) { return row.facet === 'subjects' && row.id === 'instrumentation'; });
+  if (instrumentation && instrumentation._row) {
+    var before = JSON.stringify(instrumentation);
+    if (instrumentation.label_de === 'Instrumentenkunde & Instrumentation') instrumentation.label_de = MT_INSTRUMENTATION.label_de;
+    if (instrumentation.label_en === 'Instruments & orchestration') instrumentation.label_en = MT_INSTRUMENTATION.label_en;
+    instrumentation.aliases = CatalogueCore.list(instrumentation.aliases).concat(CatalogueCore.list(MT_INSTRUMENTATION.aliases)).filter(function (value,index,all) { return all.indexOf(value) === index; }).join('; ');
+    if (JSON.stringify(instrumentation) !== before) mtWrite_('vocabulary',instrumentation,instrumentation._row);
+  }
+}
+
+/** After replacing Code.gs and Core.gs, run once to update an existing installation in place. */
+function upgradeCatalogue() {
+  if (typeof CatalogueCore === 'undefined' || typeof CatalogueCore.resolveInstitution !== 'function' || typeof CatalogueCore.normalizeUrl !== 'function') throw new Error('Bitte die aktuellen vollständigen Dateien Code.gs UND Core.gs im selben Projekt speichern und upgradeCatalogue erneut ausführen.');
+  var lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    mtEnsureSheet_(mtBook_(),'inbox');
+    mtUpgradeVocabulary_();
+  } finally { lock.releaseLock(); }
+  refreshFormChoices();
+  onOpen();
+  mtSetting_('Script-Update','Neue Institutionsfelder und Fächer eingerichtet: ' + mtNow_());
+  if (mtProps_().getProperty('GITHUB_TOKEN')) publishCatalogue();
 }
 function mtSeedEmptyTable_(key, rows) {
   if (!rows.length || mtRead_(key).length) return;
@@ -115,6 +171,7 @@ function setup() {
     });
     props.setProperty('SEED_COMPLETE','true');
   }
+  mtUpgradeVocabulary_();
   var form;
   if (props.getProperty('CATALOGUE_FORM_ID')) form = FormApp.openById(props.getProperty('CATALOGUE_FORM_ID'));
   else {
@@ -175,16 +232,18 @@ function mtFormDefinitions_(catalogue) {
   return [
     {key:'resource_id',title:'Ressourcen-ID bei Korrektur / Resource ID for a correction',help:'Bei neuen Ressourcen leer lassen. Bei Korrekturen alle Angaben vollständig eintragen. / Leave empty for a new resource. For corrections, provide the complete revised entry.'},
     {key:'title',title:'Titel / Title',required:true},
-    {key:'url',title:'Link / URL',required:true,url:true},
+    {key:'url',title:'Link / URL',required:true,url:true,help:'Zum Beispiel https://example.org. Bei einer Adresse wie example.org wird https:// ergänzt. / For example https://example.org. A domain such as example.org will use HTTPS.'},
     {key:'description_de',title:'Beschreibung auf Deutsch',paragraph:true,help:'Mindestens eine Beschreibung auf Deutsch oder Englisch ist erforderlich. / At least one German or English description is required.'},
-    {key:'description_en',title:'Description in English',paragraph:true},
+    {key:'description_en',title:'Description in English',paragraph:true,help:'Eine Beschreibung in einer Sprache reicht; die andere ist optional. / A description in either language is enough; the other is optional.'},
     {key:'subjects',title:'Fächer / Subjects',options:vocab('subjects'),multiple:true,required:true},
     {key:'topics',title:'Themen / Topics',options:vocab('topics'),multiple:true},
     {key:'stages',title:'Bildungsbereiche / Educational contexts',options:vocab('stages'),multiple:true},
     {key:'difficulty',title:'Schwierigkeit / Difficulty',options:vocab('difficulties'),required:true},
     {key:'languages',title:'Sprachen der Ressource / Resource languages',options:vocab('languages'),multiple:true,required:true},
     {key:'type',title:'Format / Resource type',options:vocab('types'),required:true},
-    {key:'institution_ids',title:'Institutionen / Institutions',options:catalogue.institutions.map(function (v) { return (v.shortName || v.name.de || v.name.en) + ' [' + v.id + ']'; }),multiple:true},
+    {key:'institution_ids',title:'Institutionen / Institutions',options:catalogue.institutions.map(function (v) { return (v.shortName || v.name.de || v.name.en) + ' [' + v.id + ']'; }),multiple:true,help:'Passende Einträge auswählen. Fehlt eine Institution, ihren Namen im nächsten Feld angeben. / Select any that apply. If an institution is missing, enter its name below.'},
+    {key:'new_institution_name',title:'Institution nicht aufgeführt? Name / Institution not listed? Name',help:'Optional: eine zusätzliche Institution. Sie wird zusammen mit der Ressource übernommen. / Optional: one additional institution, added together with this resource.'},
+    {key:'new_institution_url',title:'Website der neuen Institution (optional) / New institution website (optional)',url:true,help:'Nur zusammen mit dem Namen der neuen Institution ausfüllen. / Complete only when providing a new institution name.'},
     {key:'maintainer_ids',title:'Betreuung / Maintainers',options:catalogue.maintainers.map(function (v) { return v.name + ' [' + v.id + ']'; }),multiple:true},
     {key:'authors',title:'Autorinnen und Autoren / Authors',help:'Mehrere Namen mit Semikolon trennen. / Separate names with semicolons.'},
     {key:'access',title:'Zugang / Access',options:vocab('access'),required:true},
@@ -194,14 +253,14 @@ function mtFormDefinitions_(catalogue) {
     {key:'source_urls',title:'Quellenlinks / Sources',paragraph:true,help:'Optional: Nachweise für Betreuung und institutionelle Zuordnung; ein Link pro Zeile. / Optional evidence for attribution; one link per line.'},
     {key:'parent_id',title:'Übergeordnete Ressourcen-ID / Parent resource ID (optional)'},
     {key:'contact',title:'Rückfragekontakt (privat, optional) / Contact for questions (private, optional)'},
-    {key:'internal_note',title:'Nachricht an die Redaktion (privat) / Note to editors (private)',paragraph:true,help:'Neue Institutionen oder Betreuungspersonen bitte hier nennen, falls sie in der Auswahl fehlen. / Mention any institution or maintainer missing from the choices here.'},
+    {key:'internal_note',title:'Nachricht an die Redaktion (privat) / Note to editors (private)',paragraph:true,help:'Fehlende Betreuungspersonen oder weitere Hinweise bitte hier nennen. Für eine neue Institution die eigenen Felder oben verwenden. / Mention missing maintainers or other notes here. Use the fields above for a new institution.'},
     {key:'invitation_code',title:'Persönlicher Einladungscode (optional) / Personal invitation code (optional)',help:'Bei einem persönlichen Einladungslink bereits ausgefüllt. Ohne gültigen Code wird der Vorschlag geprüft. / Prefilled in a personal invitation link. Without a valid code, the suggestion is reviewed.'}
   ];
 }
 function refreshFormChoices() {
   var props=mtProps_(), form=FormApp.openById(props.getProperty('CATALOGUE_FORM_ID'));
   var map=JSON.parse(props.getProperty('FORM_FIELD_IDS') || '{}');
-  mtFormDefinitions_(mtSnapshot_()).forEach(function (def) {
+  mtFormDefinitions_(mtSnapshot_()).forEach(function (def, index) {
     var item=null;
     // A manually deleted question can be recreated without discarding other question IDs.
     if (map[def.key]) {
@@ -216,9 +275,12 @@ function refreshFormChoices() {
     item.setTitle(def.title).setRequired(Boolean(def.required));
     if (def.help) item.setHelpText(def.help);
     if (def.options) item.setChoiceValues(def.options.length ? def.options : ['Keine Zuordnung / None']);
-    if (def.url) item.setValidation(FormApp.createTextValidation().requireTextIsUrl().setHelpText('Bitte einen vollständigen Link angeben. / Please enter a complete URL.').build());
+    if (def.url) item.setValidation(FormApp.createTextValidation().requireTextMatchesPattern('^\\s*(?:[Hh][Tt][Tt][Pp][Ss]?://[^\\s<>"\\\\]+|(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\\.)+(?:[a-zA-Z]{2,63}|xn--[a-zA-Z0-9-]+)(?::[0-9]{1,5})?(?:[/?#][^\\s<>"\\\\]*)?)\\s*$').setHelpText('Bitte einen Link wie https://example.org oder example.org eingeben. / Enter a link such as https://example.org or example.org.').build());
+    // Keep the invitation question's ID and all prefilled invitation links intact when inserting fields.
+    if (item.getIndex() !== index) form.moveItem(item.getIndex(),index);
   });
   mtSetting_('Formular-Auswahl aktualisiert',mtNow_());
+  props.deleteProperty('FORM_CHOICES_PENDING');
 }
 
 function catalogueOnFormSubmit(event) {
@@ -229,37 +291,54 @@ function catalogueOnFormSubmit(event) {
   try {
     var submissionId=String(event.response.getId());
     var previous=mtRead_('inbox').find(function (r) { return r.submission_id===submissionId; });
-    if (previous && previous.decision!=='Fehler') return;
-    var map=JSON.parse(props.getProperty('FORM_FIELD_IDS') || '{}'), inverse={}, fields={};
-    Object.keys(map).forEach(function (key) { inverse[String(map[key])]=key; });
-    event.response.getItemResponses().forEach(function (response) {
-      var key=inverse[String(response.getItem().getId())];
-      if (key) fields[key]=response.getResponse();
-    });
-    var now=mtNow_(), invitations=mtRead_('invitations');
-    var decision, proposedId=previous ? previous.id : mtId_('r-');
-    try {
-      decision=CatalogueCore.decideSubmission(fields,invitations,mtHash_,mtSnapshot_(),now,proposedId);
-    } catch (error) {
-      // Preserve the proposal even while an unrelated editorial row prevents a valid export.
-      var failedRow={};
-      CatalogueCore.RESOURCE_COLUMNS.forEach(function (key) { failedRow[key]=fields[key]||''; });
-      failedRow.id=CatalogueCore.text(fields.resource_id)||proposedId;
-      failedRow.reviewed_at=now.slice(0,10);
-      decision={resource:CatalogueCore.resourceFromRow(failedRow),approval:'Fehler',source:'public',contributor:'',invitationId:'',kind:fields.resource_id?'correction':'new',errors:['Eingang gespeichert; Katalogfehler zuerst beheben und anschließend Formulareingänge nachholen: '+String(error.message||error)]};
-    }
-    var inbox=CatalogueCore.rowFromResource(decision.resource);
-    inbox.submission_id=submissionId; inbox.received_at=now; inbox.decision=decision.approval;
-    inbox.diagnostic=decision.errors.join(' '); inbox.source=decision.source; inbox.kind=decision.kind;
-    inbox.contributor=decision.contributor; inbox.invitation_id=decision.invitationId;
-    inbox.contact=CatalogueCore.text(fields.contact); inbox.internal_note=CatalogueCore.text(fields.internal_note);
-    var rowNumber=mtWrite_('inbox',inbox,previous && previous._row);
-    if (decision.approval==='Freigegeben') {
-      shouldPublish=mtAcceptInbox_(inbox,rowNumber);
-      if (shouldPublish) {
-        var invitation=invitations.find(function (r) { return r.invitation_id===decision.invitationId; });
-        invitation.last_used_at=now; invitation.use_count=String((Number(invitation.use_count)||0)+1);
-        mtWrite_('invitations',invitation,invitation._row);
+    if (previous && previous.decision==='Übernommen') {
+      // Acceptance and invitation bookkeeping may have completed before the publication attempt failed.
+      shouldPublish=props.getProperty('PUBLICATION_PENDING')==='true';
+    } else if (previous && previous.decision==='Freigegeben') {
+      // Resume an interrupted, already-approved write without replacing an editor's changes with the original form response.
+      shouldPublish=mtAcceptInbox_(previous,previous._row);
+    } else if (previous && previous.decision!=='Fehler') return;
+    else {
+      var map=JSON.parse(props.getProperty('FORM_FIELD_IDS') || '{}'), inverse={}, fields={};
+      Object.keys(map).forEach(function (key) { inverse[String(map[key])]=key; });
+      event.response.getItemResponses().forEach(function (response) {
+        var key=inverse[String(response.getItem().getId())];
+        if (key) fields[key]=response.getResponse();
+      });
+      var now=mtNow_(), invitations=mtRead_('invitations');
+      var decision, proposedId=previous ? previous.id : mtId_('r-');
+      var institutionId=CatalogueCore.text(fields.new_institution_name) ? (previous && previous.new_institution_id || mtId_('inst-')) : '';
+      try {
+        var catalogue=mtSnapshot_();
+        var institution=CatalogueCore.resolveInstitution(fields.new_institution_name,fields.new_institution_url,catalogue.institutions,institutionId);
+        if (institution.id) institutionId=institution.id;
+        decision=CatalogueCore.decideSubmission(fields,invitations,mtHash_,catalogue,now,proposedId);
+        decision.errors=decision.errors.concat(institution.errors);
+        if (decision.errors.length) decision.approval='Fehler';
+      } catch (error) {
+        // Preserve the proposal even while an unrelated editorial row prevents a valid export.
+        var failedRow={};
+        CatalogueCore.RESOURCE_COLUMNS.forEach(function (key) { failedRow[key]=fields[key]||''; });
+        failedRow.id=CatalogueCore.text(fields.resource_id)||proposedId;
+        failedRow.reviewed_at=now.slice(0,10);
+        decision={resource:CatalogueCore.resourceFromRow(failedRow),approval:'Fehler',source:'public',contributor:'',invitationId:'',kind:fields.resource_id?'correction':'new',errors:['Eingang gespeichert; Katalogfehler zuerst beheben und anschließend Formulareingänge nachholen: '+String(error.message||error)]};
+      }
+      var inbox=CatalogueCore.rowFromResource(decision.resource);
+      inbox.submission_id=submissionId; inbox.received_at=now; inbox.decision=decision.approval;
+      inbox.diagnostic=decision.errors.join(' '); inbox.source=decision.source; inbox.kind=decision.kind;
+      inbox.contributor=decision.contributor; inbox.invitation_id=decision.invitationId;
+      inbox.contact=CatalogueCore.text(fields.contact); inbox.internal_note=CatalogueCore.text(fields.internal_note);
+      inbox.new_institution_name=CatalogueCore.text(fields.new_institution_name);
+      inbox.new_institution_url=CatalogueCore.normalizeUrl(fields.new_institution_url);
+      inbox.new_institution_id=institutionId;
+      var rowNumber=mtWrite_('inbox',inbox,previous && previous._row);
+      if (decision.approval==='Freigegeben') {
+        shouldPublish=mtAcceptInbox_(inbox,rowNumber);
+        if (shouldPublish) {
+          var invitation=invitations.find(function (r) { return r.invitation_id===decision.invitationId; });
+          invitation.last_used_at=now; invitation.use_count=String((Number(invitation.use_count)||0)+1);
+          mtWrite_('invitations',invitation,invitation._row);
+        }
       }
     }
   } finally { lock.releaseLock(); }
@@ -272,18 +351,39 @@ function recoverRecentSubmissions() {
 }
 function mtAcceptInbox_(inbox, rowNumber) {
   var resource=CatalogueCore.resourceFromRow(inbox), catalogue=mtSnapshot_();
-  var errors=CatalogueCore.validateResource(resource,catalogue), current=mtRead_('resources').find(function (r) { return r.id===resource.id; });
+  var reservedId=inbox.new_institution_id || (CatalogueCore.text(inbox.new_institution_name) ? mtId_('inst-') : '');
+  var institution=CatalogueCore.resolveInstitution(inbox.new_institution_name,inbox.new_institution_url,catalogue.institutions,reservedId);
+  // Another accepted proposal may have created this institution after an interrupted write.
+  if (institution.id && institution.id!==reservedId && !catalogue.institutions.some(function (entry) { return entry.id===reservedId; })) resource.institutionIds=resource.institutionIds.filter(function (id) { return id!==reservedId; });
+  if (institution.id && resource.institutionIds.indexOf(institution.id)<0) resource.institutionIds.push(institution.id);
+  var validationCatalogue=Object.assign({},catalogue,{institutions:catalogue.institutions.concat(institution.create ? [institution.institution] : [])});
+  var errors=institution.errors.concat(CatalogueCore.validateResource(resource,validationCatalogue));
+  var current=mtRead_('resources').find(function (r) { return r.id===resource.id; });
+  var alreadyWritten=current && CatalogueCore.published(current.status) && JSON.stringify(CatalogueCore.resourceFromRow(current))===JSON.stringify(resource);
   if (inbox.kind==='correction' && !current) errors.push('Zu korrigierende Ressource fehlt.');
-  if (inbox.kind!=='correction' && current) errors.push('Diese Ressourcen-ID existiert bereits.');
+  if (inbox.kind!=='correction' && current && !alreadyWritten) errors.push('Diese Ressourcen-ID existiert bereits mit anderen Angaben.');
+  if (inbox.kind!=='correction' && catalogue.resources.some(function (entry) { return entry.id!==resource.id && entry.url.replace(/\/$/,'')===resource.url.replace(/\/$/,''); })) errors.push('Dieser Link ist bereits vorhanden. Bitte als Korrektur mit Ressourcen-ID einreichen.');
   if (errors.length) {
     inbox.decision='Fehler'; inbox.diagnostic=errors.join(' '); mtWrite_('inbox',inbox,rowNumber); return false;
   }
+  if (!alreadyWritten) resource.reviewedAt=mtNow_().slice(0,10);
   var row=CatalogueCore.rowFromResource(resource);
-  row.reviewed_at=mtNow_().slice(0,10); row.status='Freigegeben';
-  mtWrite_('resources',row,current && current._row);
+  row.status='Freigegeben';
+  // Persist the approved candidate before registry/resource writes so retries use the same IDs and data.
+  MT_RESOURCE_FIELDS.forEach(function (field) { inbox[field[0]]=row[field[0]]; });
+  inbox.new_institution_id=institution.id || reservedId;
+  inbox.new_institution_url=CatalogueCore.normalizeUrl(inbox.new_institution_url);
+  inbox.decision='Freigegeben'; inbox.diagnostic='Übernahme läuft; bei Unterbrechung erneut freigeben oder Formulareingänge nachholen.';
+  mtWrite_('inbox',inbox,rowNumber);
+  if (institution.create) {
+    var entry=institution.institution;
+    mtProps_().setProperty('FORM_CHOICES_PENDING','true');
+    mtWrite_('institutions',{id:entry.id,name_de:entry.name.de,name_en:entry.name.en,short_name:entry.shortName,url:entry.url,aliases:entry.aliases.join('; ')});
+  }
+  if (!alreadyWritten) mtWrite_('resources',row,current && current._row);
+  mtProps_().setProperty('PUBLICATION_PENDING','true');
   inbox.decision='Übernommen'; inbox.diagnostic='In den Katalog übernommen; Veröffentlichung folgt.';
   mtWrite_('inbox',inbox,rowNumber);
-  mtProps_().setProperty('PUBLICATION_PENDING','true');
   return true;
 }
 function mtSelectedRows_(key) {
@@ -413,6 +513,10 @@ function publishCatalogue() {
     mtSetting_('Letzter Fehler','');
     mtSetting_('Veröffentlichung','An GitHub übertragen. Website folgt nach erfolgreichem Pages-Build.');
     mtSetting_('Build-Status','https://github.com/'+mtRepository_()+'/actions');
+    if (props.getProperty('FORM_CHOICES_PENDING')==='true') {
+      try { refreshFormChoices(); }
+      catch (error) { mtSetting_('Formular-Auswahl aktualisiert','Ausstehend: Bitte „Formular-Auswahl aktualisieren“ ausführen. '+String(error.message||error)); }
+    }
     return {updatedAt:publishedAt,resources:snapshot.resources.length};
   } catch (error) {
     mtProps_().setProperty('PUBLICATION_PENDING','true');

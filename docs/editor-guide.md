@@ -10,12 +10,18 @@ Der Alltag findet im Google-Formular und in der Redaktionsdatei statt. GitHub is
 
 Die Einladung enthält einen persönlichen Code. Bitte nicht öffentlich teilen. Bei Verlust oder versehentlicher Weitergabe kann die Administration den Code sperren und einen neuen Link erstellen.
 
+**Beschreibungen und Links:** Eine Beschreibung auf Deutsch **oder** Englisch reicht; die zweite Sprache ist optional. Ein Link kann als vollständige HTTP(S)-Adresse oder als Domain wie `example.org` eingetragen werden. Bei einer Domain ergänzt das Script `https://`.
+
+**Eine Institution fehlt in der Auswahl:** Im Feld **Institution nicht aufgeführt? Name** eine zusätzliche Institution nennen und optional deren Website angeben. Bekannte Institutionen können weiterhin zusätzlich ausgewählt werden. Bei öffentlichen Beiträgen bleiben diese Angaben bis zur Freigabe im Tab **Eingang**; bei gültiger persönlicher Einladung werden sie zusammen mit der Ressource automatisch übernommen. Neue Institutionen stehen anschließend auch in der Formularauswahl zur Verfügung.
+
 ## Einen öffentlichen Vorschlag freigeben
 
 1. Im Tab **Eingang** die betreffende Zeile auswählen.
 2. Öffentliche Angaben bei Bedarf direkt in dieser Zeile korrigieren. Das Feld **Notiz (privat)** und **Rückfragekontakt (privat)** bleiben intern.
 3. **Musiktheorie → Ausgewählte Vorschläge freigeben** wählen. Alternativ die Entscheidung auf **Freigegeben** setzen.
 4. Nach erfolgreicher Übernahme steht dort **Übernommen**. Ab jetzt wird der Eintrag im Tab **Ressourcen** gepflegt.
+
+Bei einer vorgeschlagenen neuen Institution stehen Name und Website in den zusätzlichen Spalten **am Ende** des Tabs **Eingang**. Diese Angaben vor der Freigabe mitprüfen und bei Bedarf korrigieren. Die interne ID wird automatisch vergeben. Ein bereits bekannter Name, Kurzname oder Suchbegriff wird wiederverwendet; bestehende Institutionsdaten werden nicht verändert.
 
 **Abgelehnt** beendet einen Vorschlag ohne Veröffentlichung. **Fehler** bezeichnet fehlende Angaben oder ein technisches Problem; die Spalte **Hinweis** nennt den Grund. Ein gültiger Einladungscode erspart die redaktionelle Freigabe, nicht die Prüfung, ob beispielsweise eine URL oder Beschreibung fehlt.
 
@@ -41,6 +47,8 @@ Eine öffentliche Korrektur wird als neuer Vorschlag mit der vorhandenen **Resso
 - **Lizenz** beschreibt bekannte Wiederverwendungsrechte; kostenfreier Zugang allein ist keine offene Lizenz.
 - Ein allgemeines Portal und eine konkret nützliche Unterrichtseinheit können getrennte Einträge erhalten. Die optionale **Übergeordnete ID** verknüpft sie.
 - Neue Kategorien erhalten eine dauerhafte ID und beide Sprachlabels. Nach Änderungen an Kategorien, Institutionen oder Betreuungspersonen **Musiktheorie → Formular-Auswahl aktualisieren** verwenden.
+
+**Fächer:** Neben den bestehenden Bereichen gibt es **Instrumentation & Instrumentenkunde** und **Elektroakustische & elektronische Musik**. Zur zweiten Fachgruppe gehören elektroakustische Komposition, Klangsynthese, Klangbearbeitung, Live-Elektronik, Raumklang und Musikprogrammierung. Die Fachliste auf der Website zeigt alle Fächer, auch solche mit bislang null Ressourcen. Die bisherigen Links mit `subject=instrumentation` bleiben gültig.
 
 ## Eine benannte Sammlung erstellen
 

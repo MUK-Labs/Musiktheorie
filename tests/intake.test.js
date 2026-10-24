@@ -164,9 +164,10 @@ test('setup explains a missing Core.gs before touching Google and accepts both s
 test('setup grows a new inbox beyond 26 columns and does not replace existing headers', () => {
   const context = {};
   vm.runInNewContext(readFileSync(new URL('../google-apps-script/Code.gs', import.meta.url), 'utf8'), context);
-  let columns = 26, lastRow = 0, headerWrites = 0;
+  let columns = 26, lastRow = 0, headerWrites = 0, headers = [];
   const range = {
-    setValues() { lastRow = 1; headerWrites++; return this; },
+    setValues(values) { headers = values[0]; lastRow = 1; headerWrites++; return this; },
+    getDisplayValues() { return [headers]; },
     setBackground() { return this; }, setFontColor() { return this; },
     setFontWeight() { return this; }, setNotes() { return this; }
   };

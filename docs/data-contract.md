@@ -31,7 +31,7 @@ Vocabulary entries share `{id,label:{de,en},aliases?:[],parentId?:string}`. IDs 
 
 Canonical vocabulary IDs for first implementation:
 
-- subjects: `fundamentals`, `aural-skills`, `harmony`, `counterpoint`, `form`, `analysis`, `rhythm`, `tuning`, `historical-practice`, `instrumentation`, `composition`, `pedagogy`
+- subjects: `fundamentals`, `aural-skills`, `harmony`, `counterpoint`, `form`, `analysis`, `rhythm`, `tuning`, `historical-practice`, `instrumentation`, `composition`, `pedagogy`, `electronic-music`
 - stages: `music-school`, `secondary`, `pre-university`, `bachelor`, `master`, `continuing`
 - difficulties: `introductory`, `intermediate`, `advanced`, `mixed`, `unspecified`
 - types: `portal`, `course`, `exercise`, `interactive`, `article`, `video`, `book`, `reference`
@@ -43,3 +43,7 @@ URL state: `ui`, `q`, repeated `subject`, `topic`, `stage`, `difficulty`, `insti
 Public `config.json`: `{ "defaultUi":"de", "formUrl":"", "githubUrl":"https://github.com/MUK-Labs/Musiktheorie", "siteUrl":"https://muk-labs.github.io/Musiktheorie/" }`. Empty `formUrl` means setup is not complete; the UI must not pretend a submission was sent. Invitation links go directly to the Google Form with a prefilled code, never through public site configuration.
 
 Code must derive approval from a privately validated invitation, not an editable status/role field. Public corrections must be reviewed again and must not overwrite the published snapshot before approval. Automatic checks still apply to trusted entries, with no human-review gate.
+
+The private intake additionally stores `new_institution_name`, `new_institution_url` and a server-reserved `new_institution_id`. These are not public resource fields. At acceptance the name is resolved against current institutional names, short names and aliases; a missing institution is created only after resource and institution validation succeed, and its ID is added to the accepted resource. Public proposals do not alter the institution registry before approval. Trusted contributions use the same acceptance rules without human review. Repeated processing reuses the reserved ID or an institution accepted since the original submission.
+
+URLs in public snapshots are complete HTTP(S) URLs. The Google intake may accept a plausible bare domain and prepend `https://`; surrounding whitespace is trimmed before validation. Descriptions continue to require at least one of `de` or `en`.

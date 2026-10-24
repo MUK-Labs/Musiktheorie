@@ -33,6 +33,26 @@ Ein eigenständiges Apps-Script-Projekt kann zwar ebenfalls eine Tabelle erzeuge
 
 Die vorhandene Redaktionsdatei und bereits angelegte Tabs weiterverwenden. Dieser Fehler tritt vor dem Import der Startdaten und vor dem Anlegen des Formulars auf. Beim erneuten Ausführen werden vorhandene redaktionelle Zeilen nicht ersetzt. Die aktuelle Fassung von `Code.gs` prüft die Abhängigkeit gleich zu Beginn und nennt die nötigen Schritte direkt in der Fehlermeldung.
 
+## Bestehende Einrichtung aktualisieren: neue Fächer und Institutionen
+
+Wenn Tabelle, Formular und GitHub-Verbindung bereits eingerichtet sind:
+
+1. Im **bestehenden** Apps-Script-Projekt den vollständigen Inhalt von [Code.gs](../google-apps-script/Code.gs) und [Core.gs](../google-apps-script/Core.gs) durch die aktuellen Fassungen ersetzen und speichern.
+2. Die Funktion **`upgradeCatalogue`** aus dem Funktionsmenü ausführen.
+3. Die Tabelle und das Formular neu laden. Im Formular stehen die neue Fachgruppe **Elektroakustische & elektronische Musik**, ihre Themen sowie zwei zusätzliche Felder direkt bei der Institutionsauswahl: **Institution nicht aufgeführt? Name** und **Website der neuen Institution (optional)**.
+
+Das Update ergänzt drei Spalten **am Ende** des Tabs **Eingang**, erweitert die Kategorien, aktualisiert die bestehenden Formularfragen und veröffentlicht bei vorhandener GitHub-Verbindung. Bestehende Ressourcen, redaktionell geänderte Kategoriebezeichnungen, Frage-IDs, Einladungslinks, Trigger und Script Properties einschließlich GitHub-Token bleiben erhalten. Wiederholtes Ausführen erzeugt keine doppelten Kategorien oder Fragen. Wenn die bestehenden Eingangsspalten umbenannt oder die zusätzlichen Spalten schon anderweitig belegt wurden, bricht das Update mit einem Hinweis ab, bevor es diese Daten überschreibt.
+
+Die Website wird aus GitHub aktualisiert. Die Kopie der Scripts in Google wird durch einen GitHub-Commit **nicht** automatisch ersetzt; deshalb sind diese beiden Kopierschritte einmal erforderlich. Das Manifest benötigt für dieses Update keine Änderung.
+
+### Bereits vorhandene Fehlermeldungen bei Links
+
+Ein Link wie `google.com` erhält mit der neuen Scriptfassung automatisch `https://`. Ausdrücklich eingetragene `http://`-Links bleiben erhalten. Führende oder abschließende Leerzeichen werden entfernt; Leerzeichen innerhalb einer URL, Markdown-Linksyntax und nicht unterstützte Linkschemata bleiben Fehler.
+
+Eine bestehende Fehlerzeile wird nicht allein durch das Speichern des Scripts neu verarbeitet. **Musiktheorie → Letzte Formulareingänge nachholen** verarbeitet technisch fehlgeschlagene Antworten erneut. Öffentliche Beiträge wechseln bei vollständigen Angaben zu **Offen** und benötigen weiterhin die redaktionelle Freigabe. Wenn Angaben bereits direkt in **Eingang** korrigiert wurden, die Zeile prüfen und **Ausgewählte Vorschläge freigeben** wählen; das Nachholen liest sonst erneut die ursprüngliche Formularantwort. Reine Testeinträge können stattdessen abgelehnt werden.
+
+Eine Beschreibung **auf Deutsch oder auf Englisch** genügt. Die zweite Sprache ist optional. Ein Fehler zum HTTP(S)-Link betrifft das Linkfeld, nicht die Beschreibungen.
+
 ## 2. Formular wirklich ohne Anmeldung zugänglich machen
 
 Den Link **Formular bearbeiten** aus dem Tab **Status** öffnen. In Google Forms prüfen:
@@ -87,6 +107,9 @@ Mit sinnvollen, tatsächlich existierenden Ressourcen prüfen:
 5. **Öffentliche Korrektur mit Ressourcen-ID:** bleibt offen; der bisherige Eintrag bleibt unverändert, bis die Korrektur freigegeben ist.
 6. **Ungültige Daten:** fehlende Beschreibungen, unbekannte IDs oder unsichere Linkschemata werden als technische Fehler angezeigt und nicht veröffentlicht.
 7. **Datenschutzprüfung des öffentlichen JSON:** keine Codes, Code-Prüfsummen, Rückfragekontakte oder internen Hinweise enthalten.
+8. **Neue Institution:** Name und optional Website im Formular ergänzen. Ein öffentlicher Vorschlag legt vor seiner Freigabe keine Institution im öffentlichen Katalog an. Nach Freigabe beziehungsweise bei gültiger persönlicher Einladung werden Institution und Ressource gemeinsam übernommen. Die Institution erscheint anschließend auch in der Formularauswahl.
+
+Vorhandene Institutionsnamen, Kurznamen und Suchbegriffe werden bei exakter Übereinstimmung ohne Beachtung der Groß-/Kleinschreibung und überzähliger Leerzeichen wiederverwendet. Vorhandene Institutionsdaten werden dabei nicht überschrieben. Mehrdeutige Namen erfordern die Auswahl des passenden vorhandenen Eintrags. Ein neuer Name wird zunächst in beiden Sprachfeldern als Eigenname geführt; eine abweichende englische Bezeichnung lässt sich später im Tab **Institutionen** ergänzen.
 
 Eine Zeile mit **Fehler** ist keine zusätzliche redaktionelle Prüfung für vertrauenswürdige Beiträge. Sie bezeichnet unvollständige Angaben oder ein technisches Problem. Nach Behebung können die Angaben berichtigt und erneut verarbeitet werden. Der Menüpunkt **Letzte Formulareingänge nachholen** verarbeitet bis zu 100 letzte Antworten erneut, überspringt bereits erledigte Antworten und kann technisch fehlgeschlagene Eingänge wieder aufnehmen.
 
