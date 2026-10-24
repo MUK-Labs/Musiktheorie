@@ -50,7 +50,7 @@ Diese Schritte benötigt nur die technische Administration.
 3. Bei einem Organisations-Repository eine gegebenenfalls erforderliche Token-Freigabe durch die Organisation abwarten.
 4. In **Apps Script → Projekteinstellungen → Script Properties** eine Eigenschaft `GITHUB_TOKEN` mit diesem Token anlegen. Den Token niemals in Quellcode, Tabellenzellen oder öffentliche URLs schreiben.
 5. `GITHUB_REPOSITORY` ist bereits auf `MUK-Labs/Musiktheorie` gesetzt. Die Veröffentlichung erfolgt auf `main`; Branch-Regeln müssen die vorgesehenen autorisierten Daten-Updates zulassen.
-6. Die Redaktionsdatei neu laden. Im Menü **Musiktheorie → Anmeldung-freien Zugang bestätigen** den erfolgreich durchgeführten Test bestätigen.
+6. Die Redaktionsdatei neu laden. Im Menü **Musiktheorie → Zugang ohne Anmeldung bestätigen** den erfolgreich durchgeführten Test bestätigen.
 
 Die erste Veröffentlichung überträgt den geprüften Katalog und trägt den öffentlichen Formularlink in `config.json` ein. Damit wird der Beitragslink in der Website aktiv. Persönliche Einladungslinks werden dort nie hinterlegt.
 

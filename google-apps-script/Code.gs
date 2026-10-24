@@ -133,7 +133,7 @@ function setup() {
   mtSetting_('Formular bearbeiten',form.getEditUrl());
   mtSetting_('Öffentlicher Formularlink',form.getPublishedUrl());
   mtSetting_('Repository',props.getProperty('GITHUB_REPOSITORY'));
-  mtSetting_('Nächster Schritt','Formular-Zugriff „Jeder mit dem Link“ einstellen und abgemeldet testen. Danach Menü: Anmeldung-freien Zugang bestätigen. GitHub-Token als Script Property setzen.');
+  mtSetting_('Nächster Schritt','Formular-Zugriff „Jeder mit dem Link“ einstellen und abgemeldet testen. Danach Menü: Zugang ohne Anmeldung bestätigen. GitHub-Token als Script Property setzen.');
   if (!props.getProperty('LAST_PUBLISHED_AT')) mtSetting_('Veröffentlichung','Google-Einrichtung vorbereitet; Verbindung noch nicht aktiviert.');
   onOpen();
   return { spreadsheetUrl:book.getUrl(), formEditUrl:form.getEditUrl(), publicFormUrl:form.getPublishedUrl() };
@@ -156,7 +156,7 @@ function onOpen() {
       .addItem('Formular-Auswahl aktualisieren','refreshFormChoices')
       .addSeparator().addItem('Persönliche Einladung erstellen','createInvitation')
       .addItem('Ausgewählte Einladung sperren','revokeSelectedInvitation')
-      .addSeparator().addItem('Anmeldung-freien Zugang bestätigen','confirmAnonymousAccess')
+      .addSeparator().addItem('Zugang ohne Anmeldung bestätigen','confirmAnonymousAccess')
       .addItem('Einrichtungsstatus anzeigen','showSetupStatus').addToUi();
   } catch (error) { /* Standalone projects can run setup, but menus require the bound-sheet installation. */ }
 }

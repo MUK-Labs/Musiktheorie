@@ -4,7 +4,9 @@ Ein zweisprachiger Katalog für Ressourcen zu Musiktheorie und Gehörbildung. Fi
 
 A bilingual catalogue of music-theory and aural-skills resources, with shareable searches, ordered selections and curated teaching collections.
 
-**Projektadresse:** <https://muk-labs.github.io/Musiktheorie/> — requires the one-time Pages activation below.
+**Live-Katalog / Live catalogue:** <https://muk-labs.github.io/Musiktheorie/>
+
+![The bilingual catalogue, with subject filters and resource cards](docs/catalogue-preview.jpg)
 
 ## What is included
 
@@ -30,7 +32,9 @@ npm run dev
 
 Open <http://127.0.0.1:4173/Musiktheorie/>. To serve the exact deployment artifact instead, use `SERVE_DIR=dist npm run dev`.
 
-## Enable hosting once
+## Configure validated publication once
+
+The first version is live through the repository's branch-based Pages publisher. Switch the source to **GitHub Actions** so future publication runs through the tests and public-data validation in this repository.
 
 1. Open [repository Settings → Pages](https://github.com/MUK-Labs/Musiktheorie/settings/pages).
 2. Under **Build and deployment → Source**, choose **GitHub Actions**.
