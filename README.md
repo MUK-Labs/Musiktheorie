@@ -32,9 +32,9 @@ npm run dev
 
 Open <http://127.0.0.1:4173/Musiktheorie/>. To serve the exact deployment artifact instead, use `SERVE_DIR=dist npm run dev`.
 
-## Configure validated publication once
+## Hosting and publication
 
-The first version is live through the repository's branch-based Pages publisher. Switch the source to **GitHub Actions** so future publication runs through the tests and public-data validation in this repository.
+The repository uses **GitHub Actions** for Pages publication. Each update runs through the tests and public-data validation before deployment. When setting up another copy or restoring the hosting configuration:
 
 1. Open [repository Settings → Pages](https://github.com/MUK-Labs/Musiktheorie/settings/pages).
 2. Under **Build and deployment → Source**, choose **GitHub Actions**.
