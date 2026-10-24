@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-24T20:10:11.627Z",
+    "updatedAt": "2026-10-24T20:14:07.376Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2416,6 +2416,50 @@
       "authors": [
         "Adrián Artacho"
       ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-fbe9a3ec-cc74-4c00-a779-268344ca5c57",
+      "title": "Max Examples",
+      "url": "https://adrianartacho.github.io/max-examples/",
+      "description": {
+        "de": "Sammlung von inspirierende MaxMSP Projekte",
+        "en": ""
+      },
+      "subjects": [
+        "electronic-music"
+      ],
+      "topics": [
+        "electroacoustic-composition",
+        "audio-processing",
+        "live-electronics",
+        "music-programming"
+      ],
+      "stages": [
+        "bachelor"
+      ],
+      "difficulty": "advanced",
+      "languages": [
+        "de",
+        "en"
+      ],
+      "type": "portal",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [],
       "access": "free",
       "license": "",
       "prerequisites": {
