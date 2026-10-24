@@ -1,0 +1,8 @@
+node_modules/
+dist/
+artifacts/
+.env
+.env.*
+!.env.example
+*.local.json
+.DS_Store

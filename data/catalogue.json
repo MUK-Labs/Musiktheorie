@@ -1,0 +1,2404 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Musiktheorie",
+    "updatedAt": "2026-10-24T00:00:00Z",
+    "source": "starter-catalogue"
+  },
+  "vocab": {
+    "subjects": [
+      {
+        "id": "fundamentals",
+        "label": {
+          "de": "Allgemeine Musiklehre",
+          "en": "Music fundamentals"
+        },
+        "aliases": [
+          "Musikkunde",
+          "Elementarlehre",
+          "Notation",
+          "Basics"
+        ]
+      },
+      {
+        "id": "aural-skills",
+        "label": {
+          "de": "Gehörbildung",
+          "en": "Aural skills"
+        },
+        "aliases": [
+          "Hörerziehung",
+          "Ear training",
+          "Solfège",
+          "Solfeggio"
+        ]
+      },
+      {
+        "id": "harmony",
+        "label": {
+          "de": "Harmonielehre",
+          "en": "Harmony"
+        },
+        "aliases": [
+          "Harmonik",
+          "Harmonic analysis"
+        ]
+      },
+      {
+        "id": "counterpoint",
+        "label": {
+          "de": "Kontrapunkt",
+          "en": "Counterpoint"
+        },
+        "aliases": [
+          "Polyphonie",
+          "Contrapunto"
+        ]
+      },
+      {
+        "id": "form",
+        "label": {
+          "de": "Formenlehre",
+          "en": "Musical form"
+        },
+        "aliases": [
+          "Formtheorie",
+          "Formen"
+        ]
+      },
+      {
+        "id": "analysis",
+        "label": {
+          "de": "Musikalische Analyse",
+          "en": "Music analysis"
+        },
+        "aliases": [
+          "Werkanalyse",
+          "Höranalyse"
+        ]
+      },
+      {
+        "id": "rhythm",
+        "label": {
+          "de": "Rhythmus & Metrum",
+          "en": "Rhythm & metre"
+        },
+        "aliases": [
+          "Metrik",
+          "Rhythmik",
+          "Proportionslehre"
+        ]
+      },
+      {
+        "id": "tuning",
+        "label": {
+          "de": "Stimmung & Akustik",
+          "en": "Tuning & acoustics"
+        },
+        "aliases": [
+          "Temperatur",
+          "Intonation",
+          "Temperaments",
+          "Tonsysteme"
+        ]
+      },
+      {
+        "id": "historical-practice",
+        "label": {
+          "de": "Historische Satzpraxis",
+          "en": "Historical theory & practice"
+        },
+        "aliases": [
+          "Generalbass",
+          "Partimento",
+          "Historische Musiktheorie"
+        ]
+      },
+      {
+        "id": "instrumentation",
+        "label": {
+          "de": "Instrumentenkunde & Instrumentation",
+          "en": "Instruments & orchestration"
+        },
+        "aliases": [
+          "Orchestration",
+          "Instrumentology"
+        ]
+      },
+      {
+        "id": "composition",
+        "label": {
+          "de": "Komposition & Improvisation",
+          "en": "Composition & improvisation"
+        },
+        "aliases": [
+          "Arrangieren",
+          "Songwriting",
+          "Tonsatz"
+        ]
+      },
+      {
+        "id": "pedagogy",
+        "label": {
+          "de": "Didaktik & Unterricht",
+          "en": "Teaching & pedagogy"
+        },
+        "aliases": [
+          "Musikpädagogik",
+          "Lehrplan",
+          "OER"
+        ]
+      }
+    ],
+    "topics": [
+      {
+        "id": "note-reading",
+        "label": {
+          "de": "Notenlesen",
+          "en": "Reading notation"
+        },
+        "parentId": "fundamentals",
+        "aliases": [
+          "Notenschrift",
+          "Clefs"
+        ]
+      },
+      {
+        "id": "intervals",
+        "label": {
+          "de": "Intervalle",
+          "en": "Intervals"
+        },
+        "parentId": "fundamentals",
+        "aliases": []
+      },
+      {
+        "id": "scales-modes",
+        "label": {
+          "de": "Tonleitern & Modi",
+          "en": "Scales & modes"
+        },
+        "parentId": "fundamentals",
+        "aliases": [
+          "Skalen",
+          "Tonarten"
+        ]
+      },
+      {
+        "id": "chords",
+        "label": {
+          "de": "Akkorde",
+          "en": "Chords"
+        },
+        "parentId": "fundamentals",
+        "aliases": [
+          "Dreiklänge",
+          "Septakkorde"
+        ]
+      },
+      {
+        "id": "sight-singing",
+        "label": {
+          "de": "Blattsingen & Solmisation",
+          "en": "Sight-singing & solmisation"
+        },
+        "parentId": "aural-skills",
+        "aliases": [
+          "Solfège"
+        ]
+      },
+      {
+        "id": "melodic-dictation",
+        "label": {
+          "de": "Melodisches Hören",
+          "en": "Melodic listening"
+        },
+        "parentId": "aural-skills",
+        "aliases": [
+          "Melodiediktat"
+        ]
+      },
+      {
+        "id": "harmonic-listening",
+        "label": {
+          "de": "Harmonisches Hören",
+          "en": "Harmonic listening"
+        },
+        "parentId": "aural-skills",
+        "aliases": [
+          "Akkordhören"
+        ]
+      },
+      {
+        "id": "rhythmic-dictation",
+        "label": {
+          "de": "Rhythmisches Hören",
+          "en": "Rhythmic listening"
+        },
+        "parentId": "aural-skills",
+        "aliases": [
+          "Rhythmusdiktat"
+        ]
+      },
+      {
+        "id": "listening-analysis",
+        "label": {
+          "de": "Höranalyse",
+          "en": "Listening analysis"
+        },
+        "parentId": "aural-skills",
+        "aliases": []
+      },
+      {
+        "id": "functional-harmony",
+        "label": {
+          "de": "Funktionstheorie",
+          "en": "Functional harmony"
+        },
+        "parentId": "harmony",
+        "aliases": [
+          "Funktionsharmonik"
+        ]
+      },
+      {
+        "id": "harmonization",
+        "label": {
+          "de": "Harmonisieren",
+          "en": "Harmonization"
+        },
+        "parentId": "harmony",
+        "aliases": [
+          "Melodieharmonisierung"
+        ]
+      },
+      {
+        "id": "voice-leading",
+        "label": {
+          "de": "Stimmführung",
+          "en": "Voice leading"
+        },
+        "parentId": "harmony",
+        "aliases": [
+          "Satzlehre"
+        ]
+      },
+      {
+        "id": "renaissance-counterpoint",
+        "label": {
+          "de": "Kontrapunkt des 16. Jahrhunderts",
+          "en": "Sixteenth-century counterpoint"
+        },
+        "parentId": "counterpoint",
+        "aliases": [
+          "Renaissance"
+        ]
+      },
+      {
+        "id": "canon-imitation",
+        "label": {
+          "de": "Kanon & Imitation",
+          "en": "Canon & imitation"
+        },
+        "parentId": "counterpoint",
+        "aliases": []
+      },
+      {
+        "id": "improvised-counterpoint",
+        "label": {
+          "de": "Improvisierter Kontrapunkt",
+          "en": "Improvised counterpoint"
+        },
+        "parentId": "counterpoint",
+        "aliases": [
+          "Singen über dem Buch"
+        ]
+      },
+      {
+        "id": "formal-functions",
+        "label": {
+          "de": "Formfunktionen",
+          "en": "Formal functions"
+        },
+        "parentId": "form",
+        "aliases": [
+          "Periode",
+          "Satz"
+        ]
+      },
+      {
+        "id": "popular-music-form",
+        "label": {
+          "de": "Form in Pop & Rock",
+          "en": "Form in popular music"
+        },
+        "parentId": "form",
+        "aliases": [
+          "Songform"
+        ]
+      },
+      {
+        "id": "analysis-methods",
+        "label": {
+          "de": "Analysemethoden",
+          "en": "Analytical methods"
+        },
+        "parentId": "analysis",
+        "aliases": [
+          "Schenker",
+          "Pitch-class sets"
+        ]
+      },
+      {
+        "id": "musical-schemata",
+        "label": {
+          "de": "Satzmodelle",
+          "en": "Musical schemata"
+        },
+        "parentId": "analysis",
+        "aliases": [
+          "Sequenzen"
+        ]
+      },
+      {
+        "id": "rhythm-metre",
+        "label": {
+          "de": "Rhythmus & Takt",
+          "en": "Rhythm & time signatures"
+        },
+        "parentId": "rhythm",
+        "aliases": [
+          "Metrum",
+          "Meter"
+        ]
+      },
+      {
+        "id": "rhythmic-proportions",
+        "label": {
+          "de": "Rhythmische Proportionen",
+          "en": "Rhythmic proportions"
+        },
+        "parentId": "rhythm",
+        "aliases": [
+          "Proportionslehre",
+          "Tuplets"
+        ]
+      },
+      {
+        "id": "historical-temperaments",
+        "label": {
+          "de": "Historische Stimmungen",
+          "en": "Historical temperaments"
+        },
+        "parentId": "tuning",
+        "aliases": [
+          "Mitteltönigkeit",
+          "Werckmeister",
+          "Pythagoreisch"
+        ]
+      },
+      {
+        "id": "interval-ratios",
+        "label": {
+          "de": "Intervallverhältnisse",
+          "en": "Interval ratios"
+        },
+        "parentId": "tuning",
+        "aliases": [
+          "Frequenzverhältnisse",
+          "Cent"
+        ]
+      },
+      {
+        "id": "intonation",
+        "label": {
+          "de": "Intonationshören",
+          "en": "Intonation listening"
+        },
+        "parentId": "tuning",
+        "aliases": [
+          "Pitch discrimination"
+        ]
+      },
+      {
+        "id": "acoustics",
+        "label": {
+          "de": "Musikalische Akustik",
+          "en": "Musical acoustics"
+        },
+        "parentId": "tuning",
+        "aliases": [
+          "Schall",
+          "Klangfarbe"
+        ]
+      },
+      {
+        "id": "figured-bass",
+        "label": {
+          "de": "Generalbass",
+          "en": "Figured bass"
+        },
+        "parentId": "historical-practice",
+        "aliases": [
+          "Basso continuo"
+        ]
+      },
+      {
+        "id": "partimento",
+        "label": {
+          "de": "Partimento & Oktavregel",
+          "en": "Partimento & rule of the octave"
+        },
+        "parentId": "historical-practice",
+        "aliases": [
+          "Regola dell'ottava"
+        ]
+      },
+      {
+        "id": "historical-modes",
+        "label": {
+          "de": "Historische Modi",
+          "en": "Historical modes"
+        },
+        "parentId": "historical-practice",
+        "aliases": [
+          "Kirchentonarten"
+        ]
+      },
+      {
+        "id": "mensural-notation",
+        "label": {
+          "de": "Mensuralnotation",
+          "en": "Mensural notation"
+        },
+        "parentId": "historical-practice",
+        "aliases": [
+          "Mensuraltheorie"
+        ]
+      },
+      {
+        "id": "instrument-families",
+        "label": {
+          "de": "Instrumentenfamilien",
+          "en": "Instrument families"
+        },
+        "parentId": "instrumentation",
+        "aliases": [
+          "Instrumentenkunde"
+        ]
+      },
+      {
+        "id": "orchestration",
+        "label": {
+          "de": "Instrumentation & Spieltechniken",
+          "en": "Orchestration & playing techniques"
+        },
+        "parentId": "instrumentation",
+        "aliases": [
+          "Orchestrierung"
+        ]
+      },
+      {
+        "id": "arranging",
+        "label": {
+          "de": "Arrangieren",
+          "en": "Arranging"
+        },
+        "parentId": "composition",
+        "aliases": [
+          "Arrangement"
+        ]
+      },
+      {
+        "id": "improvisation",
+        "label": {
+          "de": "Improvisation",
+          "en": "Improvisation"
+        },
+        "parentId": "composition",
+        "aliases": []
+      },
+      {
+        "id": "curriculum",
+        "label": {
+          "de": "Lehrpläne & Lernziele",
+          "en": "Curricula & learning goals"
+        },
+        "parentId": "pedagogy",
+        "aliases": [
+          "Kompetenzen"
+        ]
+      },
+      {
+        "id": "open-education",
+        "label": {
+          "de": "Offene Lehrmaterialien",
+          "en": "Open educational resources"
+        },
+        "parentId": "pedagogy",
+        "aliases": [
+          "OER"
+        ]
+      },
+      {
+        "id": "teaching-methods",
+        "label": {
+          "de": "Unterrichtsmethoden",
+          "en": "Teaching methods"
+        },
+        "parentId": "pedagogy",
+        "aliases": [
+          "Didaktik"
+        ]
+      }
+    ],
+    "stages": [
+      {
+        "id": "music-school",
+        "label": {
+          "de": "Musikschule",
+          "en": "Music school"
+        },
+        "aliases": [
+          "Musikschulunterricht"
+        ]
+      },
+      {
+        "id": "secondary",
+        "label": {
+          "de": "Allgemeinbildende Schule",
+          "en": "Secondary school"
+        },
+        "aliases": [
+          "Sekundarstufe",
+          "Gymnasium",
+          "Schulmusik"
+        ]
+      },
+      {
+        "id": "pre-university",
+        "label": {
+          "de": "Studienvorbereitung",
+          "en": "Pre-university"
+        },
+        "aliases": [
+          "Aufnahmeprüfung",
+          "Eignungsprüfung",
+          "Pre-college"
+        ]
+      },
+      {
+        "id": "bachelor",
+        "label": {
+          "de": "Hochschule: Bachelor",
+          "en": "University: bachelor"
+        },
+        "aliases": [
+          "Grundstudium",
+          "Undergraduate"
+        ]
+      },
+      {
+        "id": "master",
+        "label": {
+          "de": "Hochschule: Master",
+          "en": "University: master"
+        },
+        "aliases": [
+          "Vertiefungsstudium",
+          "Graduate"
+        ]
+      },
+      {
+        "id": "continuing",
+        "label": {
+          "de": "Weiterbildung & Selbststudium",
+          "en": "Continuing & independent study"
+        },
+        "aliases": [
+          "Fortbildung",
+          "Lebenslanges Lernen",
+          "Self-study"
+        ]
+      }
+    ],
+    "difficulties": [
+      {
+        "id": "introductory",
+        "label": {
+          "de": "Einstieg",
+          "en": "Introductory"
+        },
+        "aliases": [
+          "Anfänger",
+          "Grundlagen",
+          "Beginner"
+        ]
+      },
+      {
+        "id": "intermediate",
+        "label": {
+          "de": "Aufbau",
+          "en": "Intermediate"
+        },
+        "aliases": [
+          "Mittelstufe"
+        ]
+      },
+      {
+        "id": "advanced",
+        "label": {
+          "de": "Vertiefung",
+          "en": "Advanced"
+        },
+        "aliases": [
+          "Fortgeschritten"
+        ]
+      },
+      {
+        "id": "mixed",
+        "label": {
+          "de": "Mehrere Schwierigkeitsgrade",
+          "en": "Mixed levels"
+        },
+        "aliases": [
+          "Gemischt"
+        ]
+      },
+      {
+        "id": "unspecified",
+        "label": {
+          "de": "Nicht eingeordnet",
+          "en": "Unspecified"
+        },
+        "aliases": []
+      }
+    ],
+    "types": [
+      {
+        "id": "portal",
+        "label": {
+          "de": "Portal & Sammlung",
+          "en": "Portal & collection"
+        },
+        "aliases": [
+          "Datenbank",
+          "Directory"
+        ]
+      },
+      {
+        "id": "course",
+        "label": {
+          "de": "Kurs & Lehrgang",
+          "en": "Course"
+        },
+        "aliases": [
+          "Tutorial",
+          "MOOC"
+        ]
+      },
+      {
+        "id": "exercise",
+        "label": {
+          "de": "Übung",
+          "en": "Exercise"
+        },
+        "aliases": [
+          "Training",
+          "Aufgaben"
+        ]
+      },
+      {
+        "id": "interactive",
+        "label": {
+          "de": "Interaktives Werkzeug",
+          "en": "Interactive tool"
+        },
+        "aliases": [
+          "Simulation",
+          "App"
+        ]
+      },
+      {
+        "id": "article",
+        "label": {
+          "de": "Artikel",
+          "en": "Article"
+        },
+        "aliases": [
+          "Essay"
+        ]
+      },
+      {
+        "id": "video",
+        "label": {
+          "de": "Video",
+          "en": "Video"
+        },
+        "aliases": [
+          "Vortrag"
+        ]
+      },
+      {
+        "id": "book",
+        "label": {
+          "de": "Buch & Skript",
+          "en": "Book & textbook"
+        },
+        "aliases": [
+          "OpenBook",
+          "Lehrbuch"
+        ]
+      },
+      {
+        "id": "reference",
+        "label": {
+          "de": "Nachschlagewerk & Referenz",
+          "en": "Reference"
+        },
+        "aliases": [
+          "Lehrplan",
+          "Glossar"
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "id": "de",
+        "label": {
+          "de": "Deutsch",
+          "en": "German"
+        },
+        "aliases": [
+          "deutschsprachig"
+        ]
+      },
+      {
+        "id": "en",
+        "label": {
+          "de": "Englisch",
+          "en": "English"
+        },
+        "aliases": [
+          "englischsprachig"
+        ]
+      },
+      {
+        "id": "fr",
+        "label": {
+          "de": "Französisch",
+          "en": "French"
+        },
+        "aliases": [
+          "Français"
+        ]
+      },
+      {
+        "id": "it",
+        "label": {
+          "de": "Italienisch",
+          "en": "Italian"
+        },
+        "aliases": [
+          "Italiano"
+        ]
+      },
+      {
+        "id": "es",
+        "label": {
+          "de": "Spanisch",
+          "en": "Spanish"
+        },
+        "aliases": [
+          "Español"
+        ]
+      },
+      {
+        "id": "und",
+        "label": {
+          "de": "Ohne Sprachangabe",
+          "en": "Language unspecified"
+        },
+        "aliases": []
+      }
+    ],
+    "access": [
+      {
+        "id": "free",
+        "label": {
+          "de": "Frei zugänglich",
+          "en": "Free to access"
+        },
+        "aliases": [
+          "Kostenlos"
+        ]
+      },
+      {
+        "id": "registration",
+        "label": {
+          "de": "Registrierung nötig",
+          "en": "Registration required"
+        },
+        "aliases": [
+          "Konto erforderlich"
+        ]
+      },
+      {
+        "id": "mixed",
+        "label": {
+          "de": "Teilweise frei zugänglich",
+          "en": "Partly free to access"
+        },
+        "aliases": [
+          "Freemium",
+          "Öffentliche Vorschau"
+        ]
+      },
+      {
+        "id": "paid",
+        "label": {
+          "de": "Kostenpflichtig",
+          "en": "Paid"
+        },
+        "aliases": []
+      },
+      {
+        "id": "unknown",
+        "label": {
+          "de": "Zugang nicht geprüft",
+          "en": "Access unverified"
+        },
+        "aliases": []
+      }
+    ]
+  },
+  "institutions": [
+    {
+      "id": "hfm-dresden",
+      "name": {
+        "de": "Hochschule für Musik Carl Maria von Weber Dresden",
+        "en": "Hochschule für Musik Carl Maria von Weber Dresden"
+      },
+      "shortName": "HfM Dresden",
+      "url": "https://www.hfmdd.de/",
+      "aliases": [
+        "Dresden"
+      ]
+    },
+    {
+      "id": "hfm-detmold",
+      "name": {
+        "de": "Hochschule für Musik Detmold",
+        "en": "Hochschule für Musik Detmold"
+      },
+      "shortName": "HfM Detmold",
+      "url": "https://www.hfm-detmold.de/",
+      "aliases": [
+        "Detmold"
+      ]
+    },
+    {
+      "id": "hfm-freiburg",
+      "name": {
+        "de": "Hochschule für Musik Freiburg",
+        "en": "Hochschule für Musik Freiburg"
+      },
+      "shortName": "HfM Freiburg",
+      "url": "https://www.mh-freiburg.de/",
+      "aliases": [
+        "Freiburg",
+        "GLAREAN"
+      ]
+    },
+    {
+      "id": "schola-cantorum",
+      "name": {
+        "de": "Schola Cantorum Basiliensis / FHNW",
+        "en": "Schola Cantorum Basiliensis / FHNW"
+      },
+      "shortName": "SCB · FHNW",
+      "url": "https://contrapunto.ch/",
+      "aliases": [
+        "Basel",
+        "Fachhochschule Nordwestschweiz"
+      ]
+    },
+    {
+      "id": "musikum-salzburg",
+      "name": {
+        "de": "Musikum Salzburg",
+        "en": "Musikum Salzburg"
+      },
+      "shortName": "Musikum",
+      "url": "https://musikum.at/",
+      "aliases": [
+        "Salzburg"
+      ]
+    },
+    {
+      "id": "komu",
+      "name": {
+        "de": "Konferenz der österreichischen Musikschulwerke",
+        "en": "Conference of Austrian Music School Organisations"
+      },
+      "shortName": "KOMU",
+      "url": "https://www.komu.at/",
+      "aliases": [
+        "Musikschulwerke",
+        "Österreich",
+        "Südtirol"
+      ]
+    },
+    {
+      "id": "muk",
+      "name": {
+        "de": "Musik und Kunst Privatuniversität der Stadt Wien",
+        "en": "Music and Arts University of the City of Vienna"
+      },
+      "shortName": "MUK",
+      "url": "https://muk.ac.at/",
+      "aliases": [
+        "MUK-Labs",
+        "Wien",
+        "Vienna"
+      ]
+    },
+    {
+      "id": "puget-sound",
+      "name": {
+        "de": "University of Puget Sound",
+        "en": "University of Puget Sound"
+      },
+      "shortName": "Puget Sound",
+      "url": "https://www.pugetsound.edu/",
+      "aliases": [
+        "Tacoma"
+      ]
+    },
+    {
+      "id": "unsw",
+      "name": {
+        "de": "UNSW Sydney",
+        "en": "UNSW Sydney"
+      },
+      "shortName": "UNSW",
+      "url": "https://www.unsw.edu.au/",
+      "aliases": [
+        "University of New South Wales"
+      ]
+    },
+    {
+      "id": "gmth",
+      "name": {
+        "de": "Gesellschaft für Musiktheorie",
+        "en": "Gesellschaft für Musiktheorie"
+      },
+      "shortName": "GMTH",
+      "url": "https://www.gmth.de/",
+      "aliases": [
+        "Society for Music Theory"
+      ]
+    }
+  ],
+  "maintainers": [
+    {
+      "id": "ulrich-kaiser",
+      "name": "Ulrich Kaiser",
+      "url": "https://kaiser-ulrich.de/"
+    },
+    {
+      "id": "andre-staerk",
+      "name": "André Stärk",
+      "url": "https://detmoldmusictools.de/index.php?cmd=pageManager&pageId=1"
+    },
+    {
+      "id": "adrian-artacho",
+      "name": "Adrián Artacho",
+      "url": "https://github.com/MUK-Labs/temperaments"
+    },
+    {
+      "id": "jose-rodriguez-alvira",
+      "name": "José Rodríguez Alvira",
+      "url": "https://www.teoria.com/"
+    },
+    {
+      "id": "musictheory-net",
+      "name": "musictheory.net, LLC",
+      "url": "https://www.musictheory.net/"
+    },
+    {
+      "id": "gmth-editorial",
+      "name": "Gesellschaft für Musiktheorie (GMTH)",
+      "url": "https://www.gmth.de/digital.aspx"
+    },
+    {
+      "id": "musikum-team",
+      "name": "Musikum Salzburg",
+      "url": "https://musikum.at/de/landesdirektion/news-berichte/digitales-lernen"
+    },
+    {
+      "id": "unsw-music-acoustics",
+      "name": "Music Acoustics, UNSW",
+      "url": "https://newt.phys.unsw.edu.au/music/"
+    },
+    {
+      "id": "vsl",
+      "name": "Vienna Symphonic Library",
+      "url": "https://www.vsl.co.at/academy"
+    }
+  ],
+  "resources": [
+    {
+      "id": "r-oma-theory",
+      "title": "OMA-Portal Musiktheorie",
+      "url": "https://openmusic.academy/docs/FEXjr2RDqdD9exvtNSxXDu/portal-musiktheorie",
+      "description": {
+        "de": "Ein thematisch gegliedertes Portal mit Lehrmaterialien zu Tonsatz, Harmonielehre, Kontrapunkt, Form und Analyse. Die einzelnen Beiträge verbinden Erklärungen mit Noten, Hörbeispielen oder Aufgaben.",
+        "en": "A subject-based gateway to materials on harmony, counterpoint, musical form and analysis. Individual contributions combine explanations with scores, listening examples or exercises."
+      },
+      "subjects": [
+        "harmony",
+        "counterpoint",
+        "form",
+        "analysis",
+        "historical-practice",
+        "composition"
+      ],
+      "topics": [
+        "functional-harmony",
+        "figured-bass",
+        "partimento",
+        "analysis-methods",
+        "musical-schemata"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de"
+      ],
+      "type": "portal",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [
+        "Ulrich Kaiser",
+        "Ilka Mestemacher",
+        "Benedikt Wagner"
+      ],
+      "access": "free",
+      "license": "CC BY-SA 4.0 (or later)",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://openmusic.academy/docs/FEXjr2RDqdD9exvtNSxXDu/portal-musiktheorie"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-oma-aural",
+      "title": "OMA-Portal Gehörbildung",
+      "url": "https://openmusic.academy/docs/hGgWWNeTimg6otwT65prUp/portal-gehoerbildung-hoererziehung",
+      "description": {
+        "de": "Materialien zum bewussten Hören: von ersten Hörstrategien bis zu mehrstimmigen Aufgaben und Höranalysen. Das Portal erschließt unter anderem melodisches und harmonisches Hören, Blattsingen und Intonation.",
+        "en": "Materials for attentive listening, from first listening strategies to multipart tasks and listening analysis. The portal covers melodic and harmonic hearing, sight-singing and intonation."
+      },
+      "subjects": [
+        "aural-skills",
+        "analysis",
+        "tuning"
+      ],
+      "topics": [
+        "melodic-dictation",
+        "harmonic-listening",
+        "sight-singing",
+        "listening-analysis",
+        "intonation"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de"
+      ],
+      "type": "portal",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [
+        "Mani Vieregg",
+        "Ulrich Kaiser",
+        "Ilka Mestemacher",
+        "Wendelin Bitzan",
+        "Verena Wied"
+      ],
+      "access": "free",
+      "license": "CC BY-SA 4.0 (or later)",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://openmusic.academy/docs/hGgWWNeTimg6otwT65prUp/portal-gehoerbildung-hoererziehung"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-oma-counterpoint-form",
+      "title": "Kontrapunkt des 16. Jahrhunderts: Formale Gestaltung",
+      "url": "https://openmusic.academy/docs/AcJNeGTdm9F1gmU6ppMBvG/musikhochschule-stiluebung-kontrapunkt-vor1600-anleitung-formale-gestaltung-vorgabe-1",
+      "description": {
+        "de": "Eine ausführliche Anleitung zur Ausarbeitung einer rhythmisierten Vorlage zu einem mehrstimmigen Satz. Modus, Imitation und Kadenzdisposition werden als Schritte einer zusammenhängenden formalen Gestaltung behandelt.",
+        "en": "A detailed guide to developing a rhythmic model into a multipart composition. Mode, imitation and cadential planning are presented as steps towards a coherent musical form."
+      },
+      "subjects": [
+        "counterpoint",
+        "form",
+        "historical-practice",
+        "composition"
+      ],
+      "topics": [
+        "renaissance-counterpoint",
+        "canon-imitation",
+        "historical-modes"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "advanced",
+      "languages": [
+        "de"
+      ],
+      "type": "course",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [
+        "Ulrich Kaiser",
+        "Ilka Mestemacher"
+      ],
+      "access": "free",
+      "license": "CC BY-SA 4.0 (or later)",
+      "prerequisites": {
+        "de": "Erfahrung mit zwei- und mehrstimmigem Kontrapunkt des 16. Jahrhunderts sowie Kadenzen.",
+        "en": "Experience with two-part and multipart sixteenth-century counterpoint and cadences."
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://openmusic.academy/docs/AcJNeGTdm9F1gmU6ppMBvG/musikhochschule-stiluebung-kontrapunkt-vor1600-anleitung-formale-gestaltung-vorgabe-1"
+      ],
+      "status": "published",
+      "parentId": "r-oma-theory"
+    },
+    {
+      "id": "r-oma-intonation",
+      "title": "Intonation und historische Stimmungen",
+      "url": "https://openmusic.academy/docs/w6vHBG1vKvdQT23SjT8FVd/intonation-und-historische-stimmungen",
+      "description": {
+        "de": "Ein Tutorial mit Hörbeispielen zu Cent, reinen Intervallen und den Unterschieden zwischen pythagoreischer, gleichstufiger und mitteltöniger Stimmung. Die Beispiele verbinden Zahlenverhältnisse mit hörbaren Klangunterschieden.",
+        "en": "A tutorial with audio examples on cents, pure intervals and the differences between Pythagorean, equal and meantone tuning. It connects numerical relationships with audible differences."
+      },
+      "subjects": [
+        "tuning",
+        "aural-skills"
+      ],
+      "topics": [
+        "historical-temperaments",
+        "interval-ratios",
+        "intonation"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "de"
+      ],
+      "type": "course",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundkenntnisse über Intervalle und Tonleitern.",
+        "en": "Basic familiarity with intervals and scales."
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://openmusic.academy/docs/w6vHBG1vKvdQT23SjT8FVd/intonation-und-historische-stimmungen"
+      ],
+      "status": "published",
+      "parentId": "r-oma-aural"
+    },
+    {
+      "id": "r-oma-form-functions",
+      "title": "Formfunktion und Formfunktionen",
+      "url": "https://openmusic.academy/docs/tNi1HzFwYZUj8WEDGb9pqF/musikhochschule-formenlehre-form-theorie-formfunktion",
+      "description": {
+        "de": "Ein Tutorial zur Frage, welche Rolle ein musikalischer Abschnitt innerhalb eines größeren Verlaufs übernimmt. An Beispielen wird erläutert, weshalb ähnliche Gestalten je nach Zusammenhang verschiedene Formfunktionen erfüllen können.",
+        "en": "A tutorial on the role a musical passage plays within a larger structure. Examples show how similar gestures can fulfil different formal functions in different contexts."
+      },
+      "subjects": [
+        "form",
+        "analysis"
+      ],
+      "topics": [
+        "formal-functions",
+        "analysis-methods"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "de"
+      ],
+      "type": "course",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundbegriffe von Kadenz und musikalischer Phrase.",
+        "en": "Basic concepts of cadence and musical phrase."
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://openmusic.academy/docs/tNi1HzFwYZUj8WEDGb9pqF/musikhochschule-formenlehre-form-theorie-formfunktion"
+      ],
+      "status": "published",
+      "parentId": "r-oma-theory"
+    },
+    {
+      "id": "r-oma-note-names",
+      "title": "Notennamen im Violinschlüssel",
+      "url": "https://openmusic.academy/docs/gYjpSvKAhDLAkXfJsVbKMt/notennamen-im-violinschluessel",
+      "description": {
+        "de": "Eine Einführung in Stammtöne und ihre Lage im Violinschlüssel mit einem erklärenden Video. Ein überschaubarer Einstieg für Lernende, die sich zunächst in der Notenschrift orientieren möchten.",
+        "en": "An introduction to natural note names and their positions in treble clef, with an explanatory video. A compact starting point for learners beginning to read notation."
+      },
+      "subjects": [
+        "fundamentals"
+      ],
+      "topics": [
+        "note-reading"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "continuing"
+      ],
+      "difficulty": "introductory",
+      "languages": [
+        "de"
+      ],
+      "type": "course",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://openmusic.academy/docs/gYjpSvKAhDLAkXfJsVbKMt/notennamen-im-violinschluessel"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-oma-rule-of-octave",
+      "title": "Harmonielehre mit der Oktavregel",
+      "url": "https://openmusic.academy/docs/od3D8QmzHrQL3Bj96mTm8M/harmonielehre-reloaded-kadenzharmonik-und-die-oktavregel",
+      "description": {
+        "de": "Ein praktischer Lehrgang zum Harmonisieren von Bässen und Melodien mit der Oktavregel. Er führt von dreistimmigen Griffen zu vierstimmigen Anwendungen und Kadenzen; ein OpenBook ergänzt die Online-Übungen.",
+        "en": "A practical course in harmonizing basses and melodies using the rule of the octave. It moves from three-part patterns to four-part settings and cadences, with an OpenBook alongside online exercises."
+      },
+      "subjects": [
+        "harmony",
+        "historical-practice",
+        "composition"
+      ],
+      "topics": [
+        "harmonization",
+        "partimento",
+        "voice-leading",
+        "arranging"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "de"
+      ],
+      "type": "course",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [
+        "Ulrich Kaiser"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen, Tonleitern und grundlegende Akkordkenntnisse.",
+        "en": "Reading notation, scales and basic chord knowledge."
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://openmusic.academy/docs/od3D8QmzHrQL3Bj96mTm8M/harmonielehre-reloaded-kadenzharmonik-und-die-oktavregel",
+        "https://oer-musik.de/"
+      ],
+      "status": "published",
+      "parentId": "r-oma-theory"
+    },
+    {
+      "id": "r-musikanalyse-archive",
+      "title": "musikanalyse.net – Archiv",
+      "url": "https://musikanalyse.net/",
+      "description": {
+        "de": "Das Archiv von Ulrich Kaisers Lehrmaterialien bietet einen thematischen Wegweiser zu Grundlagen, Satzmodellen, Formenlehre und Analyse. Die Seite verweist inzwischen auf die nach Open Music Academy übertragenen Inhalte.",
+        "en": "Ulrich Kaiser's teaching archive offers a thematic index to fundamentals, musical schemata, form and analysis. Its links now lead to materials transferred to Open Music Academy."
+      },
+      "subjects": [
+        "fundamentals",
+        "harmony",
+        "counterpoint",
+        "form",
+        "analysis",
+        "pedagogy"
+      ],
+      "topics": [
+        "musical-schemata",
+        "analysis-methods",
+        "open-education"
+      ],
+      "stages": [
+        "secondary",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de"
+      ],
+      "type": "portal",
+      "institutionIds": [],
+      "maintainerIds": [
+        "ulrich-kaiser"
+      ],
+      "authors": [
+        "Ulrich Kaiser"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://musikanalyse.net/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-orlando",
+      "title": "Orlando – Gehörbildung",
+      "url": "https://www.hfmdd.de/login/orlando",
+      "description": {
+        "de": "Das interaktive Gehörbildungsprogramm der Hochschule für Musik Dresden verbindet Übungen mit Musik unterschiedlicher Epochen und Stile. Die Hochschule stellt den Zugang derzeit kostenlos und ohne Registrierung bereit.",
+        "en": "Dresden's interactive aural-skills programme combines exercises with music from different periods and styles. The university currently provides access free of charge and without registration."
+      },
+      "subjects": [
+        "aural-skills",
+        "analysis"
+      ],
+      "topics": [
+        "melodic-dictation",
+        "harmonic-listening",
+        "listening-analysis"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "hfm-dresden"
+      ],
+      "maintainerIds": [],
+      "authors": [
+        "John Leigh und Team"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://www.hfmdd.de/login/orlando",
+        "https://www.hfmdd.de/forschen/institutionen/zentrum-fuer-musiktheorie"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-detmold-music-tools",
+      "title": "DetmoldMusicTools",
+      "url": "https://detmoldmusictools.de/",
+      "description": {
+        "de": "Die Lernplattform der Hochschule für Musik Detmold bündelt Kurse und Übungen, unter anderem zum Notenlesen, zur Studienvorbereitung und zum Partimentospiel. Öffentliche Demokurse lassen sich direkt ansehen; weitere Bereiche arbeiten mit Benutzerkonten.",
+        "en": "The Detmold music university's learning platform brings together courses and exercises, including notation, entrance preparation and partimento. Public demonstration courses are available directly, while other areas use accounts."
+      },
+      "subjects": [
+        "fundamentals",
+        "aural-skills",
+        "historical-practice"
+      ],
+      "topics": [
+        "note-reading",
+        "partimento"
+      ],
+      "stages": [
+        "music-school",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de"
+      ],
+      "type": "portal",
+      "institutionIds": [
+        "hfm-detmold"
+      ],
+      "maintainerIds": [
+        "andre-staerk"
+      ],
+      "authors": [],
+      "access": "mixed",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://detmoldmusictools.de/",
+        "https://detmoldmusictools.de/index.php?cmd=pageManager&pageId=1"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-contrapunto",
+      "title": "Singing upon the (Note-)book",
+      "url": "https://contrapunto.ch/",
+      "description": {
+        "de": "Ein Projekt der Schola Cantorum Basiliensis zum improvisierten Kontrapunkt mit aufeinander aufbauenden Tutorials und musikalischen Vorlagen. Historische Quellen und praktische Übungen verbinden das Lernen am Notentext mit dem eigenen Singen.",
+        "en": "A Schola Cantorum Basiliensis project on improvised counterpoint, with progressive tutorials and musical models. Historical sources and practical exercises connect reading with singing."
+      },
+      "subjects": [
+        "counterpoint",
+        "historical-practice",
+        "aural-skills",
+        "composition"
+      ],
+      "topics": [
+        "improvised-counterpoint",
+        "canon-imitation",
+        "sight-singing",
+        "improvisation"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de",
+        "en"
+      ],
+      "type": "portal",
+      "institutionIds": [
+        "schola-cantorum"
+      ],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "mixed",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://contrapunto.ch/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-kartimento",
+      "title": "Kartimento",
+      "url": "https://glarean.mh-freiburg.de/kartimento/",
+      "description": {
+        "de": "Ein digitales Lernkartenset von Hans Aerts zur tonalen Mehrstimmigkeit. Es lässt sich für das praktische Erarbeiten von Generalbass- und Partimentomodellen einsetzen.",
+        "en": "A digital flashcard set by Hans Aerts on tonal multipart writing. It supports practical work with figured-bass and partimento models."
+      },
+      "subjects": [
+        "harmony",
+        "historical-practice"
+      ],
+      "topics": [
+        "partimento",
+        "figured-bass",
+        "voice-leading"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "de"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "hfm-freiburg"
+      ],
+      "maintainerIds": [],
+      "authors": [
+        "Hans Aerts"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundlegendes Verständnis von Akkorden; ein Tasteninstrument ist für die praktische Arbeit hilfreich.",
+        "en": "Basic understanding of chords; a keyboard instrument is helpful for practical work."
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://glarean.mh-freiburg.de/kartimento/",
+        "https://glarean.mh-freiburg.de/",
+        "https://www.mh-freiburg.de/en/people/details/prof-dr-hans-aerts",
+        "https://www.gmth.de/digital.aspx"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-gmth-digital",
+      "title": "GMTH – Digitale Lehre",
+      "url": "https://www.gmth.de/digital.aspx",
+      "description": {
+        "de": "Eine fachgesellschaftliche Linkübersicht zu digitalen Angeboten für Musiktheorie und Gehörbildung. Sie eignet sich zur weiteren Recherche und verweist auf Lernplattformen, Übungsprogramme und Lehrkanäle.",
+        "en": "A professional society's directory of digital music-theory and aural-skills resources. It supports further exploration through links to learning platforms, practice tools and teaching channels."
+      },
+      "subjects": [
+        "pedagogy",
+        "harmony",
+        "aural-skills"
+      ],
+      "topics": [
+        "teaching-methods",
+        "open-education"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "unspecified",
+      "languages": [
+        "de"
+      ],
+      "type": "portal",
+      "institutionIds": [
+        "gmth"
+      ],
+      "maintainerIds": [
+        "gmth-editorial"
+      ],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://www.gmth.de/digital.aspx"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-komu-musikkunde",
+      "title": "KOMU-Lehrplan: Musikkunde",
+      "url": "https://www.komu.at/files/31_komu_lehrplan_musikkunde.pdf",
+      "description": {
+        "de": "Der fachspezifische Musikkunde-Teil des KOMU-Lehrplans beschreibt Ziele und Inhalte für den Musikschulunterricht. Er dient Lehrenden als Orientierung bei der Planung und Einordnung von Lernangeboten.",
+        "en": "The music-theory section of the KOMU curriculum describes goals and content for music-school teaching. It provides a reference for teachers planning and classifying learning materials."
+      },
+      "subjects": [
+        "pedagogy",
+        "fundamentals",
+        "aural-skills"
+      ],
+      "topics": [
+        "curriculum",
+        "teaching-methods"
+      ],
+      "stages": [
+        "music-school",
+        "continuing"
+      ],
+      "difficulty": "unspecified",
+      "languages": [
+        "de"
+      ],
+      "type": "reference",
+      "institutionIds": [
+        "komu"
+      ],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://www.komu.at/files/31_komu_lehrplan_musikkunde.pdf",
+        "https://www.komu.at/content/komu-lehrplan-fachspezifischer-teil",
+        "https://www.komu.at/lehrplan/infos-zum-lehrplan"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-oer-musik",
+      "title": "OER-Musik – OpenBooks von Ulrich Kaiser",
+      "url": "https://oer-musik.de/",
+      "description": {
+        "de": "Eine Sammlung frei bereitgestellter Bücher, Unterrichtshefte und musikalischer Materialien von Ulrich Kaiser. Zu den Themen gehören Harmonielehre, Formenlehre, Filmmusik und Instrumentenkunde; viele Einträge führen zu Open Music Academy.",
+        "en": "A collection of openly provided books, teaching booklets and musical materials by Ulrich Kaiser. Topics include harmony, musical form, film music and instruments; many entries link to Open Music Academy."
+      },
+      "subjects": [
+        "harmony",
+        "form",
+        "instrumentation",
+        "composition",
+        "pedagogy"
+      ],
+      "topics": [
+        "open-education",
+        "arranging",
+        "instrument-families"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de"
+      ],
+      "type": "portal",
+      "institutionIds": [],
+      "maintainerIds": [
+        "ulrich-kaiser"
+      ],
+      "authors": [
+        "Ulrich Kaiser"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://oer-musik.de/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-musikum-ear-training",
+      "title": "Musikum – Online-Gehörtraining",
+      "url": "https://musikum.at/de/services/services-fuer-schuelerinnen-schueler/online-gehoertraining",
+      "description": {
+        "de": "Kurze Hörtrainings zu Instrumenten, Musikstilen, Intervallen, Akkorden, Skalen, Intonation und Tempo. Das Musikum bietet die Übungen kostenfrei als Ergänzung zum Musikunterricht an.",
+        "en": "Short listening activities on instruments, musical styles, intervals, chords, scales, intonation and tempo. Musikum provides the exercises free of charge to complement music teaching."
+      },
+      "subjects": [
+        "aural-skills",
+        "fundamentals",
+        "rhythm",
+        "tuning",
+        "instrumentation"
+      ],
+      "topics": [
+        "harmonic-listening",
+        "rhythmic-dictation",
+        "intonation",
+        "instrument-families"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "continuing"
+      ],
+      "difficulty": "introductory",
+      "languages": [
+        "de"
+      ],
+      "type": "exercise",
+      "institutionIds": [
+        "musikum-salzburg"
+      ],
+      "maintainerIds": [
+        "musikum-team"
+      ],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://musikum.at/de/services/services-fuer-schuelerinnen-schueler/online-gehoertraining",
+        "https://musikum.at/de/landesdirektion/news-berichte/digitales-lernen"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-muk-temperaments",
+      "title": "Temperaments",
+      "url": "https://muk-labs.github.io/temperaments/",
+      "description": {
+        "de": "Ein interaktives Stimmungslabor von Adrián Artacho für die MUK. Historische Temperaturen und gleichmäßige Teilungen lassen sich hören, mit 12-EDO vergleichen und anhand von Intervallverhältnissen und Cent-Abständen untersuchen.",
+        "en": "An interactive tuning laboratory by Adrián Artacho for MUK. Historical temperaments and equal divisions can be heard, compared with 12-EDO and explored through interval ratios and cent distances."
+      },
+      "subjects": [
+        "tuning",
+        "aural-skills"
+      ],
+      "topics": [
+        "historical-temperaments",
+        "interval-ratios",
+        "intonation"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundkenntnisse über Intervalle; für die Hörvergleiche Tonwiedergabe aktivieren.",
+        "en": "Basic familiarity with intervals; enable sound for listening comparisons."
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://github.com/MUK-Labs/temperaments/blob/main/README.md",
+        "https://muk-labs.github.io/temperaments/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-open-music-theory",
+      "title": "Open Music Theory",
+      "url": "https://viva.pressbooks.pub/openmusictheory/",
+      "description": {
+        "de": "Ein gemeinschaftlich verfasstes englischsprachiges Lehrbuch für das Musiktheoriestudium. Ein Grundlagenbereich und weiterführende Kapitel mit ergänzenden Übungen ermöglichen sowohl gezieltes Nachschlagen als auch längere Lernwege.",
+        "en": "A collaboratively written English-language textbook for music-theory study. Fundamentals and more advanced chapters, with accompanying exercises, support both targeted reference and extended study."
+      },
+      "subjects": [
+        "fundamentals",
+        "harmony",
+        "counterpoint",
+        "form",
+        "analysis"
+      ],
+      "topics": [
+        "note-reading",
+        "scales-modes",
+        "chords",
+        "voice-leading",
+        "analysis-methods"
+      ],
+      "stages": [
+        "secondary",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "book",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [
+        "Mark Gotham",
+        "Kyle Gullings",
+        "Chelsey Hamm",
+        "Bryn Hughes",
+        "Brian Jarvis",
+        "Megan Lavengood",
+        "John Peterson"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://viva.pressbooks.pub/openmusictheory/",
+        "https://viva.pressbooks.pub/openmusictheory/front-matter/introduction/",
+        "https://viva.pressbooks.pub/openmusictheory/part/fundamentals/",
+        "https://viva.pressbooks.pub/openmusictheory/chapter/pdf-workbook/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-theory-21c",
+      "title": "Music Theory for the 21st-Century Classroom",
+      "url": "https://musictheory.pugetsound.edu/mt21c/MusicTheory.html",
+      "description": {
+        "de": "Robert Hutchinsons frei zugängliches Lehrbuch verbindet Grundlagen, Harmonielehre und Formenlehre mit Beispielen aus unterschiedlichen musikalischen Repertoires. Kapitel zu Rhythmus, Stimmführung und Analyse werden durch Übungsaufgaben ergänzt.",
+        "en": "Robert Hutchinson's freely accessible textbook combines fundamentals, harmony and form with examples from different repertoires. Chapters on rhythm, voice leading and analysis include practice exercises."
+      },
+      "subjects": [
+        "fundamentals",
+        "harmony",
+        "form",
+        "analysis",
+        "rhythm"
+      ],
+      "topics": [
+        "note-reading",
+        "functional-harmony",
+        "voice-leading",
+        "popular-music-form",
+        "rhythm-metre",
+        "rhythmic-proportions"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "book",
+      "institutionIds": [
+        "puget-sound"
+      ],
+      "maintainerIds": [],
+      "authors": [
+        "Robert Hutchinson"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://musictheory.pugetsound.edu/",
+        "https://musictheory.pugetsound.edu/mt21c/MusicTheory.html"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-teoria-exercises",
+      "title": "teoria – Übungen",
+      "url": "https://www.teoria.com/de/exercises/index.php",
+      "description": {
+        "de": "Interaktive Aufgaben zu Musiklehre und Gehörbildung, darunter rhythmische Diktate, harmonisches Hören und Notenlesen. Die Übungsoberfläche bietet mehrere Sprachen; zusätzliche Funktionen zum Speichern von Ergebnissen können eine Anmeldung verwenden.",
+        "en": "Interactive music-theory and ear-training activities, including rhythmic dictation, harmonic listening and notation reading. The exercise interface offers several languages; additional score-saving functions may use a sign-in."
+      },
+      "subjects": [
+        "fundamentals",
+        "aural-skills",
+        "harmony",
+        "rhythm"
+      ],
+      "topics": [
+        "note-reading",
+        "harmonic-listening",
+        "melodic-dictation",
+        "rhythmic-dictation",
+        "rhythm-metre"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de",
+        "en",
+        "fr",
+        "it",
+        "es"
+      ],
+      "type": "exercise",
+      "institutionIds": [],
+      "maintainerIds": [
+        "jose-rodriguez-alvira"
+      ],
+      "authors": [
+        "José Rodríguez Alvira"
+      ],
+      "access": "free",
+      "license": "CC BY-NC-ND 4.0",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://www.teoria.com/de/exercises/index.php",
+        "https://www.teoria.com/en/exercises/",
+        "https://www.teoria.com/en/exercises/hp.php"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-musictheory-lessons",
+      "title": "musictheory.net – Lessons",
+      "url": "https://www.musictheory.net/lessons",
+      "description": {
+        "de": "Eine klar gegliederte Folge englischsprachiger Lektionen zu Notation, Rhythmus, Tonleitern, Intervallen und Akkorden. Spätere Kapitel führen in Stimmführung, Kadenzen und harmonische Zusammenhänge ein.",
+        "en": "A clearly structured sequence of English-language lessons on notation, rhythm, scales, intervals and chords. Later sections introduce voice leading, cadences and harmonic relationships."
+      },
+      "subjects": [
+        "fundamentals",
+        "harmony",
+        "rhythm"
+      ],
+      "topics": [
+        "note-reading",
+        "intervals",
+        "scales-modes",
+        "chords",
+        "voice-leading",
+        "rhythm-metre"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "course",
+      "institutionIds": [],
+      "maintainerIds": [
+        "musictheory-net"
+      ],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://www.musictheory.net/lessons"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-musictheory-exercises",
+      "title": "musictheory.net – Exercises",
+      "url": "https://www.musictheory.net/exercises",
+      "description": {
+        "de": "Anpassbare Übungen zum Lesen und Bestimmen von Noten, Intervallen, Tonleitern und Akkorden sowie zum Hören. Mit dem Exercise Customizer können Lehrende Aufgabenbereiche auswählen und als eigenen Link weitergeben.",
+        "en": "Customizable exercises for reading and identifying notes, intervals, scales and chords, alongside listening tasks. The Exercise Customizer lets teachers choose a practice scope and share it by link."
+      },
+      "subjects": [
+        "fundamentals",
+        "aural-skills",
+        "harmony"
+      ],
+      "topics": [
+        "note-reading",
+        "intervals",
+        "scales-modes",
+        "chords",
+        "harmonic-listening"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "exercise",
+      "institutionIds": [],
+      "maintainerIds": [
+        "musictheory-net"
+      ],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://www.musictheory.net/exercises"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-unsw-acoustics",
+      "title": "UNSW Music Acoustics",
+      "url": "https://newt.phys.unsw.edu.au/music/",
+      "description": {
+        "de": "Eine universitäre Sammlung zur Akustik von Musikinstrumenten und Stimme mit Erklärungen, Abbildungen und Klangbeispielen. Sie erschließt physikalische Grundlagen ebenso wie Fragen zu Instrumentenbau, Resonanz und Klangfarbe.",
+        "en": "A university collection on the acoustics of instruments and the voice, with explanations, illustrations and sound examples. It covers physical foundations alongside questions of instrument construction, resonance and timbre."
+      },
+      "subjects": [
+        "tuning",
+        "instrumentation"
+      ],
+      "topics": [
+        "acoustics",
+        "instrument-families"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "portal",
+      "institutionIds": [
+        "unsw"
+      ],
+      "maintainerIds": [
+        "unsw-music-acoustics"
+      ],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://newt.phys.unsw.edu.au/music/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-vsl-instrumentology",
+      "title": "Vienna Symphonic Library – Instrumentology",
+      "url": "https://www.vsl.co.at/academy",
+      "description": {
+        "de": "Ein frei lesbares Nachschlageangebot zu Orchesterinstrumenten und ihren Eigenschaften. Instrumentenfamilien, Tonumfang, Klang und Spieltechniken helfen beim Vorbereiten von Arrangements und Instrumentationen.",
+        "en": "A freely readable reference on orchestral instruments and their characteristics. Instrument families, range, sound and playing techniques support arranging and orchestration."
+      },
+      "subjects": [
+        "instrumentation",
+        "composition"
+      ],
+      "topics": [
+        "instrument-families",
+        "orchestration",
+        "arranging"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "reference",
+      "institutionIds": [],
+      "maintainerIds": [
+        "vsl"
+      ],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [
+        "https://www.vsl.co.at/academy"
+      ],
+      "status": "published",
+      "parentId": ""
+    }
+  ],
+  "collections": [
+    {
+      "id": "c-first-steps",
+      "title": {
+        "de": "Erste Schritte: lesen, hören, verstehen",
+        "en": "First steps: read, listen, understand"
+      },
+      "description": {
+        "de": "Ein redaktioneller Einstieg für Musikschule und Selbststudium. Die Reihenfolge ist ein Vorschlag der Katalogredaktion, keine Lernempfehlung der verlinkten Autorinnen und Autoren.",
+        "en": "An editorial starting point for music-school learning and independent study. The sequence is proposed by the catalogue editors, not endorsed by the linked authors."
+      },
+      "curator": "Musiktheorie-Redaktion",
+      "items": [
+        {
+          "resourceId": "r-oma-note-names",
+          "note": {
+            "de": "Zuerst Stammtöne und ihre Position im Violinschlüssel kennenlernen.",
+            "en": "Start with natural note names and their positions in treble clef."
+          }
+        },
+        {
+          "resourceId": "r-musictheory-lessons",
+          "note": {
+            "de": "Die Abschnitte zu Rhythmus, Tonleitern und Intervallen ergänzend durcharbeiten; die Begriffe sind englisch.",
+            "en": "Use the rhythm, scale and interval sections next; terminology is in English."
+          }
+        },
+        {
+          "resourceId": "r-musikum-ear-training",
+          "note": {
+            "de": "Mit kurzen Höraufgaben das Gelesene mit Klängen verbinden.",
+            "en": "Connect what you have read with sound through short listening tasks."
+          }
+        },
+        {
+          "resourceId": "r-teoria-exercises",
+          "note": {
+            "de": "Passende Übungen auswählen und den Umfang schrittweise erhöhen.",
+            "en": "Choose relevant exercises and gradually expand their scope."
+          }
+        }
+      ]
+    },
+    {
+      "id": "c-hearing-for-study",
+      "title": {
+        "de": "Hören auf dem Weg ins Studium",
+        "en": "Listening towards university study"
+      },
+      "description": {
+        "de": "Eine redaktionelle Auswahl zur selbstständigen Arbeit an Hörfähigkeiten. Sie ersetzt keine institutionellen Prüfungsanforderungen; passende Aufgaben müssen nach Vorwissen gewählt werden.",
+        "en": "An editorial selection for independent aural-skills practice. It does not replace any institution's entrance requirements; choose tasks according to prior experience."
+      },
+      "curator": "Musiktheorie-Redaktion",
+      "items": [
+        {
+          "resourceId": "r-oma-aural",
+          "note": {
+            "de": "Mit den Hörstrategien beginnen und passende Einstiegsaufgaben aussuchen.",
+            "en": "Begin with listening strategies and choose suitable introductory tasks."
+          }
+        },
+        {
+          "resourceId": "r-teoria-exercises",
+          "note": {
+            "de": "Melodisches, harmonisches und rhythmisches Hören gezielt üben.",
+            "en": "Practise melodic, harmonic and rhythmic listening in a focused way."
+          }
+        },
+        {
+          "resourceId": "r-orlando",
+          "note": {
+            "de": "Höraufgaben anschließend mit Musik aus verschiedenen Stilen verbinden.",
+            "en": "Then connect listening tasks with music from different styles."
+          }
+        },
+        {
+          "resourceId": "r-detmold-music-tools",
+          "note": {
+            "de": "Die öffentlichen Angebote zur Eignungsprüfung als ergänzende Orientierung nutzen.",
+            "en": "Use the public entrance-preparation material as an additional reference."
+          }
+        }
+      ]
+    },
+    {
+      "id": "c-historical-practice",
+      "title": {
+        "de": "Satzmodelle praktisch erkunden",
+        "en": "Explore historical patterns in practice"
+      },
+      "description": {
+        "de": "Ein redaktioneller Lernweg von der Oktavregel zu improvisiertem und ausgearbeitetem Kontrapunkt. Die letzten Schritte verlangen deutlich mehr Vorkenntnisse als der Einstieg.",
+        "en": "An editorial pathway from the rule of the octave to improvised and written counterpoint. The final steps require considerably more background than the opening activities."
+      },
+      "curator": "Musiktheorie-Redaktion",
+      "items": [
+        {
+          "resourceId": "r-oma-rule-of-octave",
+          "note": {
+            "de": "Mit dreistimmigen Modellen beginnen und einfache Bässe harmonisieren.",
+            "en": "Start with three-part patterns and harmonize simple basses."
+          }
+        },
+        {
+          "resourceId": "r-kartimento",
+          "note": {
+            "de": "Modelle am Instrument wiederholen und in neue Zusammenhänge übertragen.",
+            "en": "Repeat patterns at the keyboard and transfer them to new contexts."
+          }
+        },
+        {
+          "resourceId": "r-contrapunto",
+          "note": {
+            "de": "Einfache kontrapunktische Vorlagen singend ausprobieren.",
+            "en": "Try simple contrapuntal models through singing."
+          }
+        },
+        {
+          "resourceId": "r-oma-counterpoint-form",
+          "note": {
+            "de": "Bei sicherer mehrstimmiger Praxis eine größere formale Aufgabe bearbeiten.",
+            "en": "Once comfortable with multipart writing, work on a larger formal task."
+          }
+        }
+      ]
+    },
+    {
+      "id": "c-tuning-lab",
+      "title": {
+        "de": "Stimmungen hören und vergleichen",
+        "en": "Hear and compare tunings"
+      },
+      "description": {
+        "de": "Eine redaktionelle Verbindung aus Erklärung, Experiment und akustischem Hintergrund. Zum Einstieg genügen Intervallkenntnisse; die Akustiktexte bieten Möglichkeiten zur Vertiefung.",
+        "en": "An editorial combination of explanation, experimentation and acoustic background. Familiarity with intervals is enough to begin; the acoustics texts offer further depth."
+      },
+      "curator": "Musiktheorie-Redaktion",
+      "items": [
+        {
+          "resourceId": "r-oma-intonation",
+          "note": {
+            "de": "Zuerst reine Intervalle, Cent-Abstände und historische Stimmungen anhand der Hörbeispiele vergleichen.",
+            "en": "First compare pure intervals, cent distances and historical tunings through the audio examples."
+          }
+        },
+        {
+          "resourceId": "r-muk-temperaments",
+          "note": {
+            "de": "Ein Temperament wählen und dieselben Intervalle gegen 12-EDO hören; anschließend ein zweites System erproben.",
+            "en": "Choose a temperament and compare the same intervals with 12-EDO, then try a second system."
+          }
+        },
+        {
+          "resourceId": "r-unsw-acoustics",
+          "note": {
+            "de": "Ausgewählte Grundlagen zu Klangentstehung und Resonanz zur Erklärung der Hörerfahrungen lesen.",
+            "en": "Read selected foundations on sound production and resonance to interpret what you heard."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "musiktheorie-catalogue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A bilingual, shareable catalogue of music-theory learning resources.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.js",
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/build.mjs"
+  }
+}

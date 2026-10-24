@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f4ef">
+    <meta name="description" content="Materialien, Übungen und Werkzeuge für Musiktheorie. Nach Fach, Bildungsbereich und Institution entdecken und eigene Sammlungen teilen.">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Musiktheorie · Ressourcen zum Lernen & Lehren</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#results">Zum Inhalt</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="./" id="home-link" aria-label="Musiktheorie — alle Ressourcen">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><b>m</b></span>
+          <span class="brand-copy"><strong>Musiktheorie<span class="brand-dot">.</span></strong><span id="brand-subtitle">Ressourcen zum Lernen & Lehren</span></span>
+        </a>
+        <div class="header-actions">
+          <button type="button" class="button button-quiet contribute-button" id="contribute-button"><span data-icon="plus" aria-hidden="true"></span><span id="contribute-label">Ressource vorschlagen</span></button>
+          <div class="language-switch" role="group" aria-label="Sprache / Language">
+            <button type="button" id="language-de" aria-pressed="true" lang="de">DE</button>
+            <button type="button" id="language-en" aria-pressed="false" lang="en">EN</button>
+          </div>
+        </div>
+      </div>
+      <div class="navigation-inner">
+        <nav class="main-nav" aria-label="Hauptnavigation">
+          <button type="button" class="nav-button is-active" id="catalogue-button"><span data-icon="grid" aria-hidden="true"></span><span id="catalogue-label">Katalog</span></button>
+          <button type="button" class="nav-button" id="collections-button"><span data-icon="layers" aria-hidden="true"></span><span id="collections-label">Sammlungen</span><span class="nav-count" id="collections-count">0</span></button>
+        </nav>
+        <button type="button" class="button button-text saved-button" id="saved-button"><span data-icon="bookmark" aria-hidden="true"></span><span id="saved-label">Meine Listen</span></button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <div id="desktop-filter-mount"><aside class="filter-panel" id="filter-panel" aria-labelledby="filter-heading"></aside></div>
+      <main id="main-content" class="main-content">
+        <div class="page-heading">
+          <div><p class="eyebrow" id="page-eyebrow">ENTDECKEN & VERBINDEN</p><div class="title-line"><h1 id="page-title">Ressourcen</h1><span class="total-badge" id="total-count">—</span></div><p id="page-description" class="page-description">Materialien, Übungen und Werkzeuge für Musiktheorie.</p></div>
+          <div class="heading-decoration" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><b></b><b></b><b></b></div>
+        </div>
+
+        <div class="search-toolbar">
+          <div class="search-field"><span data-icon="search" aria-hidden="true"></span><label class="sr-only" for="search-input" id="search-label">Ressourcen suchen</label><input type="search" id="search-input" placeholder="Thema, Titel oder Institution suchen …" autocomplete="off" spellcheck="false"><kbd class="search-shortcut" aria-hidden="true">/</kbd></div>
+          <button type="button" class="button button-outline mobile-filter-button" id="open-filters"><span data-icon="sliders" aria-hidden="true"></span><span id="filter-button-label">Filter</span><span id="filter-count" class="button-count" hidden></span></button>
+          <button type="button" class="button button-outline share-view-button" id="share-view"><span data-icon="link" aria-hidden="true"></span><span id="share-view-label">Ansicht teilen</span></button>
+        </div>
+        <div id="active-filters" class="active-filters" aria-label="Aktive Filter"></div>
+        <section id="scope-banner" class="scope-banner" hidden></section>
+        <div class="results-toolbar"><p id="results-summary" role="status" aria-live="polite">Katalog wird geladen …</p><div class="sort-control"><label for="sort-select" id="sort-label">Sortieren</label><select id="sort-select"><option value="title">Titel A–Z</option><option value="newest">Zuletzt geprüft</option></select></div></div>
+        <section id="results" class="resource-list" aria-label="Ressourcen" tabindex="-1"><div class="loading-state"><span class="loading-dot"></span><p>Katalog wird geladen …</p></div></section>
+        <div id="catalogue-note" class="catalogue-note"></div>
+      </main>
+    </div>
+
+    <footer class="site-footer"><div><span class="footer-wordmark">Musiktheorie.</span><span id="footer-description">Wissen teilen. Verbindungen schaffen.</span></div><div class="footer-links"><span id="updated-label"></span><a id="github-link" href="https://github.com/MUK-Labs/Musiktheorie" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div></footer>
+
+    <aside id="selection-tray" class="selection-tray" aria-label="Meine Auswahl" hidden><div class="tray-inner"><span class="tray-icon" data-icon="bookmark" aria-hidden="true"></span><span id="selection-count"></span><button type="button" class="button button-text" id="review-selection">Auswahl bearbeiten</button><button type="button" class="button button-primary" id="share-selection"><span data-icon="link" aria-hidden="true"></span><span id="share-selection-label">Link kopieren</span></button><button type="button" class="icon-button" id="dismiss-selection" aria-label="Auswahl leeren"><span data-icon="close" aria-hidden="true"></span></button></div></aside>
+
+    <dialog id="filters-dialog" class="filters-dialog" aria-labelledby="mobile-filter-heading"><div class="dialog-topline"><h2 id="mobile-filter-heading">Filter</h2><button type="button" class="icon-button dialog-close" data-close="filters-dialog" aria-label="Schließen"><span data-icon="close" aria-hidden="true"></span></button></div><div id="mobile-filter-mount"></div><div class="mobile-filter-footer"><button type="button" class="button button-primary" id="apply-filters">Ergebnisse anzeigen</button></div></dialog>
+    <dialog id="resource-dialog" class="resource-dialog"><div id="resource-detail"></div></dialog>
+    <dialog id="collections-dialog" class="collections-dialog" aria-labelledby="collections-dialog-title"><div class="dialog-topline"><div><p class="eyebrow" id="collections-eyebrow">ZUSAMMENGESTELLT</p><h2 id="collections-dialog-title">Sammlungen</h2></div><button type="button" class="icon-button dialog-close" data-close="collections-dialog" aria-label="Schließen"><span data-icon="close" aria-hidden="true"></span></button></div><p class="dialog-intro" id="collections-intro"></p><div id="collections-list" class="collections-list"></div></dialog>
+    <dialog id="selection-dialog" class="selection-dialog" aria-labelledby="selection-dialog-title"><div class="dialog-topline"><div><p class="eyebrow" id="selection-eyebrow">FÜR DEINEN UNTERRICHT</p><h2 id="selection-dialog-title">Meine Auswahl</h2></div><button type="button" class="icon-button dialog-close" data-close="selection-dialog" aria-label="Schließen"><span data-icon="close" aria-hidden="true"></span></button></div><p class="dialog-intro" id="selection-intro"></p><label class="field-label" for="selection-title" id="selection-title-label">Titel der Auswahl</label><input class="text-input" id="selection-title" type="text" maxlength="120" placeholder="Meine Materialsammlung"><ol id="selection-list" class="selection-list"></ol><div id="selection-dialog-actions" class="dialog-actions"></div></dialog>
+    <dialog id="saved-dialog" class="saved-dialog" aria-labelledby="saved-dialog-title"><div class="dialog-topline"><div><p class="eyebrow" id="saved-eyebrow">AUF DIESEM GERÄT</p><h2 id="saved-dialog-title">Meine Listen</h2></div><button type="button" class="icon-button dialog-close" data-close="saved-dialog" aria-label="Schließen"><span data-icon="close" aria-hidden="true"></span></button></div><p class="dialog-intro" id="saved-intro"></p><div id="saved-list"></div></dialog>
+    <dialog id="message-dialog" class="message-dialog" aria-labelledby="message-title"><div class="dialog-topline"><h2 id="message-title"></h2><button type="button" class="icon-button dialog-close" data-close="message-dialog" aria-label="Schließen"><span data-icon="close" aria-hidden="true"></span></button></div><div id="message-content"></div></dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <noscript><div class="noscript-message">Bitte JavaScript aktivieren, um den Katalog zu durchsuchen. / Please enable JavaScript to browse the catalogue.</div></noscript>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
