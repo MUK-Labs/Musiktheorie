@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-24T00:00:00Z",
-    "source": "starter-catalogue"
+    "updatedAt": "2026-10-24T16:26:24.362Z",
+    "source": "google-sheets"
   },
   "vocab": {
     "subjects": [
@@ -157,11 +157,11 @@
           "de": "Notenlesen",
           "en": "Reading notation"
         },
-        "parentId": "fundamentals",
         "aliases": [
           "Notenschrift",
           "Clefs"
-        ]
+        ],
+        "parentId": "fundamentals"
       },
       {
         "id": "intervals",
@@ -169,8 +169,8 @@
           "de": "Intervalle",
           "en": "Intervals"
         },
-        "parentId": "fundamentals",
-        "aliases": []
+        "aliases": [],
+        "parentId": "fundamentals"
       },
       {
         "id": "scales-modes",
@@ -178,11 +178,11 @@
           "de": "Tonleitern & Modi",
           "en": "Scales & modes"
         },
-        "parentId": "fundamentals",
         "aliases": [
           "Skalen",
           "Tonarten"
-        ]
+        ],
+        "parentId": "fundamentals"
       },
       {
         "id": "chords",
@@ -190,11 +190,11 @@
           "de": "Akkorde",
           "en": "Chords"
         },
-        "parentId": "fundamentals",
         "aliases": [
           "Dreiklänge",
           "Septakkorde"
-        ]
+        ],
+        "parentId": "fundamentals"
       },
       {
         "id": "sight-singing",
@@ -202,10 +202,10 @@
           "de": "Blattsingen & Solmisation",
           "en": "Sight-singing & solmisation"
         },
-        "parentId": "aural-skills",
         "aliases": [
           "Solfège"
-        ]
+        ],
+        "parentId": "aural-skills"
       },
       {
         "id": "melodic-dictation",
@@ -213,10 +213,10 @@
           "de": "Melodisches Hören",
           "en": "Melodic listening"
         },
-        "parentId": "aural-skills",
         "aliases": [
           "Melodiediktat"
-        ]
+        ],
+        "parentId": "aural-skills"
       },
       {
         "id": "harmonic-listening",
@@ -224,10 +224,10 @@
           "de": "Harmonisches Hören",
           "en": "Harmonic listening"
         },
-        "parentId": "aural-skills",
         "aliases": [
           "Akkordhören"
-        ]
+        ],
+        "parentId": "aural-skills"
       },
       {
         "id": "rhythmic-dictation",
@@ -235,10 +235,10 @@
           "de": "Rhythmisches Hören",
           "en": "Rhythmic listening"
         },
-        "parentId": "aural-skills",
         "aliases": [
           "Rhythmusdiktat"
-        ]
+        ],
+        "parentId": "aural-skills"
       },
       {
         "id": "listening-analysis",
@@ -246,8 +246,8 @@
           "de": "Höranalyse",
           "en": "Listening analysis"
         },
-        "parentId": "aural-skills",
-        "aliases": []
+        "aliases": [],
+        "parentId": "aural-skills"
       },
       {
         "id": "functional-harmony",
@@ -255,10 +255,10 @@
           "de": "Funktionstheorie",
           "en": "Functional harmony"
         },
-        "parentId": "harmony",
         "aliases": [
           "Funktionsharmonik"
-        ]
+        ],
+        "parentId": "harmony"
       },
       {
         "id": "harmonization",
@@ -266,10 +266,10 @@
           "de": "Harmonisieren",
           "en": "Harmonization"
         },
-        "parentId": "harmony",
         "aliases": [
           "Melodieharmonisierung"
-        ]
+        ],
+        "parentId": "harmony"
       },
       {
         "id": "voice-leading",
@@ -277,10 +277,10 @@
           "de": "Stimmführung",
           "en": "Voice leading"
         },
-        "parentId": "harmony",
         "aliases": [
           "Satzlehre"
-        ]
+        ],
+        "parentId": "harmony"
       },
       {
         "id": "renaissance-counterpoint",
@@ -288,10 +288,10 @@
           "de": "Kontrapunkt des 16. Jahrhunderts",
           "en": "Sixteenth-century counterpoint"
         },
-        "parentId": "counterpoint",
         "aliases": [
           "Renaissance"
-        ]
+        ],
+        "parentId": "counterpoint"
       },
       {
         "id": "canon-imitation",
@@ -299,8 +299,8 @@
           "de": "Kanon & Imitation",
           "en": "Canon & imitation"
         },
-        "parentId": "counterpoint",
-        "aliases": []
+        "aliases": [],
+        "parentId": "counterpoint"
       },
       {
         "id": "improvised-counterpoint",
@@ -308,10 +308,10 @@
           "de": "Improvisierter Kontrapunkt",
           "en": "Improvised counterpoint"
         },
-        "parentId": "counterpoint",
         "aliases": [
           "Singen über dem Buch"
-        ]
+        ],
+        "parentId": "counterpoint"
       },
       {
         "id": "formal-functions",
@@ -319,11 +319,11 @@
           "de": "Formfunktionen",
           "en": "Formal functions"
         },
-        "parentId": "form",
         "aliases": [
           "Periode",
           "Satz"
-        ]
+        ],
+        "parentId": "form"
       },
       {
         "id": "popular-music-form",
@@ -331,10 +331,10 @@
           "de": "Form in Pop & Rock",
           "en": "Form in popular music"
         },
-        "parentId": "form",
         "aliases": [
           "Songform"
-        ]
+        ],
+        "parentId": "form"
       },
       {
         "id": "analysis-methods",
@@ -342,11 +342,11 @@
           "de": "Analysemethoden",
           "en": "Analytical methods"
         },
-        "parentId": "analysis",
         "aliases": [
           "Schenker",
           "Pitch-class sets"
-        ]
+        ],
+        "parentId": "analysis"
       },
       {
         "id": "musical-schemata",
@@ -354,10 +354,10 @@
           "de": "Satzmodelle",
           "en": "Musical schemata"
         },
-        "parentId": "analysis",
         "aliases": [
           "Sequenzen"
-        ]
+        ],
+        "parentId": "analysis"
       },
       {
         "id": "rhythm-metre",
@@ -365,11 +365,11 @@
           "de": "Rhythmus & Takt",
           "en": "Rhythm & time signatures"
         },
-        "parentId": "rhythm",
         "aliases": [
           "Metrum",
           "Meter"
-        ]
+        ],
+        "parentId": "rhythm"
       },
       {
         "id": "rhythmic-proportions",
@@ -377,11 +377,11 @@
           "de": "Rhythmische Proportionen",
           "en": "Rhythmic proportions"
         },
-        "parentId": "rhythm",
         "aliases": [
           "Proportionslehre",
           "Tuplets"
-        ]
+        ],
+        "parentId": "rhythm"
       },
       {
         "id": "historical-temperaments",
@@ -389,12 +389,12 @@
           "de": "Historische Stimmungen",
           "en": "Historical temperaments"
         },
-        "parentId": "tuning",
         "aliases": [
           "Mitteltönigkeit",
           "Werckmeister",
           "Pythagoreisch"
-        ]
+        ],
+        "parentId": "tuning"
       },
       {
         "id": "interval-ratios",
@@ -402,11 +402,11 @@
           "de": "Intervallverhältnisse",
           "en": "Interval ratios"
         },
-        "parentId": "tuning",
         "aliases": [
           "Frequenzverhältnisse",
           "Cent"
-        ]
+        ],
+        "parentId": "tuning"
       },
       {
         "id": "intonation",
@@ -414,10 +414,10 @@
           "de": "Intonationshören",
           "en": "Intonation listening"
         },
-        "parentId": "tuning",
         "aliases": [
           "Pitch discrimination"
-        ]
+        ],
+        "parentId": "tuning"
       },
       {
         "id": "acoustics",
@@ -425,11 +425,11 @@
           "de": "Musikalische Akustik",
           "en": "Musical acoustics"
         },
-        "parentId": "tuning",
         "aliases": [
           "Schall",
           "Klangfarbe"
-        ]
+        ],
+        "parentId": "tuning"
       },
       {
         "id": "figured-bass",
@@ -437,10 +437,10 @@
           "de": "Generalbass",
           "en": "Figured bass"
         },
-        "parentId": "historical-practice",
         "aliases": [
           "Basso continuo"
-        ]
+        ],
+        "parentId": "historical-practice"
       },
       {
         "id": "partimento",
@@ -448,10 +448,10 @@
           "de": "Partimento & Oktavregel",
           "en": "Partimento & rule of the octave"
         },
-        "parentId": "historical-practice",
         "aliases": [
           "Regola dell'ottava"
-        ]
+        ],
+        "parentId": "historical-practice"
       },
       {
         "id": "historical-modes",
@@ -459,10 +459,10 @@
           "de": "Historische Modi",
           "en": "Historical modes"
         },
-        "parentId": "historical-practice",
         "aliases": [
           "Kirchentonarten"
-        ]
+        ],
+        "parentId": "historical-practice"
       },
       {
         "id": "mensural-notation",
@@ -470,10 +470,10 @@
           "de": "Mensuralnotation",
           "en": "Mensural notation"
         },
-        "parentId": "historical-practice",
         "aliases": [
           "Mensuraltheorie"
-        ]
+        ],
+        "parentId": "historical-practice"
       },
       {
         "id": "instrument-families",
@@ -481,10 +481,10 @@
           "de": "Instrumentenfamilien",
           "en": "Instrument families"
         },
-        "parentId": "instrumentation",
         "aliases": [
           "Instrumentenkunde"
-        ]
+        ],
+        "parentId": "instrumentation"
       },
       {
         "id": "orchestration",
@@ -492,10 +492,10 @@
           "de": "Instrumentation & Spieltechniken",
           "en": "Orchestration & playing techniques"
         },
-        "parentId": "instrumentation",
         "aliases": [
           "Orchestrierung"
-        ]
+        ],
+        "parentId": "instrumentation"
       },
       {
         "id": "arranging",
@@ -503,10 +503,10 @@
           "de": "Arrangieren",
           "en": "Arranging"
         },
-        "parentId": "composition",
         "aliases": [
           "Arrangement"
-        ]
+        ],
+        "parentId": "composition"
       },
       {
         "id": "improvisation",
@@ -514,8 +514,8 @@
           "de": "Improvisation",
           "en": "Improvisation"
         },
-        "parentId": "composition",
-        "aliases": []
+        "aliases": [],
+        "parentId": "composition"
       },
       {
         "id": "curriculum",
@@ -523,10 +523,10 @@
           "de": "Lehrpläne & Lernziele",
           "en": "Curricula & learning goals"
         },
-        "parentId": "pedagogy",
         "aliases": [
           "Kompetenzen"
-        ]
+        ],
+        "parentId": "pedagogy"
       },
       {
         "id": "open-education",
@@ -534,10 +534,10 @@
           "de": "Offene Lehrmaterialien",
           "en": "Open educational resources"
         },
-        "parentId": "pedagogy",
         "aliases": [
           "OER"
-        ]
+        ],
+        "parentId": "pedagogy"
       },
       {
         "id": "teaching-methods",
@@ -545,10 +545,10 @@
           "de": "Unterrichtsmethoden",
           "en": "Teaching methods"
         },
-        "parentId": "pedagogy",
         "aliases": [
           "Didaktik"
-        ]
+        ],
+        "parentId": "pedagogy"
       }
     ],
     "stages": [
