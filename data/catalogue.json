@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-24T17:07:52.928Z",
+    "updatedAt": "2026-10-24T20:10:11.627Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2368,6 +2368,53 @@
       ],
       "authors": [
         "Adri'an Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-10-24",
+      "sourceUrls": [],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-e04e9df9-e42b-4e92-8334-e970ef198aaf",
+      "title": "DAW-basics",
+      "url": "https://adrianartacho.github.io/DAW-basics/?daw=ableton#cut",
+      "description": {
+        "de": "Cross-DAW Einleitung für Klangverarbeitung",
+        "en": ""
+      },
+      "subjects": [
+        "electronic-music"
+      ],
+      "topics": [
+        "electroacoustic-composition",
+        "audio-processing"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "bachelor"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "de",
+        "en"
+      ],
+      "type": "reference",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
       ],
       "access": "free",
       "license": "",
