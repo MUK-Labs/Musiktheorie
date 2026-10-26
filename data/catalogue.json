@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T11:00:28.513Z",
+    "updatedAt": "2026-10-26T11:19:21.115Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2881,6 +2881,55 @@
       ],
       "status": "published",
       "parentId": ""
+    },
+    {
+      "id": "r-db34011f-53b0-4913-af6b-02a91ad8d157",
+      "title": "Temperaments · Historical atlas",
+      "url": "https://muk-labs.github.io/temperaments-chart/?year=1722&window=25&event=bach1722",
+      "description": {
+        "de": "Interaktiver historischer Atlas von Adrián Artacho als Ergänzung zum Stimmungslabor „Temperaments“. Karte und Zeitleiste erschließen ausgewählte Belege zu Stimmungen, Personen und musikalischen Kontexten zwischen 1500 und 1850. Filter, Quellenkommentare und direkte Links zu Hörmodellen verbinden historische Orientierung mit klanglichem Vergleich. Die Darstellung unterscheidet Quellenbefunde, Rekonstruktionen und offene Fragen; sie zeigt keine flächendeckende Verbreitung von Stimmungen.",
+        "en": "An interactive historical atlas by Adrián Artacho, accompanying the Temperaments tuning laboratory. A map and timeline explore selected evidence on tunings, people and musical contexts between 1500 and 1850. Filters, annotated sources and direct links to listening models connect historical orientation with aural comparison. The atlas distinguishes source evidence, reconstructions and open questions; it does not map the prevalence of particular tunings."
+      },
+      "subjects": [
+        "tuning",
+        "historical-practice"
+      ],
+      "topics": [
+        "historical-temperaments"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundkenntnisse über Intervalle und Stimmungen sind hilfreich; englischsprachige Oberfläche. Die Hörbeispiele öffnen sich im verknüpften Temperaments-Explorer.",
+        "en": "Basic familiarity with intervals and tuning is helpful. Listening examples open in the linked Temperaments explorer."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://muk-labs.github.io/temperaments-chart/?year=1722&window=25&event=bach1722",
+        "https://github.com/MUK-Labs/temperaments-chart/blob/main/README.md"
+      ],
+      "status": "published",
+      "parentId": "r-muk-temperaments"
     }
   ],
   "collections": [
