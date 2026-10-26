@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T09:12:27.368Z",
+    "updatedAt": "2026-10-26T09:12:40.068Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -1107,7 +1107,7 @@
         "de": "Universität für Musik und darstellende Kunst Wien",
         "en": "University of Music and performing Arts Vienna"
       },
-      "shortName": "",
+      "shortName": "mdw",
       "url": "",
       "aliases": []
     }
