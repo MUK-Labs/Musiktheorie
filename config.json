@@ -1,8 +1,11 @@
 {
   "defaultUi": "de",
   "formUrl": "",
-  "reportFormUrl": "",
-  "reportFormFields": { "resourceId": "", "resourceTitle": "" },
+  "reportFormUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd9bhHdaR15t962TigtplR3MhYWAgD3IKo6aBG6vw8zRE8Jyw/viewform",
+  "reportFormFields": {
+    "resourceId": "entry.1537342738",
+    "resourceTitle": "entry.355182985"
+  },
   "githubUrl": "https://github.com/MUK-Labs/Musiktheorie",
   "siteUrl": "https://muk-labs.github.io/Musiktheorie/"
 }
