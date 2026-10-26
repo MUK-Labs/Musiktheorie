@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T09:25:59.464Z",
+    "updatedAt": "2026-10-26T11:00:28.513Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -1138,6 +1138,16 @@
       "aliases": [
         "Salzburg"
       ]
+    },
+    {
+      "id": "inst-1d447598-2040-40f8-9364-3644ce63683b",
+      "name": {
+        "de": "Washington University in St. Louis",
+        "en": "Washington University in St. Louis"
+      },
+      "shortName": "",
+      "url": "https://hdw.washu.edu/",
+      "aliases": []
     }
   ],
   "maintainers": [
@@ -2506,6 +2516,369 @@
       },
       "reviewedAt": "2026-10-24",
       "sourceUrls": [],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-8f844206-415b-4996-a163-88b143f2c938",
+      "title": "First Species Counterpoint Solver",
+      "url": "https://www.columbia.edu/~kss2153/counterpoint/",
+      "description": {
+        "de": "Kleines Browserwerkzeug zur Erzeugung von Gegenstimmen der ersten Gattung. Ausgangspunkt ist ein selbst eingegebener Cantus firmus in C-Dur, der auf dem mittleren C beginnt. Die Oberfläche bietet Lösungsvorschläge, weitere Varianten und Wiedergabe. Geeignet zum Vergleichen möglicher Stimmführungen neben eigenen Satzübungen.",
+        "en": "A small browser tool for generating first-species counterpoint. Enter a cantus firmus in C major beginning on middle C, then explore suggested solutions. The interface provides alternative solutions and playback controls. It can support comparison of possible voice-leading choices alongside independently written exercises."
+      },
+      "subjects": [
+        "counterpoint"
+      ],
+      "topics": [
+        "voice-leading"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen, Intervalle und Grundregeln der ersten Kontrapunktgattung.",
+        "en": "Reading notation, intervals and the basic rules of first-species counterpoint."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://www.columbia.edu/~kss2153/counterpoint/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-5662e676-f117-4cb0-abab-4e308b496317",
+      "title": "Artinfuser Counterpoint",
+      "url": "https://artinfuser.com/counterpoint/",
+      "description": {
+        "de": "Werkzeug und Dokumentation zur Prüfung von Gattungskontrapunkt. Vorgesehen sind MusicXML-Uploads und eine erläuterte Fehleranalyse für die erste bis fünfte Gattung mit bis zu neun Stimmen. Die Dokumentation bleibt zugänglich; die Website meldet jedoch Serverwartung und verweist auf einen neueren Online-Editor. Registrierung ist für Uploads vorgesehen.",
+        "en": "Tool and documentation for checking species-counterpoint exercises. Its documented workflow accepts MusicXML uploads and explains rule violations across the first five species, with up to nine voices. The documentation remains accessible, but the site reports server maintenance and links to a newer online editor. Uploading exercises requires registration."
+      },
+      "subjects": [
+        "counterpoint"
+      ],
+      "topics": [
+        "voice-leading"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [
+        "Alexey Arkhipenko"
+      ],
+      "access": "registration",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen, Intervalle und Grundlagen des Gattungskontrapunkts; für Uploads MusicXML-Dateien.",
+        "en": "Reading notation, intervals and basic species counterpoint; MusicXML files for uploads."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://artinfuser.com/counterpoint/",
+        "https://artinfuser.com/counterpoint/docs.php?d=cp_start",
+        "https://artinfuser.com/counterpoint/docs.php?d=cp_analyse",
+        "https://arkhipenko.artinfuser.com/projects.php?group=Music+education"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-473d558d-4e82-47e1-99a9-706d5def0b56",
+      "title": "ToneSavvy – First Species Counterpoint",
+      "url": "https://tonesavvy.com/music-practice-exercise/241/first-species-counterpoint-game/",
+      "description": {
+        "de": "Interaktive Übung zum zweistimmigen Kontrapunkt der ersten Gattung. Zu einer vorgegebenen Melodie wird im Notensystem eine Gegenstimme ergänzt. Wählbare Standard- und strengere Regeln, Klangwiedergabe und unmittelbare Rückmeldungen unterstützen das Üben. Die Regeln sind auf derselben Seite erklärt; selbstständiges Üben ist kostenlos und ohne Anmeldung möglich.",
+        "en": "Interactive practice in two-part first-species counterpoint. Learners add a counter-melody to a given line directly on the staff, choosing between standard and stricter rule sets. Playback and immediate feedback support revision, with the rules explained on the same page. Individual practice is free and requires no account."
+      },
+      "subjects": [
+        "counterpoint"
+      ],
+      "topics": [
+        "voice-leading",
+        "intervals"
+      ],
+      "stages": [
+        "music-school",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "introductory",
+      "languages": [
+        "en"
+      ],
+      "type": "exercise",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen und sichere Bestimmung konsonanter und dissonanter Intervalle.",
+        "en": "Reading notation and identifying consonant and dissonant intervals."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://tonesavvy.com/music-practice-exercise/241/first-species-counterpoint-game/",
+        "https://tonesavvy.com/about/",
+        "https://tonesavvy.com/signup/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-4cabc476-6f7c-4da4-9c79-136ac22dd7c4",
+      "title": "Contrapunctus",
+      "url": "https://www.contrapunctus.app/landing",
+      "description": {
+        "de": "Browserbasierte Plattform für Harmonielehre, Stimmführung und Kontrapunktübungen. Der Noteneditor zeigt harmonische Analysen und mögliche Stimmführungsfehler an. Ergänzt wird er durch Übungen zu den fünf Kontrapunktgattungen, eine interaktive Fux-Ausgabe, Wiedergabe und Werkzeuge für Unterrichtsklassen. Die Nutzung wird derzeit mit kostenlosem Konto während der Beta-Phase angeboten.",
+        "en": "Browser-based platform for harmony, part writing and counterpoint practice. Its notation editor provides harmonic analysis and flags potential voice-leading problems. Species-counterpoint exercises, an interactive edition of Fux, playback and classroom tools support individual practice and teaching. The service currently advertises free accounts during its beta period."
+      },
+      "subjects": [
+        "counterpoint",
+        "harmony",
+        "composition"
+      ],
+      "topics": [
+        "voice-leading",
+        "harmonization",
+        "figured-bass"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "registration",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundkenntnisse in Notation, Intervallen und tonaler Harmonielehre.",
+        "en": "Basic notation, intervals and tonal harmony."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://www.contrapunctus.app/landing",
+        "https://www.contrapunctus.app/help",
+        "https://www.contrapunctus.app/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-3c8ccdd9-9efe-48a4-86cf-86b4ab891f30",
+      "title": "Molto Maestro",
+      "url": "https://moltomaestro.com/",
+      "description": {
+        "de": "Kostenloses Übungsportal mit Aufgaben zu Kontrapunkt, Dominantseptakkord-Auflösung und Tonartbestimmung. Beim Schreiben einer Gegenstimme zu einem Cantus firmus werden Regelhinweise in Echtzeit angezeigt; weitere Aufgaben trainieren harmonische Zuordnung und schnelles Lesen. Übungen sind als Gast nutzbar, während ein Konto das Speichern von Ergebnissen und die Teilnahme an der Rangliste ermöglicht.",
+        "en": "A free collection of browser exercises covering counterpoint, dominant-seventh resolution and key identification. Learners write a counterline against a cantus firmus with real-time feedback, or practise harmony and reading under time constraints. Guest practice is available; signing in adds saved scores and participation in the leaderboard."
+      },
+      "subjects": [
+        "counterpoint",
+        "harmony",
+        "fundamentals"
+      ],
+      "topics": [
+        "voice-leading",
+        "chords",
+        "scales-modes"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen sowie Grundkenntnisse zu Intervallen, Tonarten und Akkorden.",
+        "en": "Reading notation and basic knowledge of intervals, keys and chords."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://moltomaestro.com/",
+        "https://www.moltomaestro.com/about",
+        "https://moltomaestro.com/practice/counterpoint",
+        "https://moltomaestro.com/practice/key-finder"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-b47f63e1-c73d-4f91-8041-49c7255c8267",
+      "title": "Westergaardian Species Counterpoint Online (WesterParse)",
+      "url": "https://westerparse.research-stage.artsci.wustl.edu/",
+      "description": {
+        "de": "Browserwerkzeug für den Gattungskontrapunkt nach Peter Westergaard. Lernende erstellen ein- bis dreistimmige Übungen oder importieren MusicXML und prüfen melodische Struktur sowie Stimmführung. Die überarbeitete Oberfläche ermöglicht außerdem Wiedergabe, strukturelle Annotationen und Datei-Export. Das Projekt verbindet praktische Satzübungen mit einem expliziten Modell tonaler Syntax.",
+        "en": "An interactive browser tool for species counterpoint based on Peter Westergaard’s approach. Students create one- to three-part exercises or import MusicXML, then examine melodic syntax and voice-leading feedback. The interface supports playback, structural annotations and file export. It connects practical counterpoint writing with an explicit model of tonal structure."
+      },
+      "subjects": [
+        "counterpoint",
+        "analysis"
+      ],
+      "topics": [
+        "voice-leading",
+        "analysis-methods"
+      ],
+      "stages": [
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "inst-1d447598-2040-40f8-9364-3644ce63683b"
+      ],
+      "maintainerIds": [],
+      "authors": [
+        "Robert Snarrenberg"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundlagen des Gattungskontrapunkts; Einführung in Westergaards Ansatz empfohlen.",
+        "en": "Basic species counterpoint; an introduction to Westergaard’s approach is recommended."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://hdw.washu.edu/browse/westergaardian-species-counterpoint-online",
+        "https://westerparse.research-stage.artsci.wustl.edu/",
+        "https://westerparse.research-stage.artsci.wustl.edu/about.html",
+        "https://westerparse.readthedocs.io/en/latest/website.html",
+        "https://music.washu.edu/news/westerparsespecies-counterpoint-online-developed-robert-snarrenberg-associate-prof-theory"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-38710117-3b8b-4370-b550-07a22c5ee6b6",
+      "title": "Counterpointer 3",
+      "url": "https://www.ars-nova.com/cp3features.html",
+      "description": {
+        "de": "Kostenpflichtiges Übungsprogramm für macOS und Windows zum Schreiben, Anhören und Überprüfen von Kontrapunkt. Es behandelt fünf Gattungen, freien mehrstimmigen Satz sowie Aufgaben zu Generalbass und Akkordbezifferung. Anpassbare Stilregeln liefern Rückmeldungen; ein integrierter Studienleitfaden unterstützt das Selbststudium. MIDI- und MusicXML-Export sind möglich. Ergänzend bietet der Hersteller einen frei zugänglichen Online-Lehrtext.",
+        "en": "Paid desktop software for macOS and Windows for composing, hearing and checking counterpoint. Exercises cover the five species, free polyphonic writing, figured bass and Roman-numeral harmony. Adjustable style rules provide feedback, while an integrated study guide supports independent practice. Work can be exported as MIDI or MusicXML; a separate online study guide is freely readable."
+      },
+      "subjects": [
+        "counterpoint",
+        "harmony"
+      ],
+      "topics": [
+        "voice-leading",
+        "renaissance-counterpoint",
+        "figured-bass",
+        "harmonization"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [],
+      "access": "paid",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen und Intervallkenntnisse; Installation auf einem unterstützten macOS- oder Windows-System.",
+        "en": "Reading notation and intervals; installation on a supported macOS or Windows system."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://www.ars-nova.com/cp3features.html",
+        "https://www.ars-nova.com/academic.html",
+        "https://www.ars-nova.com/CounterpointStudy/toc.html"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-1035fdd0-340f-4a18-8209-9cb98babfb3e",
+      "title": "Counterpoint On The Piano – Noah Rectenwald",
+      "url": "https://www.youtube.com/playlist?list=PLG6Lu1h_aF9DmHi_A1QJZMHewm-wiTRQL",
+      "description": {
+        "de": "Englischsprachige Videoreihe von Noah Rectenwald zum praktischen Kontrapunkt am Klavier. Die neun Folgen führen von grundlegenden Tonhöhen und zweistimmiger Bewegung zu Mustern, fallenden Quinten, verschiedenen Vorhaltsbildungen sowie einfachen Kanons und Rounds. Die geordnete Playlist eignet sich für begleitendes Nachspielen und schrittweise Arbeit am Instrument.",
+        "en": "An English-language video series by Noah Rectenwald on practical counterpoint at the piano. Nine lessons progress from basic pitches and two-voice movement to patterns, falling fifths, several suspension types, easy canons and rounds. The ordered playlist supports playing along and developing contrapuntal skills step by step at the keyboard."
+      },
+      "subjects": [
+        "counterpoint",
+        "composition"
+      ],
+      "topics": [
+        "voice-leading",
+        "canon-imitation"
+      ],
+      "stages": [
+        "music-school",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "video",
+      "institutionIds": [],
+      "maintainerIds": [],
+      "authors": [
+        "Noah Rectenwald"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundkenntnisse am Klavier oder Keyboard; Intervallkenntnisse sind hilfreich.",
+        "en": "Basic piano or keyboard skills; familiarity with intervals is helpful."
+      },
+      "reviewedAt": "2026-10-26",
+      "sourceUrls": [
+        "https://www.youtube.com/playlist?list=PLG6Lu1h_aF9DmHi_A1QJZMHewm-wiTRQL",
+        "https://www.youtube.com/@noahrectenwald"
+      ],
       "status": "published",
       "parentId": ""
     }
