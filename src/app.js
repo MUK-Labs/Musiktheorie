@@ -1,5 +1,6 @@
 import { readState, writeState, filterResources, getLabel, getText, resolveBaseResources } from './catalogue.js';
 import { translate } from './i18n.js';
+import { buildReportUrl } from './reporting.js';
 
 const $ = (id) => document.getElementById(id);
 const STORAGE = 'musiktheorie:v1:';
@@ -19,6 +20,8 @@ const iconPaths = {
   grid: ['M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z'],
   layers: ['m12 3 10 5-10 5L2 8zM2 12l10 5 10-5M2 16l10 5 10-5'],
   bookmark: ['M6 3h12v18l-6-4-6 4z'],
+  flag: ['M5 21V3m0 1c5-4 9 4 14 0v10c-5 4-9-4-14 0'],
+  copy: ['M9 8h11v13H9zM15 8V3H4v13h5'],
   search: ['M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM16.4 16.4 22 22'],
   sliders: ['M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-3M20 14V3M1 10h6M9 12h6M17 18h6'],
   link: ['m10 13 4-4M8 16l-2 2a4.2 4.2 0 0 1-6-6l5-5a4.2 4.2 0 0 1 6 0M16 8l2-2a4.2 4.2 0 0 1 6 6l-5 5a4.2 4.2 0 0 1-6 0'],
@@ -36,7 +39,7 @@ const iconPaths = {
   alert: ['M12 3 1 21h22zM12 9v5M12 17h.01'], refresh: ['M20 7a9 9 0 1 0 1 9M20 2v6h-6'],
 };
 let catalogue;
-let config = { defaultUi: 'de', formUrl: '', githubUrl: 'https://github.com/MUK-Labs/Musiktheorie' };
+let config = { defaultUi: 'de', formUrl: '', reportFormUrl: '', reportFormFields: {}, githubUrl: 'https://github.com/MUK-Labs/Musiktheorie' };
 let state = readState(location.search);
 let selectedIds = [];
 let selectionTitle = '';
@@ -156,11 +159,11 @@ function announce(message) {
   toastTimer = setTimeout(() => { $('toast').hidden = true; }, 3400);
 }
 
-async function copyText(value) {
+async function copyText(value, labels = {}) {
   try {
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(value);
-      announce(t('linkCopied'));
+      announce(labels.success || t('linkCopied'));
       return;
     }
   } catch { /* Offer a local fallback when clipboard permission is unavailable. */ }
@@ -172,8 +175,8 @@ async function copyText(value) {
   let copied = false;
   try { copied = document.execCommand('copy'); } catch { /* Show the link below. */ }
   field.remove();
-  if (copied) { announce(t('linkCopied')); return; }
-  showMessage(t('copyManually'), [t('copyHint')], value);
+  if (copied) { announce(labels.success || t('linkCopied')); return; }
+  showMessage(labels.title || t('copyManually'), [labels.hint || t('copyHint')], value);
 }
 
 function showMessage(title, paragraphs, copyValue = '') {
@@ -184,7 +187,7 @@ function showMessage(title, paragraphs, copyValue = '') {
     const input = node('input', 'text-input');
     input.readOnly = true;
     input.value = copyValue;
-    input.setAttribute('aria-label', t('copyManually'));
+    input.setAttribute('aria-label', title);
     input.addEventListener('focus', () => input.select());
     content.append(input);
   }
@@ -199,6 +202,34 @@ function contribute() {
   const url = safeUrl(config.formUrl);
   if (url) window.open(url, '_blank', 'noopener,noreferrer');
   else showMessage(t('formNotReadyTitle'), [t('formNotReady'), t('formNotReadyExtra')]);
+}
+
+function helpUrl(page = '') {
+  return `./help/${page}?${new URLSearchParams({ ui: state.ui })}`;
+}
+
+function contributorHelpLink() {
+  const link = node('a', 'detail-help-link', t('correctionHelp'));
+  link.href = helpUrl('contributors.html');
+  return link;
+}
+
+function reportResource(resource) {
+  const url = buildReportUrl(config, resource);
+  if (url) window.open(url, '_blank', 'noopener,noreferrer');
+  else {
+    showMessage(t('reportNotReadyTitle'), [t('reportNotReady'), t('reportNotSent')]);
+    const help = node('p'); help.append(contributorHelpLink());
+    $('message-content').insertBefore(help, $('message-content').querySelector('.dialog-actions'));
+  }
+}
+
+function reportButton(resource, compact = false) {
+  const element = button(compact ? '' : t('reportIssue'), compact ? 'icon-button report-button' : 'button button-text report-button', () => reportResource(resource), 'flag');
+  const label = t('reportResource', { title: resource.title });
+  element.setAttribute('aria-label', label);
+  element.title = label;
+  return element;
 }
 
 function lookup(facet, id) {
@@ -223,7 +254,7 @@ function renderStatic() {
   document.title = `${state.collection ? getText(catalogue.collections.find((entry) => entry.id === state.collection)?.title, state.ui) || t('collections') : state.items.length ? state.title || t('selection') : t('resources')} · Musiktheorie`;
   const texts = {
     'brand-subtitle':'brandSubtitle','contribute-label':'contribute','catalogue-label':'catalogue','collections-label':'collections',
-    'saved-label':'saved','search-label':'search','filter-button-label':'filters','share-view-label':'shareView','sort-label':'sort',
+    'saved-label':'saved','help-label':'help','search-label':'search','filter-button-label':'filters','share-view-label':'shareView','sort-label':'sort',
     'review-selection':'reviewSelection','share-selection-label':'shareSelection','mobile-filter-heading':'filters','apply-filters':'showResults',
     'collections-eyebrow':'collectionsEyebrow','collections-dialog-title':'collections','collections-intro':'collectionsIntro',
     'selection-eyebrow':'selectionEyebrow','selection-dialog-title':'selection','selection-intro':'selectionIntro',
@@ -234,6 +265,9 @@ function renderStatic() {
   document.querySelector('.skip-link').textContent = t('skip');
   document.querySelector('.main-nav').setAttribute('aria-label', t('mainNavigation'));
   $('home-link').setAttribute('aria-label', t('home'));
+  $('help-link').href = helpUrl();
+  $('saved-button').setAttribute('aria-label', t('saved'));
+  $('saved-button').title = t('saved');
   $('contribute-button').setAttribute('aria-label', t('contribute'));
   $('share-view').setAttribute('aria-label', t('shareView'));
   $('active-filters').setAttribute('aria-label', t('activeFilters'));
@@ -392,7 +426,7 @@ function renderCard(resource) {
   for(const id of (resource.subjects || []).slice(0,2)) tags.append(node('span','tag subject-tag',vocabularyLabel('subjects',id)));
   if(resource.stages?.length) tags.append(node('span','tag',vocabularyLabel('stages',resource.stages[0])));
   const actions=node('div','resource-actions');
-  actions.append(button(t('details'),'details-button',()=>navigate({...state,resource:resource.id}),'arrowRight'),selectionButton(resource));
+  actions.append(button(t('details'),'details-button',()=>navigate({...state,resource:resource.id}),'arrowRight'),reportButton(resource,true),selectionButton(resource));
   bottom.append(tags,actions); main.append(bottom);
   const note=collectionNote(resource.id); if(note) main.append(node('p','collection-item-note',note));
   card.append(main); return card;
@@ -588,6 +622,11 @@ function renderResourceDialog(force=false) {
     if(resource.reviewedAt)detailRow(dl,t('reviewed'),resource.reviewedAt);
     if(resource.parentId){const parent=catalogue.resources.find((item)=>item.id===resource.parentId);if(parent)detailRow(dl,t('parentResource'),externalLink(parent.url,parent.title));}
     if(resource.sourceUrls?.length){const sources=node('div','detail-source-list');for(const url of resource.sourceUrls)sources.append(externalLink(url,hostname(url)));detailRow(dl,t('sources'),sources);}
+    const resourceId=node('div','resource-id-value');
+    resourceId.append(node('code','',resource.id),iconButton(t('copyResourceId'),'copy',()=>copyText(resource.id,{
+      success:t('resourceIdCopied'),title:t('copyResourceId'),hint:t('copyResourceIdHint'),
+    })));
+    detailRow(dl,t('resourceId'),resourceId);
     detail.append(dl);
     const note=collectionNote(resource.id);if(note)detail.append(node('p','collection-item-note',note));
     const actions=node('div','resource-primary-actions');
@@ -597,7 +636,9 @@ function renderResourceDialog(force=false) {
     select.setAttribute('aria-pressed',String(selectedIds.includes(resource.id)));
     actions.append(select);
     actions.append(button(t('shareResource'),'button button-text',()=>copyText(sharingUrl({...emptyState(),resource:resource.id})),'link'));
-    detail.append(actions,node('p','resource-detail-footnote',t('editorialNote')));
+    const support=node('div','resource-support-actions');
+    support.append(reportButton(resource),contributorHelpLink());
+    detail.append(actions,support,node('p','resource-detail-footnote',t('editorialNote')));
   }else detail.append(node('p','resource-detail-description',t('resourceUnavailableText')));
   if(!dialog.open)dialog.showModal();
 }

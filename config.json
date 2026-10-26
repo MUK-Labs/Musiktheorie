@@ -1,6 +1,8 @@
 {
   "defaultUi": "de",
   "formUrl": "",
+  "reportFormUrl": "",
+  "reportFormFields": { "resourceId": "", "resourceTitle": "" },
   "githubUrl": "https://github.com/MUK-Labs/Musiktheorie",
   "siteUrl": "https://muk-labs.github.io/Musiktheorie/"
 }

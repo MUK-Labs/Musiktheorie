@@ -1,0 +1,24 @@
+.help-page{font-size:15px}
+.help-header{max-width:1000px;margin:auto;padding:26px 32px 23px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line)}
+.help-brand{font:500 29px/1.2 var(--serif);letter-spacing:-.6px}.help-brand span{color:var(--ochre)}
+.help-language{display:flex;gap:4px;padding:3px;background:#f0ede7;border-radius:7px}
+.help-language a{font-size:12px;padding:5px 10px;border-radius:4px;text-decoration:none}
+.help-language a[aria-current=true]{background:var(--surface);color:var(--accent);font-weight:600}
+.help-shell{max-width:1000px;margin:auto;padding:24px 32px 0}
+.back-link{display:inline-block;font-size:12px;color:var(--muted);margin-bottom:18px}
+.help-nav{display:flex;flex-wrap:wrap;gap:6px 18px;padding-bottom:21px;border-bottom:1px solid var(--line);font-size:13px}
+.help-nav a{padding:5px 0;color:var(--muted)}.help-nav a[aria-current=page]{color:var(--accent);font-weight:650;text-decoration:underline;text-underline-offset:6px}
+.help-shell main{max-width:760px;margin:32px auto 48px}.guide-heading{margin-bottom:30px}.guide-heading h1{font:500 36px/1.18 var(--serif);letter-spacing:-.6px}.guide-intro{margin-top:12px;color:var(--muted);max-width:650px}
+.guide-section{margin:0 0 34px}.guide-section h2{font:500 24px/1.3 var(--serif);margin-bottom:19px}
+.steps{list-style:none;counter-reset:step;padding:0;margin:0;display:grid;gap:20px}.steps li{counter-increment:step;position:relative;padding-left:44px;min-height:32px}
+.steps li:before{content:counter(step);position:absolute;left:0;top:0;background:var(--accent-soft);border:1px solid #ddd3e0;color:var(--accent);font-size:13px;font-weight:600;width:29px;height:29px;border-radius:50%;display:grid;place-items:center}
+.steps h3{font-size:15px;font-weight:650;margin-bottom:4px}.steps p{font-size:14px;color:var(--muted);line-height:1.65}.steps strong{color:var(--ink);font-weight:600}
+.help-note{background:var(--surface);border-left:3px solid #b4a5b8;padding:15px 18px;margin:22px 0;font-size:13px;line-height:1.7;color:var(--muted)}.help-note strong{color:var(--accent)}
+.help-detail{border:1px solid var(--line);padding:14px 17px;border-radius:8px;margin:22px 0;font-size:13px}.help-detail summary{cursor:pointer;font-weight:600}.help-detail p{margin-top:11px;color:var(--muted)}
+.plain-list{padding-left:20px;margin:0;display:grid;gap:13px;font-size:14px;color:var(--muted)}.plain-list strong{color:var(--ink);font-weight:600}
+.role-cards{display:grid;gap:13px}.role-card{display:flex;align-items:center;gap:18px;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}.role-card:hover{border-color:#b7a7bc;text-decoration:none;background:#fffdfd}.role-card>span:last-child{margin-left:auto;color:var(--muted)}
+.role-number{color:var(--ochre);font-size:12px;align-self:flex-start;padding-top:6px}.role-card h2{font:500 23px/1.2 var(--serif);margin-bottom:7px}.role-card p{font-size:13px;line-height:1.6;color:var(--muted)}
+.help-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}.form-notice{font-size:13px;color:var(--muted);margin-top:12px}.technical-link{font-size:13px;margin:22px 0;color:var(--accent)}
+.help-footer{border-top:1px solid var(--line);padding:21px 0 28px;display:flex;justify-content:space-between;gap:20px;font-size:12px;color:var(--muted)}code{font-size:.91em;overflow-wrap:anywhere}
+@media(max-width:600px){.help-header{padding:22px 20px}.help-shell{padding:20px 20px 0}.help-brand{font-size:26px}.help-shell main{margin-top:25px}.guide-heading h1{font-size:31px}.guide-intro{font-size:14px}.help-nav{gap:6px 15px;font-size:12px}.role-card{padding:18px 15px;gap:12px}.role-card h2{font-size:21px}.steps li{padding-left:39px}.help-footer{font-size:11px}.guide-section h2{font-size:23px}}
+@media print{.help-header,.help-nav,.back-link,.help-footer,.help-actions,.help-language,.technical-link,.form-notice{display:none!important}.help-shell{max-width:none;padding:0}.help-shell main{max-width:none;margin:0}.guide-section{break-inside:avoid}.help-page{background:white;color:#000}.help-detail{display:none}}

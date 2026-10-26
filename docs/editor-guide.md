@@ -2,6 +2,8 @@
 
 Der Alltag findet im Google-Formular und in der Redaktionsdatei statt. GitHub ist für die einmalige technische Verbindung erforderlich, nicht für die laufende Pflege.
 
+Kurze Anleitungen auf der Website: [öffentliche Beiträge](https://muk-labs.github.io/Musiktheorie/help/contributors.html?ui=de), [Netzwerkbeiträge](https://muk-labs.github.io/Musiktheorie/help/network.html?ui=de) und [Redaktion](https://muk-labs.github.io/Musiktheorie/help/editors.html?ui=de). Jede Seite lässt sich auf Englisch umstellen.
+
 ## Ressourcen hinzufügen
 
 **Öffentliche Beiträge:** Das Formular über den Katalog öffnen. Der Vorschlag landet im privaten Tab **Eingang** mit der Entscheidung **Offen**. Eine verantwortliche Person prüft Beschreibung, Link, Zuordnung und etwaige Dubletten.
@@ -12,7 +14,24 @@ Die Einladung enthält einen persönlichen Code. Bitte nicht öffentlich teilen.
 
 **Beschreibungen und Links:** Eine Beschreibung auf Deutsch **oder** Englisch reicht; die zweite Sprache ist optional. Ein Link kann als vollständige HTTP(S)-Adresse oder als Domain wie `example.org` eingetragen werden. Bei einer Domain ergänzt das Script `https://`.
 
-**Eine Institution fehlt in der Auswahl:** Im Feld **Institution nicht aufgeführt? Name** eine zusätzliche Institution nennen und optional deren Website angeben. Bekannte Institutionen können weiterhin zusätzlich ausgewählt werden. Bei öffentlichen Beiträgen bleiben diese Angaben bis zur Freigabe im Tab **Eingang**; bei gültiger persönlicher Einladung werden sie zusammen mit der Ressource automatisch übernommen. Neue Institutionen stehen anschließend auch in der Formularauswahl zur Verfügung.
+**Institution:** Das Formular bietet ein Dropdown für eine bestehende Institution. Fehlt die passende Institution, die Zuordnung offenlassen und **Institution nicht aufgeführt? Name** sowie optional ihre Website ausfüllen. Bei öffentlichen Beiträgen bleiben diese Angaben bis zur Freigabe im Tab **Eingang**; bei gültiger persönlicher Einladung werden sie zusammen mit der Ressource automatisch übernommen. Neue Institutionen stehen anschließend auch in der Formularauswahl zur Verfügung. Bereits vorhandene Mehrfachzuordnungen bleiben in der Datenbank erhalten.
+
+## E-Mail-Benachrichtigungen
+
+Im Tab **Einstellungen** die Empfangsadresse bei **Redaktions-E-Mail** eintragen. Die Adresse kann bei einer Übergabe direkt geändert werden; leer bedeutet kein Versand. Neue offene Vorschläge, Eingaben mit technischen Fehlern und neue Problemmeldungen lösen eine Nachricht mit Titel, Eingangskennung, zuständigem Tab und einem Link zur privaten Redaktionsdatei aus. Gültige Netzwerkbeiträge werden direkt übernommen und brauchen keine Freigabemail.
+
+Der Versandstatus steht in den Benachrichtigungsspalten des jeweiligen Eingangs. Bei einem Fehler bleiben Vorschlag oder Meldung vollständig erhalten. **Musiktheorie → Ausstehende Benachrichtigungen senden** wiederholt ausstehende Versuche. Bei **Unklar** zuerst prüfen, ob die Nachricht schon angekommen ist; nur bei einem gewünschten erneuten Versand auf **Ausstehend** setzen. Die [Einrichtungsanleitung](google-setup.md) erläutert Berechtigungen und eine technische Übergabe.
+
+## Probleme und kurze Korrekturhinweise
+
+Die Flagge am Katalogeintrag führt zu einem kurzen Formular mit vorausgefüllter Ressourcen-ID und Titel. Antwortende wählen den Grund und beschreiben das Problem. Ein Google-Konto ist nicht nötig; Kontaktangaben sind freiwillig und privat.
+
+1. Im Tab **Meldungen** die neue Zeile mit Status **Offen** prüfen.
+2. Bei laufender Bearbeitung **In Bearbeitung** wählen.
+3. Die passende Ressourcen-ID in **Ressourcen** suchen und den Datensatz dort korrigieren. Ein Bericht allein verändert den Katalog nicht.
+4. Nach Abschluss die Meldung als **Erledigt**, andernfalls als **Abgelehnt** markieren.
+
+Ein defekter Link kann ersetzt werden. Ungeeignete oder dauerhaft entfernte Ressourcen lassen sich über **Archiviert** aus dem öffentlichen Katalog nehmen; Verweise aus veröffentlichten Sammlungen müssen dabei ebenfalls angepasst werden. **Letzte Meldungen nachholen** verarbeitet fehlende Formulareingänge erneut, ohne vorhandene Meldungen zu duplizieren.
 
 ## Einen öffentlichen Vorschlag freigeben
 
@@ -36,6 +55,8 @@ Im Tab **Ressourcen** stehen die veröffentlichten Datensätze. Die **ID** bleib
 | **Archiviert** | Wird nicht mehr öffentlich gelistet; die interne Zeile bleibt erhalten. |
 
 Änderungen an freigegebenen Daten versuchen die Aktualisierung automatisch. Bei umfangreichen Eingaben zunächst einen Entwurf verwenden oder vollständige Zellen gemeinsam einfügen. Der letzte gültige Katalog bleibt online, wenn eine unvollständige Änderung einen Fehler auslöst.
+
+Für normale Zellenänderungen ist kein zusätzlicher Veröffentlichungsklick nötig. Nach externen Importen oder strukturellen Tabellenänderungen **Musiktheorie → Jetzt veröffentlichen** verwenden. Neue Kategorien und geänderte Institutionsnamen erscheinen auf der Website nach dem Export; das Formular übernimmt geänderte Auswahlwerte über **Formular-Auswahl aktualisieren**.
 
 Eine öffentliche Korrektur wird als neuer Vorschlag mit der vorhandenen **Ressourcen-ID** eingereicht. Das Formular verlangt dabei den vollständigen gewünschten Datensatz. Der bisherige Eintrag wird erst nach Freigabe ersetzt. Nachträgliche Bearbeitung einer alten Formularantwort bleibt deshalb ausgeschaltet. Vertrauenswürdige Korrekturen mit aktivem Einladungscode werden nach den formalen Prüfungen automatisch übernommen.
 

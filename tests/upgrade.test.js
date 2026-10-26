@@ -52,6 +52,34 @@ test('upgrading the original inbox only appends headers and preserves submitted 
   assert.equal(sheet.writes.length, 1, 'running the upgrade again does not rewrite headers');
 });
 
+test('upgrading the current 35-column inbox appends notification headers without replacing editorial rows', () => {
+  const scope = context();
+  const current = originalInboxHeaders.concat([
+    'Neue Institution – Name', 'Neue Institution – Website', 'Neue Institution – ID (intern)',
+  ]);
+  assert.equal(current.length, 35);
+  const expected = json(scope.MT_TABLES.inbox.columns.map(column => column[1]));
+  assert.equal(expected.length, 40);
+  const submissions = Array.from({ length: 3 }, (_, row) => current.map((_, column) => `private-${row}-${column}`));
+  submissions[0][2] = 'Offen';
+  submissions[1][2] = 'Übernommen';
+  submissions[2][2] = 'Fehler';
+  submissions[0][32] = 'Bereits eingetragene Institution';
+  submissions[1][33] = 'https://example.org/custom-profile';
+  submissions[2][34] = 'inst-reserved-existing';
+  const sheet = sheetWith([current, ...submissions]);
+  scope.mtEnsureSheet_({ getSheetByName: () => sheet }, 'inbox');
+  assert.deepEqual(sheet.cells[0], expected);
+  assert.deepEqual(sheet.cells.slice(1), submissions);
+  assert.equal(sheet.writes.length, 1);
+  assert.equal(sheet.writes[0].column, 36);
+  assert.deepEqual(sheet.writes[0].values, [expected.slice(35)]);
+  const after = json(sheet.cells);
+  scope.mtEnsureSheet_({ getSheetByName: () => sheet }, 'inbox');
+  assert.deepEqual(sheet.cells, after);
+  assert.equal(sheet.writes.length, 1);
+});
+
 test('inbox upgrade refuses renamed headers or occupied extension columns without overwriting data', () => {
   const scope = context();
   const original = [...originalInboxHeaders];

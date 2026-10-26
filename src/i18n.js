@@ -1,7 +1,11 @@
 export const messages = {
   de: {
     brandSubtitle: 'Ressourcen zum Lernen & Lehren', home: 'Musiktheorie — alle Ressourcen', skip: 'Zum Inhalt', mainNavigation: 'Hauptnavigation',
-    contribute: 'Ressource vorschlagen', catalogue: 'Katalog', collections: 'Sammlungen', saved: 'Meine Listen',
+    contribute: 'Ressource vorschlagen', catalogue: 'Katalog', collections: 'Sammlungen', saved: 'Meine Listen', help: 'Hilfe',
+    reportIssue: 'Problem melden', reportResource: 'Problem oder Korrektur melden: {title}', correctionHelp: 'Hilfe zu Korrekturen',
+    reportNotReadyTitle: 'Meldeformular noch nicht verfügbar', reportNotReady: 'Das kurze Formular für Probleme und Korrekturen wird noch eingerichtet. Die Hilfe erklärt, wie du einen Eintrag korrigieren kannst.',
+    reportNotSent: 'Es wurde keine Meldung gesendet.', resourceId: 'Ressourcen-ID', copyResourceId: 'Ressourcen-ID kopieren', resourceIdCopied: 'Ressourcen-ID kopiert',
+    copyResourceIdHint: 'Kopiere diese ID in das Beitragsformular, wenn du einen bestehenden Eintrag vollständig korrigieren möchtest.',
     discover: 'ENTDECKEN & VERBINDEN', resources: 'Ressourcen', description: 'Materialien, Übungen und Werkzeuge für Musiktheorie.',
     search: 'Ressourcen suchen', searchPlaceholder: 'Thema, Titel oder Institution suchen …', filters: 'Filter', filterBy: 'Eingrenzen',
     shareView: 'Ansicht teilen', activeFilters: 'Aktive Filter', clearFilters: 'Filter zurücksetzen', reset: 'Zurücksetzen',
@@ -45,7 +49,11 @@ export const messages = {
   },
   en: {
     brandSubtitle: 'Resources for learning & teaching', home: 'Musiktheorie — all resources', skip: 'Skip to content', mainNavigation: 'Main navigation',
-    contribute: 'Suggest a resource', catalogue: 'Catalogue', collections: 'Collections', saved: 'My lists',
+    contribute: 'Suggest a resource', catalogue: 'Catalogue', collections: 'Collections', saved: 'My lists', help: 'Help',
+    reportIssue: 'Report an issue', reportResource: 'Report a problem or correction: {title}', correctionHelp: 'Help with corrections',
+    reportNotReadyTitle: 'Report form not yet available', reportNotReady: 'The short form for problems and corrections is being set up. The help pages explain how to correct an entry.',
+    reportNotSent: 'No report has been sent.', resourceId: 'Resource ID', copyResourceId: 'Copy resource ID', resourceIdCopied: 'Resource ID copied',
+    copyResourceIdHint: 'Copy this ID into the contribution form when you want to submit a complete correction to an existing entry.',
     discover: 'DISCOVER & CONNECT', resources: 'Resources', description: 'Materials, exercises and tools for music theory.',
     search: 'Search resources', searchPlaceholder: 'Search a topic, title or institution …', filters: 'Filters', filterBy: 'Refine your search',
     shareView: 'Share this view', activeFilters: 'Active filters', clearFilters: 'Clear filters', reset: 'Reset',

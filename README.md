@@ -18,6 +18,9 @@ A bilingual catalogue of music-theory and aural-skills resources, with shareable
 - A small researched starter catalogue. Resource classifications are editorial suggestions; sources and attribution are documented in [catalogue-sources.md](docs/catalogue-sources.md).
 - A Google Forms / Sheets integration for public suggestions and trusted contributions **without Google sign-in**.
 - Contributions can name a missing institution; the institution follows the resource's public-review or trusted-publication route.
+- Resource flags open a short, prefilled problem-report form; reports stay in a private editorial queue.
+- Editorial email notifications use an address maintained in the private spreadsheet.
+- Three concise German/English help pages cover occasional contributors, network colleagues and editors.
 
 The public form is intentionally unconfigured until its Google owner completes setup and checks signed-out access. No submissions are silently discarded or falsely reported as sent.
 
@@ -47,7 +50,9 @@ The workflow tests and validates the data before publication. If Pages is not en
 
 Follow [Google setup](docs/google-setup.md) for the one-time administrator setup. The installable Apps Script creates the form and private editorial workbook and provides invitation management and publication controls. Google authorization and a repository-scoped publication credential belong to the project owner, not to contributors.
 
-**Updating an existing Google installation:** replace both `Code.gs` and `Core.gs` in the existing Apps Script project, save, then run **`upgradeCatalogue`**. It adds the new institution fields and electronic-music vocabulary in place, preserving data, invitation links and connection settings. See the [update instructions](docs/google-setup.md#bestehende-einrichtung-aktualisieren-neue-fächer-und-institutionen).
+**Updating an existing Google installation:** replace `Core.gs`, `Code.gs` and `appsscript.json` in the existing Apps Script project, save, then run **`upgradeCatalogue`** and authorize email sending. Set **Redaktions-E-Mail** in the new **Einstellungen** tab. Test the report form while signed out, then choose **Meldeformular ohne Anmeldung bestätigen** to activate resource flags. See the [update instructions](docs/google-setup.md#bestehende-einrichtung-aktualisieren).
+
+**Help on the website:** [occasional contributors](https://muk-labs.github.io/Musiktheorie/help/contributors.html?ui=en), [network contributors](https://muk-labs.github.io/Musiktheorie/help/network.html?ui=en), and [editors](https://muk-labs.github.io/Musiktheorie/help/editors.html?ui=en). Each page has a German/English switch.
 
 The contribution rules are:
 
@@ -67,7 +72,7 @@ Before Google setup, `data/catalogue.json` contains the researched starter catal
 
 - [Public data contract](docs/data-contract.md)
 - [Editorial and technical decisions](docs/architecture.md)
-- Public configuration: `config.json` (the general responder URL only)
+- Public configuration: `config.json` (general contribution/report URLs and public report-field keys only)
 - Public snapshot: `data/catalogue.json`
 - Google implementation: `google-apps-script/`
 
@@ -91,4 +96,3 @@ Konzept und Projektleitung: **Adrián Artacho**. Repository: **MUK-Labs**.
 Linked resources retain their authorship and licensing. Descriptions and suitability labels in this catalogue are editorial metadata, not claims of endorsement by the referenced institutions.
 
 ## [To-Do](https://trello.com/c/SJ8KL1CS/121-ressources-database)
-

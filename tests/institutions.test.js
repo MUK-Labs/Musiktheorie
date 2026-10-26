@@ -132,6 +132,7 @@ function harness(initialCatalogue = catalogue()) {
     hasLock: () => locked, releaseLock() { locked = false; },
   };
   context.LockService = { getScriptLock: () => lock };
+  context.SpreadsheetApp = { flush() {} };
   context.mtProps_ = () => propertyApi;
   context.mtNow_ = () => now;
   context.mtId_ = prefix => `${prefix}allocated-${++nextId}`;

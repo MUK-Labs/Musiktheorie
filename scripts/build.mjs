@@ -9,7 +9,7 @@ const data = await checkFiles();
 await rm(output, { recursive: true, force: true });
 await mkdir(output, { recursive: true });
 // Explicit allowlist: no intake data, admin scripts, credentials or development files.
-for (const entry of ['index.html','styles.css','favicon.svg','config.json','src','data/catalogue.json']) {
+for (const entry of ['index.html','styles.css','favicon.svg','config.json','src','help','data/catalogue.json']) {
   await cp(path.join(root, entry), path.join(output, entry), { recursive: true });
 }
 await writeFile(path.join(output, '.nojekyll'), '');

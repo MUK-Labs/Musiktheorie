@@ -33,17 +33,32 @@ Ein eigenständiges Apps-Script-Projekt kann zwar ebenfalls eine Tabelle erzeuge
 
 Die vorhandene Redaktionsdatei und bereits angelegte Tabs weiterverwenden. Dieser Fehler tritt vor dem Import der Startdaten und vor dem Anlegen des Formulars auf. Beim erneuten Ausführen werden vorhandene redaktionelle Zeilen nicht ersetzt. Die aktuelle Fassung von `Code.gs` prüft die Abhängigkeit gleich zu Beginn und nennt die nötigen Schritte direkt in der Fehlermeldung.
 
-## Bestehende Einrichtung aktualisieren: neue Fächer und Institutionen
+<a id="bestehende-einrichtung-aktualisieren-neue-fächer-und-institutionen"></a>
+
+## Bestehende Einrichtung aktualisieren
 
 Wenn Tabelle, Formular und GitHub-Verbindung bereits eingerichtet sind:
 
-1. Im **bestehenden** Apps-Script-Projekt den vollständigen Inhalt von [Code.gs](../google-apps-script/Code.gs) und [Core.gs](../google-apps-script/Core.gs) durch die aktuellen Fassungen ersetzen und speichern.
-2. Die Funktion **`upgradeCatalogue`** aus dem Funktionsmenü ausführen.
-3. Die Tabelle und das Formular neu laden. Im Formular stehen die neue Fachgruppe **Elektroakustische & elektronische Musik**, ihre Themen sowie zwei zusätzliche Felder direkt bei der Institutionsauswahl: **Institution nicht aufgeführt? Name** und **Website der neuen Institution (optional)**.
+1. Im **bestehenden** Apps-Script-Projekt [Core.gs](../google-apps-script/Core.gs), [Code.gs](../google-apps-script/Code.gs) und [appsscript.json](../google-apps-script/appsscript.json) vollständig auf die aktuellen Fassungen bringen und speichern.
+2. **`upgradeCatalogue`** aus dem Funktionsmenü ausführen. Die neu hinzugekommene Google-Berechtigung zum **Versenden von E-Mails** bestätigen. Der Versand läuft unter dem Konto, das die Trigger installiert; die Bearbeitung des Posteingangs wird nicht angefordert.
+3. Die Tabelle neu laden. Im neuen Tab **Einstellungen** bei **Redaktions-E-Mail** die gewünschte einzelne Empfangsadresse eintragen. Leer bedeutet: Versand pausiert. Diese Adresse bleibt privat und kann bei einer redaktionellen Übergabe in der Tabelle geändert werden.
+4. Im Tab **Status → Meldeformular bearbeiten** das neue Formular öffnen. Den Antwortzugriff auf **Jeder mit dem Link** stellen und **Öffentlicher Meldelink** in einem privaten Browserfenster ohne Google-Anmeldung testen. Für einen Einrichtungstest eine echte Ressourcen-ID aus den Katalogdetails verwenden; den Test im Text kennzeichnen.
+5. Nach erfolgreichem Test **Musiktheorie → Meldeformular ohne Anmeldung bestätigen** wählen. Dadurch werden der öffentliche Meldelink und die beiden öffentlichen Feldkennungen für Ressourcen-ID und Titel veröffentlicht. Die Flaggen auf der Website öffnen anschließend das passende vorausgefüllte Formular.
+6. Falls das ursprüngliche Beitragsformular noch nicht auf der Website aktiviert wurde, dessen Zugriff ebenfalls abgemeldet prüfen und **Musiktheorie → Zugang ohne Anmeldung bestätigen** wählen.
 
-Das Update ergänzt drei Spalten **am Ende** des Tabs **Eingang**, erweitert die Kategorien, aktualisiert die bestehenden Formularfragen und veröffentlicht bei vorhandener GitHub-Verbindung. Bestehende Ressourcen, redaktionell geänderte Kategoriebezeichnungen, Frage-IDs, Einladungslinks, Trigger und Script Properties einschließlich GitHub-Token bleiben erhalten. Wiederholtes Ausführen erzeugt keine doppelten Kategorien oder Fragen. Wenn die bestehenden Eingangsspalten umbenannt oder die zusätzlichen Spalten schon anderweitig belegt wurden, bricht das Update mit einem Hinweis ab, bevor es diese Daten überschreibt.
+Das Update unterstützt sowohl die ursprüngliche Eingangstabelle als auch die Fassung mit den drei Institutionsspalten. Es ergänzt Benachrichtigungsspalten **am Ende**, legt **Einstellungen** und **Meldungen** an, aktualisiert das bestehende Beitragsformular und richtet das separate Meldeformular mit seinem Trigger ein. Bestehende Ressourcen, Kategoriebezeichnungen, persönliche Einladungen und Verbindungsdaten bleiben erhalten. Wiederholtes Ausführen erzeugt keine doppelten Formulare, Kategorien oder Fragen. Abweichende beziehungsweise bereits anderweitig belegte Spalten werden nicht überschrieben.
 
-Die Website wird aus GitHub aktualisiert. Die Kopie der Scripts in Google wird durch einen GitHub-Commit **nicht** automatisch ersetzt; deshalb sind diese beiden Kopierschritte einmal erforderlich. Das Manifest benötigt für dieses Update keine Änderung.
+**Institution als Dropdown:** Die neue aktive Institutionsfrage erlaubt eine Auswahl und enthält **Keine Zuordnung / None**. Die bisherige Checkboxfrage wird für alte Antworten in einem übersprungenen Archivabschnitt aufbewahrt. Antwortende sehen im normalen Ablauf nur das neue Dropdown; die ID der Einladungsfrage bleibt erhalten. Den Archivabschnitt nicht löschen. Alte Zuordnungen mit mehreren Institutionen bleiben in der Tabelle erhalten.
+
+Die Website wird aus GitHub aktualisiert. Die Kopie der Scripts in Google wird durch einen GitHub-Commit **nicht** automatisch ersetzt; deshalb ist dieses einmalige Update nötig. Für diese Fassung muss auch das Manifest aktualisiert werden, da die E-Mail-Berechtigung neu ist.
+
+### Benachrichtigungen kontrollieren
+
+Neue Vorschläge, die redaktionelle Aufmerksamkeit benötigen, und neue Problemmeldungen erhalten eine Benachrichtigung. Gültige, automatisch übernommene Netzwerkbeiträge brauchen keine Freigabemail. Die Nachricht enthält Titel, Eingangskennung, den Namen des zuständigen Tabs und einen Link zur privaten Redaktionsdatei; private Einladungscodes, Zugangstoken und Rückfragekontakte gehören nicht in die Nachricht.
+
+Die Spalten **Benachrichtigung**, **Benachrichtigt am** und **Benachrichtigungsfehler** zeigen den Versandstatus. Eine ausbleibende oder fehlerhafte E-Mail verhindert weder das Speichern eines Vorschlags noch seine Freigabe oder Veröffentlichung. Nach Korrektur der Empfangsadresse, Erneuerung der Berechtigung oder Erholung des täglichen Google-Limits **Musiktheorie → Ausstehende Benachrichtigungen senden** wählen.
+
+Bei **Unklar** wurde ein Versand unterbrochen, ohne dass sich dessen Ergebnis sicher feststellen lässt. Zuerst beim Empfänger prüfen. Nur für einen bewussten erneuten Versuch den Zustand auf **Ausstehend** setzen und den Menüpunkt ausführen; so entsteht nach einer Unterbrechung kein unbeabsichtigter wiederholter Versand. Bereits erledigte Vorschläge benötigen keine neue Freigabemail.
 
 ### Bereits vorhandene Fehlermeldungen bei Links
 
@@ -52,6 +67,12 @@ Ein Link wie `google.com` erhält mit der neuen Scriptfassung automatisch `https
 Eine bestehende Fehlerzeile wird nicht allein durch das Speichern des Scripts neu verarbeitet. **Musiktheorie → Letzte Formulareingänge nachholen** verarbeitet technisch fehlgeschlagene Antworten erneut. Öffentliche Beiträge wechseln bei vollständigen Angaben zu **Offen** und benötigen weiterhin die redaktionelle Freigabe. Wenn Angaben bereits direkt in **Eingang** korrigiert wurden, die Zeile prüfen und **Ausgewählte Vorschläge freigeben** wählen; das Nachholen liest sonst erneut die ursprüngliche Formularantwort. Reine Testeinträge können stattdessen abgelehnt werden.
 
 Eine Beschreibung **auf Deutsch oder auf Englisch** genügt. Die zweite Sprache ist optional. Ein Fehler zum HTTP(S)-Link betrifft das Linkfeld, nicht die Beschreibungen.
+
+### Problemmeldungen bearbeiten
+
+Die Flagge an einer Ressourcenkarte oder **Problem melden** in den Details öffnet das separate Meldeformular mit vorausgefüllter Ressourcen-ID und Titel. Zur Auswahl stehen defekter Link, falsche Angaben, veralteter Inhalt, Qualität/Eignung und sonstige Anliegen. Beschreibung und optionaler Kontakt bleiben in **Meldungen** privat. Auch ein Hinweis zu einer inzwischen fehlenden ID wird gespeichert und entsprechend gekennzeichnet.
+
+Die Redaktion prüft die Meldung, korrigiert den eigentlichen Datensatz in **Ressourcen** und setzt die Meldung anschließend auf **Erledigt** oder **Abgelehnt**. **In Bearbeitung** zeigt eine laufende Prüfung. Eine Meldung allein veröffentlicht, verändert oder archiviert keine Ressource. **Letzte Meldungen nachholen** kann ausgebliebene Formularverarbeitungen wiederholen, ohne bereits gespeicherte Meldungen zu duplizieren.
 
 ## 2. Formular wirklich ohne Anmeldung zugänglich machen
 
@@ -116,6 +137,7 @@ Eine Zeile mit **Fehler** ist keine zusätzliche redaktionelle Prüfung für ver
 ## Betrieb und Übergabe
 
 - Formularantworten und Änderungen an öffentlichen Redaktionstabs versuchen die Veröffentlichung unmittelbar. Es gibt keinen GitHub-Cronjob und keinen Token im Browser.
+- Normale Zellenänderungen laufen über den installierten Bearbeitungstrigger. Nach externen Importen, Script-/API-Änderungen oder strukturellen Tabellenänderungen **Jetzt veröffentlichen** ausführen; diese Wege lösen nicht zuverlässig denselben Bearbeitungstrigger aus.
 - Bei vorübergehendem Netzwerkfehler erneut **Jetzt veröffentlichen** wählen. Die nächste relevante Änderung versucht ebenfalls die Veröffentlichung.
 - Bei absichtlich größeren Überarbeitungen den Status zunächst auf **Entwurf** setzen und zusammengehörige Angaben vollständig eintragen. Veröffentlichte Sammlungen dürfen keine unveröffentlichten Ressourcen referenzieren.
 - Nach neuen Kategorien, Institutionen oder Betreuungspersonen **Formular-Auswahl aktualisieren** wählen. Dadurch werden die Optionen der bestehenden Fragen aktualisiert; Einladungslinks bleiben gültig.
@@ -129,5 +151,6 @@ Eine Zeile mit **Fehler** ist keine zusätzliche redaktionelle Prüfung für ver
 - [Google Forms: Apps Script Form API](https://developers.google.com/apps-script/reference/forms/form)
 - [Vorausgefüllte Formularlinks](https://developers.google.com/apps-script/reference/forms/form-response#toPrefilledUrl())
 - [Installierbare Trigger und deren Eigentümer](https://developers.google.com/apps-script/guides/triggers/installable)
+- [E-Mail-Versand und Tageskontingent mit MailApp](https://developers.google.com/apps-script/reference/mail/mail-app)
 - [GitHub Contents API](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents)
 - [Fine-grained GitHub Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)

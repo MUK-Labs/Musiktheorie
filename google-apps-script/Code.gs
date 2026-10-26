@@ -22,6 +22,14 @@ var MT_RESOURCE_FIELDS = [
   ['access','Zugang'], ['license','Lizenz'], ['prerequisites_de','Voraussetzungen DE'], ['prerequisites_en','Voraussetzungen EN'],
   ['reviewed_at','Zuletzt geprüft'], ['source_urls','Quellenlinks'], ['status','Status'], ['parent_id','Übergeordnete ID']
 ];
+var MT_NOTIFICATION_FIELDS = [
+  ['notification_state','Benachrichtigung'], ['notification_id','Benachrichtigungs-ID'],
+  ['notification_attempt_at','Versandversuch am'], ['notification_sent_at','Benachrichtigt am'], ['notification_error','Benachrichtigungsfehler']
+];
+var MT_REPORT_REASONS = [
+  ['broken-link','Link funktioniert nicht / Broken link'], ['incorrect-information','Angaben stimmen nicht / Incorrect information'],
+  ['outdated','Inhalt veraltet / Outdated content'], ['quality','Inhaltliche Qualität / Content quality'], ['other','Sonstiges / Other']
+];
 var MT_TABLES = {
   resources: { name: 'Ressourcen', columns: MT_RESOURCE_FIELDS },
   vocabulary: { name: 'Kategorien', columns: [['facet','Gruppe'],['id','ID'],['label_de','Bezeichnung DE'],['label_en','Bezeichnung EN'],['aliases','Suchbegriffe'],['parent_id','Übergeordnete ID']] },
@@ -29,8 +37,10 @@ var MT_TABLES = {
   maintainers: { name: 'Betreuung', columns: [['id','ID'],['name','Name'],['url','Profil oder Website']] },
   collections: { name: 'Sammlungen', columns: [['id','ID'],['title_de','Titel DE'],['title_en','Titel EN'],['description_de','Beschreibung DE'],['description_en','Beschreibung EN'],['curator','Zusammengestellt von'],['status','Status']] },
   collectionItems: { name: 'Sammlungseinträge', columns: [['collection_id','Sammlungs-ID'],['resource_id','Ressourcen-ID'],['position','Reihenfolge'],['note_de','Hinweis DE'],['note_en','Hinweis EN']] },
-  inbox: { name: 'Eingang', columns: [['submission_id','Eingangs-ID'],['received_at','Eingegangen'],['decision','Entscheidung'],['diagnostic','Hinweis'],['source','Herkunft'],['contributor','Einladung für'],['invitation_id','Einladungs-ID'],['kind','Art'],['contact','Rückfragekontakt (privat)'],['internal_note','Notiz (privat)']].concat(MT_RESOURCE_FIELDS, [['new_institution_name','Neue Institution – Name'],['new_institution_url','Neue Institution – Website'],['new_institution_id','Neue Institution – ID (intern)']]) },
+  inbox: { name: 'Eingang', columns: [['submission_id','Eingangs-ID'],['received_at','Eingegangen'],['decision','Entscheidung'],['diagnostic','Hinweis'],['source','Herkunft'],['contributor','Einladung für'],['invitation_id','Einladungs-ID'],['kind','Art'],['contact','Rückfragekontakt (privat)'],['internal_note','Notiz (privat)']].concat(MT_RESOURCE_FIELDS, [['new_institution_name','Neue Institution – Name'],['new_institution_url','Neue Institution – Website'],['new_institution_id','Neue Institution – ID (intern)']], MT_NOTIFICATION_FIELDS) },
+  reports: { name: 'Meldungen', columns: [['submission_id','Meldungs-ID'],['received_at','Eingegangen'],['status','Status'],['diagnostic','Hinweis'],['resource_id','Ressourcen-ID'],['resource_title','Ressourcentitel'],['reason','Grund'],['details','Details (privat)'],['contact','Rückfragekontakt (privat)']].concat(MT_NOTIFICATION_FIELDS) },
   invitations: { name: 'Einladungen', columns: [['invitation_id','ID'],['label','Für'],['code_hash','Code-Prüfsumme (privat)'],['active','Aktiv'],['created_at','Erstellt'],['expires_at','Gültig bis (optional)'],['last_used_at','Zuletzt verwendet'],['use_count','Verwendungen']] },
+  editorialSettings: { name: 'Einstellungen', columns: [['key','Einstellung'],['value','Wert'],['description','Beschreibung']] },
   settings: { name: 'Status', columns: [['key','Einstellung'],['value','Wert']] }
 };
 
@@ -41,6 +51,7 @@ function mtBook_() {
   return SpreadsheetApp.openById(id);
 }
 function mtNow_() { return new Date().toISOString(); }
+function mtReleaseLock_(lock) { try { SpreadsheetApp.flush(); } finally { lock.releaseLock(); } }
 function mtId_(prefix) { return prefix + Utilities.getUuid().toLowerCase(); }
 function mtHash_(value) {
   return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, value, Utilities.Charset.UTF_8)
@@ -70,6 +81,106 @@ function mtSetting_(key, value) {
   var row = mtRead_('settings').find(function (r) { return r.key === key; });
   mtWrite_('settings',{key:key,value:value},row && row._row);
 }
+function mtEnsureEditorialSettings_() {
+  if (!mtRead_('editorialSettings').some(function (row) { return row.key==='Redaktions-E-Mail'; })) {
+    mtWrite_('editorialSettings',{key:'Redaktions-E-Mail',value:'',description:'Eine E-Mail-Adresse für neue Vorschläge und Meldungen. Leer = kein Versand. Rückfragekontakte werden nie als Empfänger verwendet.'});
+  }
+}
+function mtCopyNotice_(row, previous) {
+  MT_NOTIFICATION_FIELDS.forEach(function (field) { row[field[0]]=previous && previous[field[0]] || ''; });
+}
+function mtQueueNotice_(row, kind) {
+  if (row.notification_id) return;
+  if (kind==='submission' && ['Offen','Fehler'].indexOf(row.decision)<0) return;
+  row.notification_id=kind+':'+row.submission_id;
+  row.notification_state='Ausstehend';
+  row.notification_attempt_at=''; row.notification_sent_at=''; row.notification_error='';
+}
+function mtWriteNotice_(key, row, expectedState) {
+  // Sheet edits do not acquire ScriptLock. Update only notification cells, resolving the stable ID again.
+  var current=mtRead_(key).find(function (entry) { return entry.submission_id===row.submission_id; });
+  if (!current || (expectedState && current.notification_state!==expectedState)) return false;
+  var table=MT_TABLES[key], column=table.columns.length-MT_NOTIFICATION_FIELDS.length+1;
+  var values=MT_NOTIFICATION_FIELDS.map(function (field) { return CatalogueCore.literalCell(row[field[0]]); });
+  mtBook_().getSheetByName(table.name).getRange(current._row,column,1,values.length).setNumberFormat('@').setValues([values]);
+  return true;
+}
+function mtNotificationMessage_(job, address) {
+  var row=job.row, report=job.key==='reports';
+  return {
+    to:address,
+    subject:report ? '[Musiktheorie] Neue Meldung' : '[Musiktheorie] Neuer Vorschlag zur Prüfung',
+    name:'Musiktheorie Redaktion',
+    body:(report ? 'Eine neue Meldung zu einer Ressource ist eingegangen.' : 'Ein Vorschlag benötigt redaktionelle Prüfung.')+
+      '\n\nTitel: '+CatalogueCore.text(report ? row.resource_title : row.title).slice(0,500)+
+      '\nEingang: '+row.received_at+'\nKennung: '+row.notification_id+
+      '\n\nPrivate Redaktionsdatei: '+mtBook_().getUrl()+'\nTab: '+MT_TABLES[job.key].name+
+      '\n\nBitte dort prüfen und bearbeiten. Kontakte, Einladungscodes und Antwortdetails werden nicht per E-Mail weitergegeben.'
+  };
+}
+/** Owner-operated retry; automatic submission handlers use the same persisted private queue. */
+function sendPendingNotifications() {
+  var lock=LockService.getScriptLock(), sent=0, pending=0;
+  lock.waitLock(30000);
+  try {
+    var setting=mtRead_('editorialSettings').find(function (row) { return row.key==='Redaktions-E-Mail'; });
+    var address=CatalogueCore.text(setting && setting.value);
+    var jobs=[];
+    ['inbox','reports'].forEach(function (key) {
+      mtRead_(key).forEach(function (row) {
+        if (row.notification_state==='Ausstehend' || row.notification_state==='Wird gesendet') jobs.push({key:key,row:row});
+      });
+    });
+    var configurationError=!address ? 'Kein Versand: Redaktions-E-Mail im Tab Einstellungen ist leer.' :
+      !CatalogueCore.validEditorialEmail(address) ? 'Redaktions-E-Mail muss genau eine gültige E-Mail-Adresse enthalten.' : '';
+    jobs.slice(0,25).forEach(function (job) {
+      var row=job.row;
+      if (row.notification_state==='Wird gesendet') {
+        // MailApp and Sheets cannot commit atomically. Never silently resend an ambiguous delivery.
+        row.notification_state='Unklar';
+        row.notification_error='Versand wurde unterbrochen. Eingang beim Empfänger prüfen; nur für einen bewussten erneuten Versuch Benachrichtigung auf Ausstehend setzen.';
+        mtWriteNotice_(job.key,row,'Wird gesendet'); return;
+      }
+      if (job.key==='inbox' && ['Offen','Fehler'].indexOf(row.decision)<0) {
+        row.notification_state='Entfällt'; row.notification_error='Vorschlag bereits bearbeitet.';
+        mtWriteNotice_(job.key,row,'Ausstehend'); return;
+      }
+      if (configurationError) {
+        row.notification_error=configurationError; mtWriteNotice_(job.key,row,'Ausstehend'); return;
+      }
+      var available;
+      try { available=MailApp.getRemainingDailyQuota(); }
+      catch (error) { row.notification_error='E-Mail-Berechtigung prüfen und Versand erneut versuchen.'; mtWriteNotice_(job.key,row,'Ausstehend'); return; }
+      if (available<1) {
+        row.notification_error='Tägliches E-Mail-Limit erreicht. Später erneut versuchen.';
+        mtWriteNotice_(job.key,row,'Ausstehend'); return;
+      }
+      row.notification_state='Wird gesendet'; row.notification_attempt_at=mtNow_(); row.notification_error='';
+      if (!mtWriteNotice_(job.key,row,'Ausstehend')) return;
+      SpreadsheetApp.flush();
+      try { MailApp.sendEmail(mtNotificationMessage_(job,address)); }
+      catch (error) {
+        row.notification_state='Ausstehend'; row.notification_error='E-Mail konnte nicht gesendet werden. Berechtigung und Empfänger prüfen; anschließend erneut versuchen.';
+        mtWriteNotice_(job.key,row,'Wird gesendet'); return;
+      }
+      // If this write fails, the durable "Wird gesendet" state requires deliberate review on retry.
+      row.notification_state='Gesendet'; row.notification_sent_at=mtNow_(); row.notification_error='';
+      mtWriteNotice_(job.key,row,'Wird gesendet'); SpreadsheetApp.flush(); sent++;
+    });
+    ['inbox','reports'].forEach(function (key) {
+      pending+=mtRead_(key).filter(function (row) { return ['Ausstehend','Wird gesendet','Unklar'].indexOf(row.notification_state)>=0; }).length;
+    });
+    mtSetting_('Benachrichtigungen',sent+' gesendet; '+pending+' ausstehend oder zu prüfen. '+(configurationError || 'Details in Eingang und Meldungen.'));
+    return {sent:sent,pending:pending};
+  } finally { mtReleaseLock_(lock); }
+}
+function mtTryNotifications_() {
+  try { sendPendingNotifications(); }
+  catch (error) {
+    // Notification failures must never invalidate an accepted submission or a publication.
+    try { mtSetting_('Benachrichtigungen','Versand ausstehend. Einstellungen prüfen und „Ausstehende Benachrichtigungen senden“ wählen.'); } catch (ignored) {}
+  }
+}
 function mtTables_() {
   var tables = {};
   ['resources','vocabulary','institutions','maintainers','collections','collectionItems'].forEach(function (key) { tables[key] = mtRead_(key); });
@@ -91,18 +202,20 @@ function mtEnsureSheet_(book, key) {
     sheet.setColumnWidths(1,table.columns.length,170);
     sheet.getRange(1,1,1,table.columns.length).setNotes([table.columns.map(function (c) { return 'Technischer Feldname: ' + c[0] + '. Überschrift bitte nicht umbenennen. Mehrfachwerte mit Semikolon trennen.'; })]);
   } else if (key === 'inbox') {
-    // Extend only the known original schema; never move existing columns or overwrite custom data.
-    var oldCount = table.columns.length - 3;
+    // Recognise the original 32-column and institution-aware 35-column schemas.
+    // Append only into empty columns, preserving every submitted value and private field.
     var headers = sheet.getRange(1,1,1,table.columns.length).getDisplayValues()[0];
     var expected = table.columns.map(function (column) { return column[1]; });
     if (headers.join('\u001f') !== expected.join('\u001f')) {
-      var validPrefix = headers.slice(0,oldCount).join('\u001f') === expected.slice(0,oldCount).join('\u001f');
-      var extra = sheet.getRange(1,oldCount+1,sheet.getLastRow(),3).getDisplayValues();
-      if (!validPrefix || extra.some(function (row) { return row.some(function (value) { return value !== ''; }); })) throw new Error('Eingang: Spalten entsprechen nicht der bisherigen Vorlage. Neue Institutionsspalten wurden nicht eingefügt; vorhandene Daten bleiben erhalten.');
-      var range = sheet.getRange(1,oldCount+1,1,3);
+      var oldCount = [10 + MT_RESOURCE_FIELDS.length + 3, 10 + MT_RESOURCE_FIELDS.length].find(function (count) {
+        if (headers.slice(0,count).join('\u001f') !== expected.slice(0,count).join('\u001f')) return false;
+        return sheet.getRange(1,count+1,sheet.getLastRow(),table.columns.length-count).getDisplayValues().every(function (row) { return row.every(function (value) { return value === ''; }); });
+      });
+      if (!oldCount) throw new Error('Eingang: Spalten entsprechen nicht der bisherigen Vorlage. Erweiterung abgebrochen; vorhandene Daten bleiben erhalten.');
+      var range = sheet.getRange(1,oldCount+1,1,table.columns.length-oldCount);
       range.setValues([expected.slice(oldCount)]).setBackground('#352735').setFontColor('#ffffff').setFontWeight('bold');
-      range.setNotes([table.columns.slice(oldCount).map(function (column) { return 'Technischer Feldname: ' + column[0] + '. Neue Institution wird erst zusammen mit der Ressource übernommen.'; })]);
-      sheet.setColumnWidths(oldCount+1,3,200);
+      range.setNotes([table.columns.slice(oldCount).map(function (column) { return 'Technischer Feldname: ' + column[0] + '. Nur für die private Redaktion.'; })]);
+      sheet.setColumnWidths(oldCount+1,table.columns.length-oldCount,200);
     }
   }
   return sheet;
@@ -126,16 +239,19 @@ function mtUpgradeVocabulary_() {
 
 /** After replacing Code.gs and Core.gs, run once to update an existing installation in place. */
 function upgradeCatalogue() {
-  if (typeof CatalogueCore === 'undefined' || typeof CatalogueCore.resolveInstitution !== 'function' || typeof CatalogueCore.normalizeUrl !== 'function') throw new Error('Bitte die aktuellen vollständigen Dateien Code.gs UND Core.gs im selben Projekt speichern und upgradeCatalogue erneut ausführen.');
+  if (typeof CatalogueCore === 'undefined' || typeof CatalogueCore.resolveInstitution !== 'function' || typeof CatalogueCore.reportFromFields !== 'function') throw new Error('Bitte die aktuellen vollständigen Dateien Code.gs UND Core.gs im selben Projekt speichern und upgradeCatalogue erneut ausführen.');
   var lock = LockService.getScriptLock();
   lock.waitLock(30000);
   try {
-    mtEnsureSheet_(mtBook_(),'inbox');
+    ['inbox','reports','editorialSettings'].forEach(function (key) { mtEnsureSheet_(mtBook_(),key); });
+    mtEnsureEditorialSettings_();
     mtUpgradeVocabulary_();
-  } finally { lock.releaseLock(); }
+  } finally { mtReleaseLock_(lock); }
   refreshFormChoices();
+  mtEnsureReportForm_();
+  mtApplyValidation_();
   onOpen();
-  mtSetting_('Script-Update','Neue Institutionsfelder und Fächer eingerichtet: ' + mtNow_());
+  mtSetting_('Script-Update','Institution-Auswahl, private Meldungen und Benachrichtigungen eingerichtet: ' + mtNow_());
   if (mtProps_().getProperty('GITHUB_TOKEN')) publishCatalogue();
 }
 function mtSeedEmptyTable_(key, rows) {
@@ -149,7 +265,7 @@ function mtSeedEmptyTable_(key, rows) {
 
 /** Run once from a blank Sheet's bound Apps Script project. Safe to run again. */
 function setup() {
-  if (typeof CatalogueCore === 'undefined' || !CatalogueCore || typeof CatalogueCore.seedTables !== 'function') {
+  if (typeof CatalogueCore === 'undefined' || !CatalogueCore || typeof CatalogueCore.seedTables !== 'function' || typeof CatalogueCore.reportFromFields !== 'function') {
     throw new Error('Core.gs fehlt oder wurde nicht vollständig gespeichert. Im selben Apps-Script-Projekt über + → Script die Datei Core anlegen, den vollständigen Inhalt von google-apps-script/Core.gs einfügen, das Projekt speichern und setup() erneut ausführen. Die vorhandene Tabelle bleibt erhalten. / Add and save the complete Core.gs script in this same project, then run setup again.');
   }
   var props = mtProps_(), book;
@@ -159,6 +275,7 @@ function setup() {
     props.setProperty('CATALOGUE_SPREADSHEET_ID',book.getId());
   }
   Object.keys(MT_TABLES).forEach(function (key) { mtEnsureSheet_(book,key); });
+  mtEnsureEditorialSettings_();
   if (!props.getProperty('GITHUB_REPOSITORY')) props.setProperty('GITHUB_REPOSITORY',MT_DEFAULT_REPOSITORY);
   if (!props.getProperty('SEED_COMPLETE')) {
     var response = UrlFetchApp.fetch('https://raw.githubusercontent.com/MUK-Labs/Musiktheorie/main/data/catalogue.json',{muteHttpExceptions:true});
@@ -188,6 +305,7 @@ function setup() {
   mtEnsureTrigger_('catalogueOnFormSubmit','form',form.getId());
   mtEnsureTrigger_('catalogueOnEdit','sheet',book.getId());
   mtEnsureTrigger_('catalogueOnOpen','open',book.getId());
+  mtEnsureReportForm_();
   mtApplyValidation_();
   mtSetting_('Redaktionsdatei',book.getUrl());
   mtSetting_('Formular bearbeiten',form.getEditUrl());
@@ -212,17 +330,20 @@ function onOpen() {
       .addItem('Ausgewählte Vorschläge freigeben','approveSelectedSubmissions')
       .addItem('Ausgewählte Vorschläge ablehnen','rejectSelectedSubmissions')
       .addItem('Letzte Formulareingänge nachholen','recoverRecentSubmissions')
+      .addItem('Letzte Meldungen nachholen','recoverRecentReports')
+      .addItem('Ausstehende Benachrichtigungen senden','sendPendingNotifications')
       .addSeparator().addItem('Jetzt veröffentlichen','publishCatalogue')
       .addItem('Formular-Auswahl aktualisieren','refreshFormChoices')
       .addSeparator().addItem('Persönliche Einladung erstellen','createInvitation')
       .addItem('Ausgewählte Einladung sperren','revokeSelectedInvitation')
       .addSeparator().addItem('Zugang ohne Anmeldung bestätigen','confirmAnonymousAccess')
+      .addItem('Meldeformular ohne Anmeldung bestätigen','confirmReportAnonymousAccess')
       .addItem('Einrichtungsstatus anzeigen','showSetupStatus').addToUi();
   } catch (error) { /* Standalone projects can run setup, but menus require the bound-sheet installation. */ }
 }
 function catalogueOnOpen() { onOpen(); }
 function mtApplyValidation_() {
-  [['resources','status',['Entwurf','Freigegeben','Archiviert']],['collections','status',['Entwurf','Freigegeben','Archiviert']],['inbox','decision',['Offen','Freigegeben','Übernommen','Abgelehnt','Fehler']],['invitations','active',['true','false']]].forEach(function (spec) {
+  [['resources','status',['Entwurf','Freigegeben','Archiviert']],['collections','status',['Entwurf','Freigegeben','Archiviert']],['inbox','decision',['Offen','Freigegeben','Übernommen','Abgelehnt','Fehler']],['invitations','active',['true','false']],['reports','status',['Offen','In Bearbeitung','Erledigt','Abgelehnt']]].forEach(function (spec) {
     var table=MT_TABLES[spec[0]], sheet=mtBook_().getSheetByName(table.name), column=table.columns.findIndex(function (c) { return c[0]===spec[1]; })+1;
     sheet.getRange(2,column,sheet.getMaxRows()-1,1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(spec[2],true).setAllowInvalid(false).build());
   });
@@ -241,8 +362,8 @@ function mtFormDefinitions_(catalogue) {
     {key:'difficulty',title:'Schwierigkeit / Difficulty',options:vocab('difficulties'),required:true},
     {key:'languages',title:'Sprachen der Ressource / Resource languages',options:vocab('languages'),multiple:true,required:true},
     {key:'type',title:'Format / Resource type',options:vocab('types'),required:true},
-    {key:'institution_ids',title:'Institutionen / Institutions',options:catalogue.institutions.map(function (v) { return (v.shortName || v.name.de || v.name.en) + ' [' + v.id + ']'; }),multiple:true,help:'Passende Einträge auswählen. Fehlt eine Institution, ihren Namen im nächsten Feld angeben. / Select any that apply. If an institution is missing, enter its name below.'},
-    {key:'new_institution_name',title:'Institution nicht aufgeführt? Name / Institution not listed? Name',help:'Optional: eine zusätzliche Institution. Sie wird zusammen mit der Ressource übernommen. / Optional: one additional institution, added together with this resource.'},
+    {key:'institution_ids',title:'Institution / Institution',options:['Keine Zuordnung / None'].concat(catalogue.institutions.map(function (v) { return (v.shortName || v.name.de || v.name.en) + ' [' + v.id + ']'; })),help:'Eine vorhandene Institution auswählen ODER unten eine fehlende Institution nennen. / Choose one existing institution OR name a missing institution below.'},
+    {key:'new_institution_name',title:'Institution nicht aufgeführt? Name / Institution not listed? Name',help:'Nur ausfüllen, wenn oben keine Institution zugeordnet ist. Die neue Institution wird zusammen mit der Ressource übernommen. / Complete only if no institution is selected above. The new institution is added together with this resource.'},
     {key:'new_institution_url',title:'Website der neuen Institution (optional) / New institution website (optional)',url:true,help:'Nur zusammen mit dem Namen der neuen Institution ausfüllen. / Complete only when providing a new institution name.'},
     {key:'maintainer_ids',title:'Betreuung / Maintainers',options:catalogue.maintainers.map(function (v) { return v.name + ' [' + v.id + ']'; }),multiple:true},
     {key:'authors',title:'Autorinnen und Autoren / Authors',help:'Mehrere Namen mit Semikolon trennen. / Separate names with semicolons.'},
@@ -260,11 +381,19 @@ function mtFormDefinitions_(catalogue) {
 function refreshFormChoices() {
   var props=mtProps_(), form=FormApp.openById(props.getProperty('CATALOGUE_FORM_ID'));
   var map=JSON.parse(props.getProperty('FORM_FIELD_IDS') || '{}');
+  var aliases=JSON.parse(props.getProperty('FORM_FIELD_ALIASES') || '{}');
   mtFormDefinitions_(mtSnapshot_()).forEach(function (def, index) {
     var item=null;
     // A manually deleted question can be recreated without discarding other question IDs.
     if (map[def.key]) {
       try { item=form.getItemById(Number(map[def.key])); } catch (error) { item=null; }
+    }
+    if (item && def.key==='institution_ids' && item.getType()===FormApp.ItemType.CHECKBOX) {
+      // Keep the original question and its answers; older responses resolve through this alias.
+      aliases[String(item.getId())]=def.key;
+      props.setProperty('FORM_FIELD_ALIASES',JSON.stringify(aliases));
+      item.asCheckboxItem().setRequired(false);
+      item=null;
     }
     if (item) item=def.options ? (def.multiple ? item.asCheckboxItem() : item.asListItem()) : def.paragraph ? item.asParagraphTextItem() : item.asTextItem();
     else {
@@ -279,8 +408,133 @@ function refreshFormChoices() {
     // Keep the invitation question's ID and all prefilled invitation links intact when inserting fields.
     if (item.getIndex() !== index) form.moveItem(item.getIndex(),index);
   });
+  mtArchiveLegacyQuestions_(form,aliases);
   mtSetting_('Formular-Auswahl aktualisiert',mtNow_());
   props.deleteProperty('FORM_CHOICES_PENDING');
+}
+function mtArchiveLegacyQuestions_(form, aliases) {
+  var props=mtProps_(), archived=[];
+  Object.keys(aliases).forEach(function (id) {
+    try {
+      var item=form.getItemById(Number(id));
+      if (item.getType()===FormApp.ItemType.CHECKBOX) item.asCheckboxItem().setRequired(false).setTitle('Archiv: frühere Institutionsauswahl / Archived institution choices');
+      archived.push(item);
+    } catch (error) { /* Retain aliases for historical IDs even if an owner removed an old question. */ }
+  });
+  if (!archived.length) return;
+  var boundary=null, boundaryId=props.getProperty('FORM_ARCHIVE_PAGE_ID');
+  if (boundaryId) { try { boundary=form.getItemById(Number(boundaryId)).asPageBreakItem(); } catch (error) { boundary=null; } }
+  if (!boundary) {
+    boundary=form.addPageBreakItem();
+    props.setProperty('FORM_ARCHIVE_PAGE_ID',String(boundary.getId()));
+  }
+  // PageBreak navigation applies to the preceding page: submit before entering the archive.
+  boundary.setTitle('Archiv – nicht ausfüllen / Archive – do not complete').setGoToPage(FormApp.PageNavigationType.SUBMIT);
+  var count=form.getItems().length;
+  archived.forEach(function (item,index) {
+    var target=count-archived.length+index;
+    if (item.getIndex()!==target) form.moveItem(item.getIndex(),target);
+  });
+  var boundaryIndex=count-archived.length-1;
+  if (boundary.getIndex()!==boundaryIndex) form.moveItem(boundary.getIndex(),boundaryIndex);
+}
+function mtResponseFields_(response, currentMap, aliases) {
+  var current={}, fields={}, legacy={};
+  Object.keys(currentMap).forEach(function (key) { current[String(currentMap[key])]=key; });
+  response.getItemResponses().forEach(function (answer) {
+    var id=String(answer.getItem().getId()), value=answer.getResponse();
+    if (current[id]) fields[current[id]]=value;
+    else if ((aliases || {})[id]) legacy[aliases[id]]=value;
+  });
+  Object.keys(legacy).forEach(function (key) {
+    if (!CatalogueCore.list(fields[key]).length) fields[key]=legacy[key];
+  });
+  return fields;
+}
+function mtPublicFormUrl_(form) {
+  var url=form.getPublishedUrl().split(/[?#]/)[0];
+  if (!/^https:\/\/docs\.google\.com\/forms\/d\/(?:e\/)?[A-Za-z0-9_-]+\/viewform$/.test(url)) throw new Error('Unerwartetes Format des öffentlichen Google-Formularlinks.');
+  return url;
+}
+function mtReportPrefillFields_(form, map) {
+  var markers={resource_id:'musiktheorie_prefill_resource_id',resource_title:'musiktheorie_prefill_resource_title'};
+  var response=form.createResponse();
+  Object.keys(markers).forEach(function (key) {
+    response=response.withItemResponse(form.getItemById(Number(map[key])).asTextItem().createResponse(markers[key]));
+  });
+  var fields={}, query=(response.toPrefilledUrl().split('?')[1] || '').split('#')[0];
+  query.split('&').forEach(function (part) {
+    var separator=part.indexOf('=');
+    if (separator<0) return;
+    var key=decodeURIComponent(part.slice(0,separator)), value=decodeURIComponent(part.slice(separator+1).replace(/\+/g,' '));
+    if (!/^entry\.[0-9]+$/.test(key)) return;
+    if (value===markers.resource_id) fields.resourceId=key;
+    if (value===markers.resource_title) fields.resourceTitle=key;
+  });
+  if (!fields.resourceId || !fields.resourceTitle || fields.resourceId===fields.resourceTitle) throw new Error('Vorausfüllfelder des Meldeformulars konnten nicht ermittelt werden.');
+  return fields;
+}
+function mtEnsureReportForm_() {
+  var props=mtProps_(), form;
+  if (props.getProperty('CATALOGUE_REPORT_FORM_ID')) form=FormApp.openById(props.getProperty('CATALOGUE_REPORT_FORM_ID'));
+  else {
+    form=FormApp.create('Musiktheorie · Ressource melden / Report a resource');
+    props.setProperty('CATALOGUE_REPORT_FORM_ID',form.getId());
+    props.deleteProperty('REPORT_ANONYMOUS_ACCESS_CONFIRMED');
+  }
+  form.setDescription('Ein Problem mit einer Katalogressource melden. Die Redaktion prüft Ihre Nachricht; die Ressource wird nicht automatisch verändert. / Report a problem with a catalogue resource. Editors review your message; the resource is not changed automatically.');
+  form.setCollectEmail(false).setLimitOneResponsePerUser(false).setAllowResponseEdits(false).setPublishingSummary(false).setShowLinkToRespondAgain(true);
+  form.setConfirmationMessage('Danke! Die Meldung wird privat von der Redaktion geprüft. / Thank you! Editors will review this report privately.');
+  if (form.supportsAdvancedResponderPermissions()) form.setPublished(true);
+  else form.setAcceptingResponses(true);
+  var definitions=[
+    {key:'resource_id',title:'Ressourcen-ID / Resource ID',required:true,help:'Über „Ressource melden“ im Katalog bereits ausgefüllt. / Prefilled by the catalogue report link.'},
+    {key:'resource_title',title:'Ressourcentitel / Resource title'},
+    {key:'reason',title:'Grund / Reason',required:true,options:MT_REPORT_REASONS.map(function (reason) { return reason[1]+' ['+reason[0]+']'; })},
+    {key:'details',title:'Was soll geprüft werden? / What should be checked?',required:true,paragraph:true,help:'Bitte das Problem kurz und konkret beschreiben. / Briefly describe the problem.'},
+    {key:'contact',title:'Rückfragekontakt (privat, optional) / Contact for questions (private, optional)'}
+  ];
+  var map=JSON.parse(props.getProperty('REPORT_FIELD_IDS') || '{}');
+  definitions.forEach(function (def,index) {
+    var item=null;
+    if (map[def.key]) { try { item=form.getItemById(Number(map[def.key])); } catch (error) { item=null; } }
+    if (item) item=def.options ? item.asListItem() : def.paragraph ? item.asParagraphTextItem() : item.asTextItem();
+    else {
+      item=def.options ? form.addListItem() : def.paragraph ? form.addParagraphTextItem() : form.addTextItem();
+      map[def.key]=item.getId(); props.setProperty('REPORT_FIELD_IDS',JSON.stringify(map));
+    }
+    item.setTitle(def.title).setRequired(Boolean(def.required));
+    if (def.help) item.setHelpText(def.help);
+    if (def.options) item.setChoiceValues(def.options);
+    if (item.getIndex()!==index) form.moveItem(item.getIndex(),index);
+  });
+  props.setProperty('REPORT_PUBLIC_FIELDS',JSON.stringify(mtReportPrefillFields_(form,map)));
+  mtEnsureTrigger_('catalogueOnReportSubmit','form',form.getId());
+  mtSetting_('Meldeformular bearbeiten',form.getEditUrl());
+  mtSetting_('Öffentlicher Meldelink',mtPublicFormUrl_(form));
+}
+function catalogueOnReportSubmit(event) {
+  var props=mtProps_();
+  if (!event || !event.response || !event.source || event.source.getId()!==props.getProperty('CATALOGUE_REPORT_FORM_ID')) throw new Error('Ungültige Meldeformularquelle.');
+  var lock=LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    var submissionId=String(event.response.getId());
+    if (!mtRead_('reports').some(function (row) { return row.submission_id===submissionId; })) {
+      var fields=mtResponseFields_(event.response,JSON.parse(props.getProperty('REPORT_FIELD_IDS') || '{}'),{});
+      // The registry is read only to diagnose stale IDs; reports never modify the public catalogue.
+      var report=CatalogueCore.reportFromFields(fields,mtRead_('resources'));
+      var row={submission_id:submissionId,received_at:mtNow_(),status:'Offen',diagnostic:report.errors.join(' '),
+        resource_id:report.resource_id,resource_title:report.resource_title,reason:report.reason,details:report.details,contact:report.contact};
+      mtQueueNotice_(row,'report');
+      mtWrite_('reports',row);
+    }
+  } finally { mtReleaseLock_(lock); }
+  mtTryNotifications_();
+}
+function recoverRecentReports() {
+  var form=FormApp.openById(mtProps_().getProperty('CATALOGUE_REPORT_FORM_ID'));
+  form.getResponses().slice(-100).forEach(function (response) { catalogueOnReportSubmit({source:form,response:response}); });
 }
 
 function catalogueOnFormSubmit(event) {
@@ -297,14 +551,12 @@ function catalogueOnFormSubmit(event) {
     } else if (previous && previous.decision==='Freigegeben') {
       // Resume an interrupted, already-approved write without replacing an editor's changes with the original form response.
       shouldPublish=mtAcceptInbox_(previous,previous._row);
-    } else if (previous && previous.decision!=='Fehler') return;
+    } else if (previous && previous.decision!=='Fehler') {
+      // Already recorded: only the persisted notification queue may need a retry below.
+    }
     else {
-      var map=JSON.parse(props.getProperty('FORM_FIELD_IDS') || '{}'), inverse={}, fields={};
-      Object.keys(map).forEach(function (key) { inverse[String(map[key])]=key; });
-      event.response.getItemResponses().forEach(function (response) {
-        var key=inverse[String(response.getItem().getId())];
-        if (key) fields[key]=response.getResponse();
-      });
+      var map=JSON.parse(props.getProperty('FORM_FIELD_IDS') || '{}');
+      var fields=mtResponseFields_(event.response,map,JSON.parse(props.getProperty('FORM_FIELD_ALIASES') || '{}'));
       var now=mtNow_(), invitations=mtRead_('invitations');
       var decision, proposedId=previous ? previous.id : mtId_('r-');
       var institutionId=CatalogueCore.text(fields.new_institution_name) ? (previous && previous.new_institution_id || mtId_('inst-')) : '';
@@ -324,13 +576,15 @@ function catalogueOnFormSubmit(event) {
         decision={resource:CatalogueCore.resourceFromRow(failedRow),approval:'Fehler',source:'public',contributor:'',invitationId:'',kind:fields.resource_id?'correction':'new',errors:['Eingang gespeichert; Katalogfehler zuerst beheben und anschließend Formulareingänge nachholen: '+String(error.message||error)]};
       }
       var inbox=CatalogueCore.rowFromResource(decision.resource);
-      inbox.submission_id=submissionId; inbox.received_at=now; inbox.decision=decision.approval;
+      inbox.submission_id=submissionId; inbox.received_at=previous && previous.received_at || now; inbox.decision=decision.approval;
       inbox.diagnostic=decision.errors.join(' '); inbox.source=decision.source; inbox.kind=decision.kind;
       inbox.contributor=decision.contributor; inbox.invitation_id=decision.invitationId;
       inbox.contact=CatalogueCore.text(fields.contact); inbox.internal_note=CatalogueCore.text(fields.internal_note);
       inbox.new_institution_name=CatalogueCore.text(fields.new_institution_name);
       inbox.new_institution_url=CatalogueCore.normalizeUrl(fields.new_institution_url);
       inbox.new_institution_id=institutionId;
+      mtCopyNotice_(inbox,previous);
+      mtQueueNotice_(inbox,'submission');
       var rowNumber=mtWrite_('inbox',inbox,previous && previous._row);
       if (decision.approval==='Freigegeben') {
         shouldPublish=mtAcceptInbox_(inbox,rowNumber);
@@ -341,8 +595,9 @@ function catalogueOnFormSubmit(event) {
         }
       }
     }
-  } finally { lock.releaseLock(); }
+  } finally { mtReleaseLock_(lock); }
   if (shouldPublish) mtTryPublish_();
+  mtTryNotifications_();
 }
 function recoverRecentSubmissions() {
   var form=FormApp.openById(mtProps_().getProperty('CATALOGUE_FORM_ID'));
@@ -364,7 +619,7 @@ function mtAcceptInbox_(inbox, rowNumber) {
   if (inbox.kind!=='correction' && current && !alreadyWritten) errors.push('Diese Ressourcen-ID existiert bereits mit anderen Angaben.');
   if (inbox.kind!=='correction' && catalogue.resources.some(function (entry) { return entry.id!==resource.id && entry.url.replace(/\/$/,'')===resource.url.replace(/\/$/,''); })) errors.push('Dieser Link ist bereits vorhanden. Bitte als Korrektur mit Ressourcen-ID einreichen.');
   if (errors.length) {
-    inbox.decision='Fehler'; inbox.diagnostic=errors.join(' '); mtWrite_('inbox',inbox,rowNumber); return false;
+    inbox.decision='Fehler'; inbox.diagnostic=errors.join(' '); mtQueueNotice_(inbox,'submission'); mtWrite_('inbox',inbox,rowNumber); return false;
   }
   if (!alreadyWritten) resource.reviewedAt=mtNow_().slice(0,10);
   var row=CatalogueCore.rowFromResource(resource);
@@ -396,7 +651,7 @@ function approveSelectedSubmissions() {
   var rows=mtSelectedRows_('inbox'), lock=LockService.getScriptLock(), changed=false;
   lock.waitLock(30000);
   try { rows.forEach(function (row) { if (row.decision!=='Übernommen') changed=mtAcceptInbox_(row,row._row)||changed; }); }
-  finally { lock.releaseLock(); }
+  finally { mtReleaseLock_(lock); }
   if (changed) publishCatalogue();
 }
 function rejectSelectedSubmissions() {
@@ -408,12 +663,13 @@ function rejectSelectedSubmissions() {
 function catalogueOnEdit(event) {
   if (!event || !event.source || event.source.getId()!==mtProps_().getProperty('CATALOGUE_SPREADSHEET_ID')) return;
   var name=event.range.getSheet().getName(), changed=false;
+  if (name===MT_TABLES.editorialSettings.name) { mtTryNotifications_(); return; }
   if (name===MT_TABLES.inbox.name) {
     var decisionColumn=MT_TABLES.inbox.columns.findIndex(function (c) { return c[0]==='decision'; })+1;
     if (event.range.getColumn()>decisionColumn || event.range.getLastColumn()<decisionColumn) return;
     var lock=LockService.getScriptLock(); lock.waitLock(30000);
     try { mtRead_('inbox').filter(function (r) { return r._row>=event.range.getRow() && r._row<=event.range.getLastRow() && r.decision==='Freigegeben'; }).forEach(function (r) { changed=mtAcceptInbox_(r,r._row)||changed; }); }
-    finally { lock.releaseLock(); }
+    finally { mtReleaseLock_(lock); }
   } else {
     var key=['resources','vocabulary','institutions','maintainers','collections','collectionItems'].find(function (k) { return MT_TABLES[k].name===name; });
     if (!key) return;
@@ -446,9 +702,17 @@ function confirmAnonymousAccess() {
   mtSetting_('Zugang ohne Anmeldung','Durch Administrator bestätigt: '+mtNow_());
   publishCatalogue();
 }
+function confirmReportAnonymousAccess() {
+  var ui=SpreadsheetApp.getUi(), answer=ui.alert('Meldeformular ohne Anmeldung geprüft?', 'Den öffentlichen Meldelink im Tab Status in einem privaten Browserfenster öffnen und eine Meldung ohne Google-Anmeldung absenden. Ist die Meldung im privaten Tab Meldungen angekommen? Erst dann wird das Meldeformular auf der Website verlinkt.',ui.ButtonSet.YES_NO);
+  if (answer!==ui.Button.YES) return;
+  mtProps_().setProperty('REPORT_ANONYMOUS_ACCESS_CONFIRMED','true');
+  mtSetting_('Meldeformular ohne Anmeldung','Durch Administrator bestätigt: '+mtNow_());
+  publishCatalogue();
+}
 function showSetupStatus() {
   var props=mtProps_(), values=[
     'Formular ohne Anmeldung bestätigt: '+(props.getProperty('ANONYMOUS_ACCESS_CONFIRMED')==='true'?'Ja':'Noch nicht'),
+    'Meldeformular ohne Anmeldung bestätigt: '+(props.getProperty('REPORT_ANONYMOUS_ACCESS_CONFIRMED')==='true'?'Ja':'Noch nicht'),
     'GitHub-Verbindung konfiguriert: '+(props.getProperty('GITHUB_TOKEN')?'Ja':'Noch nicht'),
     'Letzte erfolgreiche Datenübertragung: '+(props.getProperty('LAST_PUBLISHED_AT')||'Noch keine'),
     'Details und Links: Tab Status. GitHub-Pages-Build separat prüfen.'
@@ -498,13 +762,20 @@ function publishCatalogue() {
     if (!snapshot.resources.length && props.getProperty('ALLOW_EMPTY_CATALOGUE')!=='true') throw new Error('Leerer Katalog wird nicht veröffentlicht. Für eine absichtliche Leerung ALLOW_EMPTY_CATALOGUE=true setzen.');
     mtSetting_('Veröffentlichung','Daten werden geprüft und übertragen …');
     var publishedAt=mtUpdateCatalogue_(snapshot);
-    if (props.getProperty('ANONYMOUS_ACCESS_CONFIRMED')==='true') {
+    var connectForm=props.getProperty('ANONYMOUS_ACCESS_CONFIRMED')==='true';
+    var connectReports=props.getProperty('REPORT_ANONYMOUS_ACCESS_CONFIRMED')==='true';
+    if (connectForm || connectReports) {
       var current=mtGithub_('config.json','get');
       var config=JSON.parse(Utilities.newBlob(Utilities.base64Decode(current.content.replace(/\s/g,''))).getDataAsString('UTF-8'));
-      var formUrl=FormApp.openById(props.getProperty('CATALOGUE_FORM_ID')).getPublishedUrl();
-      if (config.formUrl!==formUrl) {
-        config.formUrl=formUrl;
-        mtGithub_('config.json','put',{message:'Connect public contribution form',content:Utilities.base64Encode(JSON.stringify(config,null,2)+'\n',Utilities.Charset.UTF_8),sha:current.sha,branch:'main'});
+      var before=JSON.stringify(config);
+      if (connectForm) config.formUrl=mtPublicFormUrl_(FormApp.openById(props.getProperty('CATALOGUE_FORM_ID')));
+      if (connectReports) {
+        var reportForm=FormApp.openById(props.getProperty('CATALOGUE_REPORT_FORM_ID'));
+        config.reportFormUrl=mtPublicFormUrl_(reportForm);
+        config.reportFormFields=mtReportPrefillFields_(reportForm,JSON.parse(props.getProperty('REPORT_FIELD_IDS') || '{}'));
+      }
+      if (JSON.stringify(config)!==before) {
+        mtGithub_('config.json','put',{message:'Connect verified public Google forms',content:Utilities.base64Encode(JSON.stringify(config,null,2)+'\n',Utilities.Charset.UTF_8),sha:current.sha,branch:'main'});
       }
     }
     props.setProperty('LAST_PUBLISHED_AT',publishedAt);
@@ -523,5 +794,5 @@ function publishCatalogue() {
     mtSetting_('Veröffentlichung','Ausstehend. Letzte Website-Version bleibt erhalten.');
     mtSetting_('Letzter Fehler',String(error.message||error));
     throw error;
-  } finally { lock.releaseLock(); }
+  } finally { mtReleaseLock_(lock); }
 }

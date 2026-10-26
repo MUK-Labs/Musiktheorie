@@ -150,7 +150,7 @@ export function validateCatalogue(data) {
 
 export function validateConfig(config) {
   const errors = [];
-  const allowed = new Set(['defaultUi','formUrl','githubUrl','siteUrl']);
+  const allowed = new Set(['defaultUi','formUrl','reportFormUrl','reportFormFields','githubUrl','siteUrl']);
   if (!config || typeof config !== 'object' || Array.isArray(config)) return ['config: expected object'];
   for (const key of Object.keys(config)) if (!allowed.has(key)) errors.push(`config: unexpected public field '${key}'`);
   if (!['de','en'].includes(config.defaultUi)) errors.push('config.defaultUi: expected de or en');
@@ -165,6 +165,22 @@ export function validateConfig(config) {
       if (form.hash || [...form.searchParams.keys()].some(key => !['usp','embedded'].includes(key))) errors.push('config.formUrl: invitation values and unrecognized parameters must never be published');
     }
   }
+  if (config.reportFormUrl !== undefined && typeof config.reportFormUrl !== 'string') errors.push('config.reportFormUrl: expected a string');
+  const fields = config.reportFormFields;
+  if (fields !== undefined && (!fields || typeof fields !== 'object' || Array.isArray(fields))) errors.push('config.reportFormFields: expected an object');
+  else if (fields) {
+    for (const key of Object.keys(fields)) if (!['resourceId','resourceTitle'].includes(key)) errors.push(`config.reportFormFields: unexpected public field '${key}'`);
+    for (const key of ['resourceId','resourceTitle']) {
+      if (typeof fields[key] !== 'string' || (fields[key] && !/^entry\.\d+$/.test(fields[key]))) errors.push(`config.reportFormFields.${key}: expected an entry.N field key or empty string`);
+    }
+  }
+  if (config.reportFormUrl) {
+    try {
+      const report = new URL(config.reportFormUrl);
+      if (!/^https:\/\/docs\.google\.com\/forms\/d\/(?:e\/)?[A-Za-z0-9_-]+\/viewform$/.test(config.reportFormUrl) || report.protocol !== 'https:' || report.hostname !== 'docs.google.com' || report.port || report.username || report.password || report.search || report.hash) errors.push('config.reportFormUrl: expected the canonical HTTPS Google Forms responder URL without prefilled parameters');
+    } catch { errors.push('config.reportFormUrl: invalid URL'); }
+    if (!fields?.resourceId || !fields?.resourceTitle || fields.resourceId === fields.resourceTitle) errors.push('config.reportFormFields: an active report form needs two distinct entry.N field keys');
+  } else if (fields?.resourceId || fields?.resourceTitle) errors.push('config.reportFormFields: keep both field keys empty until the report form is activated');
   return errors;
 }
 

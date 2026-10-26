@@ -49,6 +49,7 @@ svg.icon.small{width:15px;height:15px}
 .nav-button .icon{width:16px;height:16px}
 .nav-button.is-active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
 .nav-button:hover{color:var(--ink)}
+.nav-help-link:hover{text-decoration:none}
 .nav-count{border:1px solid var(--line);padding:0 5px;line-height:17px;border-radius:4px;font-size:11px;margin-left:1px;font-weight:400}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:7px;padding:10px 14px;font-size:13px;font-weight:500;line-height:1.4;min-height:39px;transition:background .16s,border-color .16s,box-shadow .16s}
 .button:hover{text-decoration:none}
@@ -175,6 +176,9 @@ svg.icon.small{width:15px;height:15px}
 .select-button .icon{width:15px;height:15px;stroke-width:1.5}
 .select-button:hover{background:var(--accent-soft)}
 .select-button[aria-pressed=true]{background:var(--accent);color:white;border-color:var(--accent)}
+.resource-actions .report-button{width:34px;height:34px;color:#837468}
+.resource-actions .report-button .icon{width:15px;height:15px}
+.resource-actions .report-button:hover{color:var(--accent)}
 .collection-item-note{border-left:2px solid #d7c59e;padding:7px 11px;margin-top:12px;color:#79603d;font-size:12px;background:#fbf8ef;border-radius:0 4px 4px 0}
 .catalogue-note{font-size:11px;line-height:1.8;color:#786e65;padding:24px 2px 0;max-width:700px}
 
@@ -270,6 +274,14 @@ dialog h2{font:500 29px/1.2 var(--serif);letter-spacing:-.4px}
 .detail-source-list a{font-size:11px}
 .resource-primary-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:21px}
 .resource-primary-actions .button{font-size:12px}
+.resource-id-value{display:flex;align-items:center;gap:8px;min-width:0;margin-top:-5px}
+.resource-id-value code{font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;user-select:all}
+.resource-id-value .icon-button{width:32px;height:32px;color:#796b60}
+.resource-id-value .icon{width:14px;height:14px}
+.resource-support-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.resource-support-actions .report-button{font-size:12px;padding:7px 0;min-height:34px;color:#796b60}
+.resource-support-actions .report-button .icon{width:15px;height:15px}
+.detail-help-link{font-size:12px;color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 .resource-detail-footnote{font-size:11px;color:#786e62;margin-top:18px;line-height:1.7}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1000;background:#423447;color:#fff9f2;padding:11px 19px;border-radius:8px;box-shadow:0 5px 20px #33223c22;font-size:13px;max-width:calc(100vw - 34px);text-align:center}
 .has-selection .toast{bottom:103px}
@@ -364,9 +376,10 @@ dialog h2{font:500 29px/1.2 var(--serif);letter-spacing:-.4px}
 .navigation-inner{padding-inline:17px;min-height:46px}
 .nav-button{font-size:12px;gap:6px}
 .nav-button .icon{width:14px;height:14px}
-.main-nav{gap:21px}
+.main-nav{gap:13px}
 .saved-button{font-size:11px;gap:5px}
 .saved-button .icon{width:13px;height:13px}
+.saved-button{padding-left:4px}
 .layout{padding:25px 16px 39px}
 .page-heading{gap:15px;margin-bottom:20px;min-height:81px}
 .title-line{gap:10px}
@@ -515,6 +528,20 @@ dialog h2{font-size:25px}
 
   .site-footer{font-size:11px}
 
+}
+
+@media(max-width:380px){
+  .header-inner{padding-inline:14px}
+  .brand{gap:7px}
+  .brand-copy strong{font-size:23px}
+  .brand-copy>span{font-size:10px}
+  .brand-mark{width:32px;height:37px}
+  .brand-mark b{font-size:34px}
+  .main-nav{gap:16px}
+  .main-nav .nav-button>[data-icon]{display:none}
+  .saved-button{width:34px;padding:8px;flex:none}
+  .saved-button .icon{width:17px;height:17px}
+  #saved-label{display:none}
 }
 
 @media print{

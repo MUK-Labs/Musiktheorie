@@ -16,6 +16,23 @@ var CatalogueCore = (function () {
   }
   function choices(value) { return list(value).map(choiceId).filter(Boolean); }
   function validId(value) { return /^[a-zA-Z0-9][a-zA-Z0-9._:-]{0,119}$/.test(text(value)); }
+  function validEditorialEmail(value) {
+    var email = text(value);
+    return email.length <= 254 && /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,63}$/.test(email);
+  }
+  function reportFromFields(fields, resources) {
+    var errors = [], id = text(fields.resource_id), title = text(fields.resource_title);
+    var reason = choiceId(fields.reason), details = text(fields.details), contact = text(fields.contact);
+    if (!validId(id)) errors.push('Ressourcen-ID fehlt oder ist ungültig. Zuordnung redaktionell prüfen.');
+    else if (!(resources || []).some(function (resource) { return resource.id === id; })) errors.push('Ressourcen-ID ist nicht im aktuellen Katalog. Zuordnung redaktionell prüfen.');
+    if (['broken-link','incorrect-information','outdated','quality','other'].indexOf(reason) < 0) errors.push('Unbekannter Meldegrund.');
+    if (!details) errors.push('Beschreibung der Meldung fehlt.');
+    if (details.length > 12000 || title.length > 500 || contact.length > 500) errors.push('Überlange Angaben gekürzt; die Originalantwort bleibt im privaten Formular gespeichert.');
+    return {
+      resource_id: id.slice(0,120), resource_title: title.slice(0,500), reason: reason.slice(0,120),
+      details: details.slice(0,12000), contact: contact.slice(0,500), errors: errors
+    };
+  }
   function validUrl(value) {
     // URLs are data: disallow script schemes, credentials, whitespace and empty hosts.
     var url = value === null || value === undefined ? '' : String(value);
@@ -264,7 +281,7 @@ var CatalogueCore = (function () {
   }
   return {
     FACETS: FACETS, RESOURCE_COLUMNS: RESOURCE_COLUMNS, text: text, list: list, choiceId: choiceId,
-    validId: validId, validUrl: validUrl, normalizeUrl: normalizeUrl, active: active, published: published, literalCell: literalCell,
+    validId: validId, validUrl: validUrl, normalizeUrl: normalizeUrl, validEditorialEmail: validEditorialEmail, reportFromFields: reportFromFields, active: active, published: published, literalCell: literalCell,
     rowFromResource: rowFromResource, resourceFromRow: resourceFromRow, validateResource: validateResource, resolveInstitution: resolveInstitution,
     findInvitation: findInvitation, decideSubmission: decideSubmission, buildPublicCatalogue: buildPublicCatalogue, seedTables: seedTables
   };
