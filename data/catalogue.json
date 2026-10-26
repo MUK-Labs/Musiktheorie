@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T09:13:38.743Z",
+    "updatedAt": "2026-10-26T09:13:58.156Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -1109,7 +1109,10 @@
       },
       "shortName": "mdw",
       "url": "https://www.mdw.ac.at/",
-      "aliases": []
+      "aliases": [
+        "Wien",
+        "Vienna"
+      ]
     }
   ],
   "maintainers": [
