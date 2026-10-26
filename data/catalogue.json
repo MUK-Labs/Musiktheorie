@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T09:23:34.836Z",
+    "updatedAt": "2026-10-26T09:23:42.644Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -1122,7 +1122,10 @@
       },
       "shortName": "KUG",
       "url": "https://www.kug.ac.at/",
-      "aliases": []
+      "aliases": [
+        "Graz",
+        "kug"
+      ]
     }
   ],
   "maintainers": [
