@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T09:23:42.644Z",
+    "updatedAt": "2026-10-26T09:25:34.164Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -1126,6 +1126,16 @@
         "Graz",
         "kug"
       ]
+    },
+    {
+      "id": "mozarteum",
+      "name": {
+        "de": "Universität Mozarteum",
+        "en": ""
+      },
+      "shortName": "",
+      "url": "https://www.moz.ac.at/en",
+      "aliases": []
     }
   ],
   "maintainers": [
