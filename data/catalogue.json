@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T09:25:43.598Z",
+    "updatedAt": "2026-10-26T09:25:51.384Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -1133,7 +1133,7 @@
         "de": "Universität Mozarteum",
         "en": "Mozarteum University"
       },
-      "shortName": "",
+      "shortName": "mozarteum",
       "url": "https://www.moz.ac.at/en",
       "aliases": []
     }
