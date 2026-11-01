@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-01T14:33:02.591Z",
+    "updatedAt": "2026-11-01T15:22:45.898Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2390,7 +2390,7 @@
     },
     {
       "id": "r-d9cda25e-196f-4f8a-be92-38cba8b1faf8",
-      "title": "440hz",
+      "title": "Stimmgabel 440hz",
       "url": "https://github.com/MUK-Labs/440Hz",
       "description": {
         "de": "A small offline Android app for practising recall of A440.",
