@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-10-26T11:19:21.115Z",
+    "updatedAt": "2026-11-01T14:33:02.591Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2930,6 +2930,57 @@
       ],
       "status": "published",
       "parentId": "r-muk-temperaments"
+    },
+    {
+      "id": "r-578c9b32-aadd-496e-8fb2-d95622a96c45",
+      "title": "Akkorde",
+      "url": "https://muk-labs.github.io/Akkorde/?lang=de&presentation=1",
+      "description": {
+        "de": "",
+        "en": "Live harmonic classification tool from MIDI and on-screen piano."
+      },
+      "subjects": [
+        "fundamentals",
+        "harmony",
+        "analysis"
+      ],
+      "topics": [
+        "chords"
+      ],
+      "stages": [
+        "music-school",
+        "secondary",
+        "pre-university",
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "introductory",
+      "languages": [
+        "de",
+        "en",
+        "es"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "",
+        "en": ""
+      },
+      "reviewedAt": "2026-11-01",
+      "sourceUrls": [
+        "https://github.com/MUK-Labs/Akkorde"
+      ],
+      "status": "published",
+      "parentId": ""
     }
   ],
   "collections": [
