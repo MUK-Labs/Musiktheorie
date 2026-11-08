@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-08T20:59:43.761Z",
+    "updatedAt": "2026-11-08T21:18:43.254Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2507,7 +2507,9 @@
       "maintainerIds": [
         "adrian-artacho"
       ],
-      "authors": [],
+      "authors": [
+        "Adrián Artacho"
+      ],
       "access": "free",
       "license": "",
       "prerequisites": {
@@ -2980,6 +2982,212 @@
       "reviewedAt": "2026-11-01",
       "sourceUrls": [
         "https://github.com/MUK-Labs/Akkorde"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-muk-kontrapunktatlas",
+      "title": "Kontrapunktatlas",
+      "url": "https://muk-labs.github.io/Kontrapunktatlas/",
+      "description": {
+        "de": "Interaktiver Fragenatlas für Spezieskontrapunkt, Fuge und Generalbass. Vergleicht modal und tonal orientierte Satzlehren sowie einzeln belegte Lehrbuchpositionen mit Quellenangaben und Notenbeispielen. Filter nach Quellen, Spezies und Stilbezug sowie ein Verzeichnis von Widersprüchen und Nuancen unterstützen historisch differenzierte Satzübungen und die Diskussion kontrapunktischer Regeln. Ausgewählte Fragen und Quellenkombinationen lassen sich direkt verlinken.",
+        "en": "An interactive question-based atlas for species counterpoint, fugue and figured bass. It compares modal and tonal approaches and individually documented textbook positions, with source references and score examples. Source, species and stylistic-context filters, together with a directory of disagreements and nuances, support historically differentiated writing exercises and discussion of contrapuntal rules. Questions and selected source combinations can be shared by direct link."
+      },
+      "subjects": [
+        "counterpoint",
+        "historical-practice",
+        "harmony"
+      ],
+      "topics": [
+        "renaissance-counterpoint",
+        "canon-imitation",
+        "voice-leading",
+        "figured-bass"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "de"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen und Grundkenntnisse zu Intervallen und Stimmführung. Je nach Frage Vorkenntnisse in Spezieskontrapunkt, Fuge oder Generalbass; deutschsprachige Oberfläche.",
+        "en": "Reading notation and basic knowledge of intervals and voice leading. Prior study of species counterpoint, fugue or figured bass depends on the question; German-language interface."
+      },
+      "reviewedAt": "2026-11-08",
+      "sourceUrls": [
+        "https://github.com/MUK-Labs/Kontrapunktatlas/blob/main/README.md",
+        "https://muk-labs.github.io/Kontrapunktatlas/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-muk-pianorules",
+      "title": "PianoRules",
+      "url": "https://muk-labs.github.io/PianoRules/",
+      "description": {
+        "de": "Browserbasiertes MIDI-Regelwerk für algorithmische Komposition, Improvisation und interaktive Klavierperformance. Lesbare, editierbare Regeln reagieren auf gespielte Akkorde und Phrasen und erzeugen unter anderem Ostinati, Tremoli, Transpositionen, Krebsformen und zeitliche Transformationen. Regelbasierte Abschnitte und teilbare Beispielsammlungen verbinden kompositorisches Entwerfen mit unmittelbarem klanglichem Erproben; ein Vorschauklavier ist integriert.",
+        "en": "A browser-based MIDI rule engine for algorithmic composition, improvisation and interactive piano performance. Readable, editable rules respond to played chords and phrases, producing ostinati, tremoli, transpositions, retrogrades and timing transformations. Rule-driven sections and shareable example sets connect compositional design with immediate aural experimentation; a preview piano is built in."
+      },
+      "subjects": [
+        "composition",
+        "electronic-music"
+      ],
+      "topics": [
+        "improvisation",
+        "electroacoustic-composition",
+        "live-electronics",
+        "music-programming"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "MIDI-fähiger Desktop-Browser und für eigenes Spiel ein MIDI-Keyboard. Grundkenntnisse in MIDI und musikalischen Strukturen; englischsprachige Regelsyntax. Externe Klangerzeuger sind optional.",
+        "en": "A Web-MIDI-capable desktop browser and a MIDI keyboard for live playing. Basic MIDI and musical-structure knowledge; English-language rule syntax. External sound generators are optional."
+      },
+      "reviewedAt": "2026-11-08",
+      "sourceUrls": [
+        "https://github.com/MUK-Labs/PianoRules/blob/main/README.md",
+        "https://muk-labs.github.io/PianoRules/docs/"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-muk-controller-notation",
+      "title": "ControllerNotation",
+      "url": "https://muk-labs.github.io/ControllerNotation/",
+      "description": {
+        "de": "Experimentelle Browser-Werkbank zur Notation von MIDI-Controllerverläufen für Live-Elektronik. Wandelt MIDI-CC-Daten und optional ein MusicXML-Taktraster in eine MusicXML-Hilfspartitur und Lua-Skripte für editierbare Linien in Dorico um. Eignet sich zur Auseinandersetzung mit kontinuierlichen Klangparametern, rhythmischer Verankerung und Notationsentscheidungen in zeitgenössischer Komposition. Arbeitsprototyp: Nachbearbeitung in Dorico bleibt erforderlich; kein universeller Ein-Klick-Import.",
+        "en": "An experimental browser workbench for notating MIDI controller trajectories in live electronics. It converts MIDI CC data and an optional MusicXML meter layout into a MusicXML guide score and Lua scripts for editable Dorico lines. It supports exploration of continuous sound parameters, rhythmic anchoring and notation choices in contemporary composition. A working prototype requiring manual work in Dorico, not a universal one-click importer."
+      },
+      "subjects": [
+        "composition",
+        "electronic-music"
+      ],
+      "topics": [
+        "electroacoustic-composition",
+        "live-electronics",
+        "music-programming"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "advanced",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Kenntnisse in MIDI-CC und Notation. Browser-Konvertierung frei zugänglich; für die Weiterverarbeitung wird eine eigene Dorico-Installation benötigt. Dokumentierte Tests beziehen sich auf Dorico 5 unter macOS.",
+        "en": "Familiarity with MIDI CC and notation. The browser converter is freely accessible; further editing requires a separate Dorico installation. Documented tests concern Dorico 5 on macOS."
+      },
+      "reviewedAt": "2026-11-08",
+      "sourceUrls": [
+        "https://github.com/MUK-Labs/ControllerNotation/blob/main/README.md",
+        "https://github.com/MUK-Labs/ControllerNotation/blob/main/docs/web-workbench.md"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-muk-rehearse",
+      "title": "Rehearse",
+      "url": "https://muk-labs.github.io/rehearse/?piece=QuasiCampane",
+      "description": {
+        "de": "Interaktiver Partitur- und Übeplayer, der eine originale PDF-Partitur mit synchronisierten MIDI-Stimmen verbindet. Wiedergabe ab markierten Takten, einzeln zuschaltbare Stimmen und veränderbares Tempo ermöglichen selektives Hören und Lesen mehrstimmiger Verläufe. Ausgeblendete Stimmen werden auch im Notenbild zurückgenommen. Geeignet als Ergänzung zur Partiturarbeit und Höranalyse; alle Stimmen erklingen über ein gemeinsames Klaviersample, nicht als Simulation der originalen Instrumentation.",
+        "en": "An interactive score and rehearsal player linking an original PDF score with synchronized MIDI parts. Playback from marked bars, individually selectable parts and adjustable tempo support selective listening and reading of multipart textures. Muted parts also fade in the notation. A supplementary tool for score study and listening analysis; all parts use the same sampled piano, rather than simulating the original instrumentation."
+      },
+      "subjects": [
+        "analysis",
+        "aural-skills",
+        "pedagogy"
+      ],
+      "topics": [
+        "listening-analysis",
+        "note-reading",
+        "teaching-methods"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "mixed",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Notenlesen und Browser mit Audiowiedergabe. Das verlinkte QuasiCampane-Beispiel ist vorbereitet; eigene Stücke benötigen PDF- und MIDI-Dateien sowie eine manuelle Zuordnung der Takte und Stimmenbereiche.",
+        "en": "Reading notation and an audio-capable browser. The linked QuasiCampane example is prepared; personal pieces require PDF and MIDI files with manual mapping of bar starts and part regions."
+      },
+      "reviewedAt": "2026-11-08",
+      "sourceUrls": [
+        "https://github.com/MUK-Labs/rehearse/blob/main/README.md",
+        "https://muk-labs.github.io/rehearse/?piece=QuasiCampane"
       ],
       "status": "published",
       "parentId": ""
