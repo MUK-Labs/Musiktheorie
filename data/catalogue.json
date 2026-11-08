@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-08T20:56:25.804Z",
+    "updatedAt": "2026-11-08T20:59:43.761Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2415,7 +2415,7 @@
         "adrian-artacho"
       ],
       "authors": [
-        "Adri'an Artacho"
+        "Adrián Artacho"
       ],
       "access": "free",
       "license": "",
