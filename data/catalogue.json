@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-01T15:22:45.898Z",
+    "updatedAt": "2026-11-08T20:56:25.804Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2965,7 +2965,9 @@
       "institutionIds": [
         "muk"
       ],
-      "maintainerIds": [],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
       "authors": [
         "Adrián Artacho"
       ],
