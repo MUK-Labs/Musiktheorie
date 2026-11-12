@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-08T21:18:43.254Z",
+    "updatedAt": "2026-11-12T21:14:11.198Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -3188,6 +3188,53 @@
       "sourceUrls": [
         "https://github.com/MUK-Labs/rehearse/blob/main/README.md",
         "https://muk-labs.github.io/rehearse/?piece=QuasiCampane"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-muk-studiotechnik",
+      "title": "Studiotechnik · Hörlabor",
+      "url": "https://muk-labs.github.io/Studiotechnik/",
+      "description": {
+        "de": "Interaktives Hörlabor für den Einstieg in die Studiotechnik. Fünf Module verbinden kurze Erklärungen mit Experimenten und Selbstchecks zu Signalfluss, Routing, Pegel und Clipping, Mikrofon-Richtcharakteristiken und digitalem Audio. Kuratierte Hörbeispiele und Praxisaufträge ergänzen die Übungen.",
+        "en": "An interactive introduction to studio technology. Five modules pair short explanations with experiments and self-checks on signal flow, routing, levels and clipping, microphone polar patterns, and digital audio. Curated listening examples and practical tasks extend the exercises."
+      },
+      "subjects": [
+        "electronic-music"
+      ],
+      "topics": [
+        "audio-processing"
+      ],
+      "stages": [
+        "music-school",
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "introductory",
+      "languages": [
+        "de"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Keine Vorkenntnisse. Für den Testton einen Browser mit Audiowiedergabe verwenden.",
+        "en": "No prior knowledge required. An audio-capable browser is needed to play the test tone."
+      },
+      "reviewedAt": "2026-11-12",
+      "sourceUrls": [
+        "https://github.com/MUK-Labs/Studiotechnik"
       ],
       "status": "published",
       "parentId": ""
