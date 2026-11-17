@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-12T21:14:11.198Z",
+    "updatedAt": "2026-11-17T21:21:21.046Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -3188,6 +3188,58 @@
       "sourceUrls": [
         "https://github.com/MUK-Labs/rehearse/blob/main/README.md",
         "https://muk-labs.github.io/rehearse/?piece=QuasiCampane"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-artacho-orch-mix",
+      "title": "Orch / Mix",
+      "url": "https://muk-labs.github.io/orch-mix/",
+      "description": {
+        "de": "Kostenloses Orchester-Balance-Labor im Browser für Instrumentation und Höranalyse, ohne Installation oder Anmeldung. Synchronisierte Audiospuren werden einer anpassbaren Orchesteraufstellung zugeordnet und lassen sich einzeln hören, stummschalten und mischen. Eine Balance-Challenge und verdeckte Zufallsausschnitte trainieren das Hören von Klangschichten und instrumentalen Funktionen. Generierte Klangdemo, MIDI-Steuerung sowie eine Anleitung mit Aufnahmequellen und Sitzungsvorlagen sind enthalten. Eigene Audiodateien bleiben auf dem Computer. Die Balancewertung dient als Übungsmetrik; Lautstärkeänderungen simulieren keine veränderte Spieldynamik.",
+        "en": "A free browser-based orchestral balance lab for instrumentation and listening analysis, requiring no installation or account. Synchronized audio stems are mapped to an adjustable seating plan and can be heard separately, muted and mixed. Balance challenges and concealed random excerpts train listening to textural layers and instrumental functions. Includes a generated sound demo, MIDI control, and a guide with recording sources and session templates. Personal audio files stay on the user's computer. Balance scores are exercise metrics; gain changes do not simulate changes in performed dynamics."
+      },
+      "subjects": [
+        "instrumentation",
+        "aural-skills",
+        "analysis"
+      ],
+      "topics": [
+        "orchestration",
+        "instrument-families",
+        "listening-analysis"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Desktop-Browser mit Audiowiedergabe; Chrome oder Edge für gespeicherte Ordner und MIDI-Steuerung. Die Klangdemo ist direkt nutzbar. Für echte Aufnahmen rechtmäßig nutzbare, synchronisierte Einzelspuren lokal laden; lange Aufnahmen vorzugsweise als PCM-WAV und kurze Ausschnitte verwenden. Keine Installation, Anmeldung oder Audio-Uploads erforderlich. Online-Version und localhost speichern Bibliothek und MIDI-Zuordnungen getrennt.",
+        "en": "A desktop browser with audio playback; Chrome or Edge for remembered folders and MIDI control. The sound demo works immediately. For real recordings, load appropriately licensed, synchronized stems locally; use PCM WAV and short excerpts for long recordings. No installation, account or audio upload is required. The online and localhost versions keep separate libraries and MIDI mappings."
+      },
+      "reviewedAt": "2026-11-17",
+      "sourceUrls": [
+        "https://muk-labs.github.io/orch-mix/start.html",
+        "https://github.com/MUK-Labs/orch-mix/blob/main/README.md",
+        "https://github.com/MUK-Labs/orch-mix/blob/main/docs/AUDIO-SOURCES.md"
       ],
       "status": "published",
       "parentId": ""
