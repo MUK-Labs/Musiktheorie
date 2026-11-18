@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-17T21:21:21.046Z",
+    "updatedAt": "2026-11-18T11:34:05.523Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -2391,7 +2391,7 @@
     {
       "id": "r-d9cda25e-196f-4f8a-be92-38cba8b1faf8",
       "title": "Stimmgabel 440hz",
-      "url": "https://github.com/MUK-Labs/440Hz",
+      "url": "https://muk-labs.github.io/440Hz/site/",
       "description": {
         "de": "A small offline Android app for practising recall of A440.",
         "en": "A small offline Android app for practising recall of A440."
@@ -3287,6 +3287,54 @@
       "reviewedAt": "2026-11-12",
       "sourceUrls": [
         "https://github.com/MUK-Labs/Studiotechnik"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-artacho-instrumenterror-tonumfang",
+      "title": "InstrumentError · Tonumfang",
+      "url": "https://adrianartacho.github.io/InstrumentError/?errors=written-range",
+      "description": {
+        "de": "Interaktive Browserübungen zum notierten Tonumfang von Orchesterinstrumenten. Kurze Notenbeispiele liegen an oder knapp jenseits einer Tonumfangsgrenze. Lernende entscheiden, ob alle Töne im notierten Umfang des angegebenen Instrumentenmodells liegen, und erhalten eine Erklärung.",
+        "en": "Interactive browser exercises on the written ranges of orchestral instruments. Short examples sit at or just beyond a range boundary. Learners decide whether all notes lie within the written range of the specified instrument model and receive an explanation."
+      },
+      "subjects": [
+        "instrumentation"
+      ],
+      "topics": [
+        "instrument-families",
+        "note-reading"
+      ],
+      "stages": [
+        "pre-university",
+        "bachelor",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "de",
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Grundkenntnisse im Notenlesen.",
+        "en": "Basic music reading skills."
+      },
+      "reviewedAt": "",
+      "sourceUrls": [
+        "https://github.com/AdrianArtacho/InstrumentError"
       ],
       "status": "published",
       "parentId": ""
