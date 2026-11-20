@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "meta": {
     "title": "Musiktheorie",
-    "updatedAt": "2026-11-18T12:06:39.217Z",
+    "updatedAt": "2026-11-20T19:37:16.787Z",
     "source": "google-sheets"
   },
   "vocab": {
@@ -3385,6 +3385,59 @@
       "reviewedAt": "2026-11-18",
       "sourceUrls": [
         "https://github.com/AdrianArtacho/Counterline"
+      ],
+      "status": "published",
+      "parentId": ""
+    },
+    {
+      "id": "r-muk-polyspectra",
+      "title": "PolySpectra",
+      "url": "https://muk-labs.github.io/PolySpectra/",
+      "description": {
+        "de": "Mit PolySpectra lassen sich die Naturtonreihen mehrerer Instrumente mit den Tönen frei gestimmter Tasteninstrumente vergleichen. Auf einer gemeinsamen Tonhöhenachse werden selbst kleine Abstände sichtbar. Eng benachbarte Töne lassen sich zusammen anhören, um Schwebungen zu hören. Wer zwei Teiltöne verknüpft, kann ein Instrument umstimmen und das andere automatisch nachstimmen lassen. Eigene Besetzungen und Stimmungen lassen sich per Link teilen.",
+        "en": "PolySpectra compares the harmonic series of several instruments with the pitches of independently tuned keyboards. A shared pitch map shows small differences in cents. Play two nearby pitches together to hear their beating, or link two partials so that retuning one instrument brings the other along. Ensemble setups and tunings can be shared by link."
+      },
+      "subjects": [
+        "tuning",
+        "composition",
+        "instrumentation"
+      ],
+      "topics": [
+        "acoustics",
+        "interval-ratios",
+        "intonation",
+        "orchestration"
+      ],
+      "stages": [
+        "bachelor",
+        "master",
+        "continuing"
+      ],
+      "difficulty": "intermediate",
+      "languages": [
+        "en"
+      ],
+      "type": "interactive",
+      "institutionIds": [
+        "muk"
+      ],
+      "maintainerIds": [
+        "adrian-artacho"
+      ],
+      "authors": [
+        "Adrián Artacho"
+      ],
+      "access": "free",
+      "license": "",
+      "prerequisites": {
+        "de": "Aktueller Browser mit Audiowiedergabe. Für die optionale MIDI-Ausgabe wird ein Browser mit Web-MIDI-Unterstützung benötigt.",
+        "en": "A current browser with audio playback. Optional MIDI output requires a browser with Web MIDI support."
+      },
+      "reviewedAt": "2026-11-20",
+      "sourceUrls": [
+        "https://muk-labs.github.io/PolySpectra/docs/",
+        "https://muk-labs.github.io/PolySpectra/?example=linked-strings",
+        "https://github.com/MUK-Labs/PolySpectra"
       ],
       "status": "published",
       "parentId": ""
